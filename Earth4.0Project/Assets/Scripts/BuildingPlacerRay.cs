@@ -18,7 +18,7 @@ public class BuildingPlacerRay : MonoBehaviour {
 	void Update () {
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.forward);
-        Debug.Log(transform.forward);
+        //Debug.Log(transform.forward);
         //lineRenderer.SetPosition(2, new Vector3 (0,0,0));
     }
 }
