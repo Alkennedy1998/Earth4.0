@@ -1930,6 +1930,7 @@ GameObject:
   - component: {fileID: 1273177682}
   - component: {fileID: 1273177681}
   - component: {fileID: 1273177685}
+  - component: {fileID: 1273177686}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -2017,6 +2018,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 166dcc2a23739a7409a8f859329b4da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1273177686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1273177680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07facdd5c69e5498a4551882fb534c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1496564988
