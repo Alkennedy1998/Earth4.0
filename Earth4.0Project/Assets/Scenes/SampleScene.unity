@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 511167763}
   m_Layer: 2
   m_Name: Factory (2)
-  m_TagString: Untagged
+  m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1147,7 +1147,7 @@ GameObject:
   - component: {fileID: 616000177}
   m_Layer: 2
   m_Name: Factory (3)
-  m_TagString: Untagged
+  m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1746,7 +1746,7 @@ GameObject:
   - component: {fileID: 1000539808}
   m_Layer: 2
   m_Name: Factory (1)
-  m_TagString: Untagged
+  m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2031,6 +2031,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07facdd5c69e5498a4551882fb534c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPollution: 0
+  currentMoney: 0
+  currentFood: 0
+  currentCotton: 0
 --- !u!1 &1496564988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,7 +2310,7 @@ GameObject:
   - component: {fileID: 1717862126}
   m_Layer: 2
   m_Name: Factory
-  m_TagString: Untagged
+  m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
