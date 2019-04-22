@@ -11,8 +11,11 @@ public class BuildingPlacerRay : MonoBehaviour {
 
     public GameObject factoryPrefab;
     private GameObject world;
-
+    private GameObject mostRecentInstance;
     private int layerMask;
+
+    //1 = factory
+    //2 = farm
     private int equippedBuilding = 0;
 
     void Start () {
@@ -54,33 +57,31 @@ public class BuildingPlacerRay : MonoBehaviour {
                     }
                 }
             }
-
-            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-            {
-                
+                        
             //If the trigger is released while the cursor is over the world instantiate a factory
             if (collidedObject.name == "World")
             {
-                    Debug.Log(equippedBuilding);
-                if (equippedBuilding == 1)
+                instantiateOnWorld(factoryPrefab,hit);
+
+                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
                 {
-                    //Instaniate a factory object and rotate it to match the normal vector of on the sphere where the ray collided
-                    Vector3 normalOffSphere = hit.normal;
-                    Quaternion rotation = Quaternion.LookRotation(hit.normal);
-                    GameObject newFactory = Instantiate(factoryPrefab, hit.point, rotation);
-                    newFactory.transform.Rotate(90, 0, 0);
-                    newFactory.transform.parent = world.transform;
-                }
+                    Debug.Log(equippedBuilding);
+                    if (equippedBuilding == 1)
+                    {
+                        //Instaniate a factory object and rotate it to match the normal vector of on the sphere where the ray collided
+                        instantiateOnWorld(factoryPrefab,hit);
+                        mostRecentInstance = null;
+                   
+                    }
 
                 equippedBuilding = 0;
+                }
+                Object.Destroy(mostRecentInstance);
+
+
             }
-                
-   
-            }
-
-    
-
-
+           
+        
             //Make line visible to user and turn green
             lineRenderer.SetPosition(1, Vector3.forward * hit.distance);
             lineRenderer.material.color = Color.green;
@@ -94,6 +95,7 @@ public class BuildingPlacerRay : MonoBehaviour {
                 equippedBuilding = 0;
             }
             
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             //Make line visible to user and turn red
             lineRenderer.SetPosition(1, Vector3.forward*length_multiplier);
             lineRenderer.material.color = Color.red;
@@ -101,5 +103,18 @@ public class BuildingPlacerRay : MonoBehaviour {
 
 
        
+    }
+ 
+                    
+
+ 
+    void instantiateOnWorld(GameObject prefab,RaycastHit hit){
+        Vector3 normalOffSphere = hit.normal;
+        Quaternion rotation = Quaternion.LookRotation(hit.normal);
+        GameObject newFactory = Instantiate(factoryPrefab, hit.point, rotation);
+        newFactory.transform.Rotate(90, 0, 0);
+        newFactory.transform.parent = world.transform;
+        mostRecentInstance = newFactory;
+        //world.GetComponent<GameManager>().addFactory(newFactory);
     }
 }
