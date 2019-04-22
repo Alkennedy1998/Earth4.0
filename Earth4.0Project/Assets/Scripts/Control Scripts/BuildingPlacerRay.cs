@@ -14,6 +14,7 @@ public class BuildingPlacerRay : MonoBehaviour {
     private GameObject mostRecentInstance;
     private int layerMask;
 
+    //0 = none
     //1 = factory
     //2 = farm
     private int equippedBuilding = 0;
