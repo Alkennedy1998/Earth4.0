@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> factoryList = new List<GameObject>();
     public List<GameObject> farmList = new List<GameObject>();
-    public List<GameObject> homeLit = new List<GameObject>();
+    public List<GameObject> homeList = new List<GameObject>();
 
     public int numFactories = 0;
 
@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour {
 
         if (currentTickTime >= tickTime)
             onTick();
-
-
+        
 	}
 
     private void onTick()
@@ -49,6 +48,10 @@ public class GameManager : MonoBehaviour {
 
         logValues();
     }
+
+    public void addFactory(GameObject factory) { factoryList.Add(factory); }
+    public void addFarm(GameObject farm) { farmList.Add(farm); }
+    public void addHome(GameObject home) { homeList.Add(home); }
 
     private void logValues()
     {
