@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: 13a0f8d3611aca44690e899a12dbed61
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Block_for_smoke_stack
+    100002: Factory_building
+    100004: //RootNode
+    100006: group1
+    100008: group2
+    100010: Large_smokestack
+    100012: pasted__pCylinder2
+    100014: pasted__pCylinder3
+    100016: pCylinder2
+    100018: pCylinder3
+    100020: pCylinder4
+    100022: pCylinder5
+    100024: pCylinder6
+    100026: smoke_stacks
+    100028: transform1
+    100030: transform2
+    400000: Block_for_smoke_stack
+    400002: Factory_building
+    400004: //RootNode
+    400006: group1
+    400008: group2
+    400010: Large_smokestack
+    400012: pasted__pCylinder2
+    400014: pasted__pCylinder3
+    400016: pCylinder2
+    400018: pCylinder3
+    400020: pCylinder4
+    400022: pCylinder5
+    400024: pCylinder6
+    400026: smoke_stacks
+    400028: transform1
+    400030: transform2
+    2100000: lambert1
+    2300000: Block_for_smoke_stack
+    2300002: Factory_building
+    2300004: pasted__pCylinder2
+    2300006: pasted__pCylinder3
+    2300008: pCylinder2
+    2300010: pCylinder3
+    2300012: pCylinder6
+    3300000: Block_for_smoke_stack
+    3300002: Factory_building
+    3300004: pasted__pCylinder2
+    3300006: pasted__pCylinder3
+    3300008: pCylinder2
+    3300010: pCylinder3
+    3300012: pCylinder6
+    4300000: Factory_building
+    4300002: pasted__pCylinder2
+    4300004: pasted__pCylinder3
+    4300006: pCylinder3
+    4300008: pCylinder2
+    4300010: Block_for_smoke_stack
+    4300012: pCylinder6
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
