@@ -5,11 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     // Constants
-    const float tickTime = 5.0f; // There are 5 seconds between 'ticks'
-    const float factoryPollutionPerTick = 1.0f;
+    private const float tickTime = 5.0f; // There are 5 seconds between 'ticks'
+    public const float factoryPollutionPerTick = 1.0f;
+    public const float farmFoodPerTick = 1.0f;
 
     // Internal Values
-    private float currentTickTime = 0f;
+    private float currentTickTime = 0.0f;
 
     // Game Values
     public float currentPollution = 0.0f;
@@ -17,9 +18,15 @@ public class GameManager : MonoBehaviour {
     public float currentFood = 0.0f;
     public float currentCotton = 0.0f;
 
+    public List<GameObject> factoryList = new List<GameObject>();
+    public List<GameObject> farmList = new List<GameObject>();
+    public List<GameObject> homeLit = new List<GameObject>();
+
+    public int numFactories = 0;
+
 	// Use this for initialization
 	void Start () {
-		
+    
 	}
 	
 	// Update is called once per frame
@@ -37,8 +44,8 @@ public class GameManager : MonoBehaviour {
     {
         currentTickTime = 0f;
 
-        int numFactories = GameObject.FindGameObjectsWithTag("Factory").Length;
-        currentPollution += numFactories * factoryPollutionPerTick;
+        currentPollution += factoryList.Count * factoryPollutionPerTick;
+        currentFood += farmList.Count * farmFoodPerTick;
 
         logValues();
     }
