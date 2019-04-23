@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -18,16 +19,20 @@ public class GameManager : MonoBehaviour {
     public float currentFood = 0.0f;
     public float currentCotton = 0.0f;
 
+    // Game Objects
     public List<GameObject> factoryList = new List<GameObject>();
     public List<GameObject> farmList = new List<GameObject>();
     public List<GameObject> houseList = new List<GameObject>();
+    public List<GameObject> treeList = new List<GameObject>();
 
-    public int numFactories = 0;
+    private GameObject moneyText, foodText, cottonText;
 
 	// Use this for initialization
 	void Start () {
-    
-	}
+        moneyText = GameObject.Find("MoneyText");
+        foodText = GameObject.Find("FoodText");
+        cottonText = GameObject.Find("CottonText");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,12 +51,22 @@ public class GameManager : MonoBehaviour {
         currentPollution += factoryList.Count * factoryPollutionPerTick;
         currentFood += farmList.Count * farmFoodPerTick;
 
+        updateText();
+
         logValues();
+    }
+
+    private void updateText()
+    {
+        moneyText.GetComponent<TextMeshPro>().text = currentMoney.ToString();
+        foodText.GetComponent<TextMeshPro>().text = currentFood.ToString();
+        cottonText.GetComponent<TextMeshPro>().text = currentCotton.ToString();
     }
 
     public void addFactory(GameObject factory) { factoryList.Add(factory); }
     public void addFarm(GameObject farm) { farmList.Add(farm); }
     public void addHouse(GameObject house) { houseList.Add(house); }
+    public void addTree(GameObject tree) { treeList.Add(tree); }
 
     private void logValues()
     {
