@@ -11,6 +11,7 @@ public class BuildingPlacerRay : MonoBehaviour {
 
     public GameObject factoryPrefab;
     public GameObject farmPrefab;
+    public GameObject housePrefab;
 
     private GameObject world;
     private GameObject mostRecentInstance;
@@ -21,6 +22,7 @@ public class BuildingPlacerRay : MonoBehaviour {
     //0 = none
     //1 = factory
     //2 = farm
+    //3 = house
     private int equippedBuilding = 0;
 
     void Start () {
@@ -60,6 +62,10 @@ public class BuildingPlacerRay : MonoBehaviour {
                     if(collidedObject.name == "FarmButton")
                     {
                         equippedBuilding = 2;
+                    }
+                    if(collidedObject.name == "HouseButton")
+                    {
+                        equippedBuilding = 3;
                     }
                 }
             }
@@ -123,6 +129,11 @@ public class BuildingPlacerRay : MonoBehaviour {
             newItem = Instantiate(farmPrefab,hit.point, rotation);
             world.GetComponent<GameManager>().addFarm(newItem);
 
+        }
+        if(equippedBuilding == 3)
+        {
+            newItem = Instantiate(housePrefab,hit.point, rotation);
+            world.GetComponent<GameManager>().addHouse(newItem);
         }
         newItem.transform.Rotate(90, 0, 0);
         newItem.transform.parent = world.transform;
