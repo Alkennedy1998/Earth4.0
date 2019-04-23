@@ -10,9 +10,17 @@ public class BuildingPlacerRay : MonoBehaviour {
     private LineRenderer lineRenderer;
 
     public GameObject factoryPrefab;
-    private GameObject world;
+    public GameObject farmPrefab;
 
+    private GameObject world;
+    private GameObject mostRecentInstance;
     private int layerMask;
+
+    private RaycastHit hit;
+
+    //0 = none
+    //1 = factory
+    //2 = farm
     private int equippedBuilding = 0;
 
     void Start () {
@@ -33,7 +41,6 @@ public class BuildingPlacerRay : MonoBehaviour {
     void Update () {
 
 
-        RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
@@ -46,41 +53,33 @@ public class BuildingPlacerRay : MonoBehaviour {
 
                 if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true)
                 {
-
                     if (collidedObject.name == "FactoryButton")
                     {
-
                         equippedBuilding = 1;
+                    }
+                    if(collidedObject.name == "FarmButton")
+                    {
+                        equippedBuilding = 2;
                     }
                 }
             }
-
-            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-            {
-                
-            //If the trigger is released while the cursor is over the world instantiate a factory
+                        
+            //If the trigger is released while the cursor is over the world instantiate a building
             if (collidedObject.name == "World")
             {
-                    Debug.Log(equippedBuilding);
-                if (equippedBuilding == 1)
+
+                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
                 {
-                    //Instaniate a factory object and rotate it to match the normal vector of on the sphere where the ray collided
-                    Vector3 normalOffSphere = hit.normal;
-                    Quaternion rotation = Quaternion.LookRotation(hit.normal);
-                    GameObject newFactory = Instantiate(factoryPrefab, hit.point, rotation);
-                    newFactory.transform.Rotate(90, 0, 0);
-                    newFactory.transform.parent = world.transform;
+                    //Instantiated equipped building on the face of the world
+                    instantiateOnWorld();
+
+                mostRecentInstance = null;
+                equippedBuilding = 0;
                 }
 
-                equippedBuilding = 0;
             }
-                
-   
-            }
-
-    
-
-
+           
+        
             //Make line visible to user and turn green
             lineRenderer.SetPosition(1, Vector3.forward * hit.distance);
             lineRenderer.material.color = Color.green;
@@ -94,6 +93,7 @@ public class BuildingPlacerRay : MonoBehaviour {
                 equippedBuilding = 0;
             }
             
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             //Make line visible to user and turn red
             lineRenderer.SetPosition(1, Vector3.forward*length_multiplier);
             lineRenderer.material.color = Color.red;
@@ -102,4 +102,31 @@ public class BuildingPlacerRay : MonoBehaviour {
 
        
     }
+ 
+                    
+
+ 
+    void instantiateOnWorld(){
+        GameObject newItem = null;
+        Vector3 normalOffSphere = hit.normal;
+        Quaternion rotation = Quaternion.LookRotation(hit.normal);
+
+        if(equippedBuilding == 0){
+            return;
+        }
+        if(equippedBuilding == 1){
+            newItem = Instantiate(factoryPrefab, hit.point, rotation);
+            world.GetComponent<GameManager>().addFactory(newItem);
+        }
+        if(equippedBuilding == 2)
+        {
+            newItem = Instantiate(farmPrefab,hit.point, rotation);
+            world.GetComponent<GameManager>().addFarm(newItem);
+
+        }
+        newItem.transform.Rotate(90, 0, 0);
+        newItem.transform.parent = world.transform;
+        mostRecentInstance = newItem;
+    }
+    
 }
