@@ -10,9 +10,13 @@ public class BuildingPlacerRay : MonoBehaviour {
     private LineRenderer lineRenderer;
 
     public GameObject factoryPrefab;
+    public GameObject farmPrefab;
+
     private GameObject world;
     private GameObject mostRecentInstance;
     private int layerMask;
+
+    private RaycastHit hit;
 
     //0 = none
     //1 = factory
@@ -37,7 +41,6 @@ public class BuildingPlacerRay : MonoBehaviour {
     void Update () {
 
 
-        RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
@@ -50,35 +53,29 @@ public class BuildingPlacerRay : MonoBehaviour {
 
                 if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true)
                 {
-
                     if (collidedObject.name == "FactoryButton")
                     {
-
                         equippedBuilding = 1;
+                    }
+                    if(collidedObject.name == "FarmButton")
+                    {
+                        equippedBuilding = 2;
                     }
                 }
             }
                         
-            //If the trigger is released while the cursor is over the world instantiate a factory
+            //If the trigger is released while the cursor is over the world instantiate a building
             if (collidedObject.name == "World")
             {
-                instantiateOnWorld(factoryPrefab,hit);
 
                 if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
                 {
-                    Debug.Log(equippedBuilding);
-                    if (equippedBuilding == 1)
-                    {
-                        //Instaniate a factory object and rotate it to match the normal vector of on the sphere where the ray collided
-                        instantiateOnWorld(factoryPrefab,hit);
-                        mostRecentInstance = null;
-                   
-                    }
+                    //Instantiated equipped building on the face of the world
+                    instantiateOnWorld();
 
+                mostRecentInstance = null;
                 equippedBuilding = 0;
                 }
-                Object.Destroy(mostRecentInstance);
-
 
             }
            
@@ -109,13 +106,27 @@ public class BuildingPlacerRay : MonoBehaviour {
                     
 
  
-    void instantiateOnWorld(GameObject prefab,RaycastHit hit){
+    void instantiateOnWorld(){
+        GameObject newItem = null;
         Vector3 normalOffSphere = hit.normal;
         Quaternion rotation = Quaternion.LookRotation(hit.normal);
-        GameObject newFactory = Instantiate(factoryPrefab, hit.point, rotation);
-        newFactory.transform.Rotate(90, 0, 0);
-        newFactory.transform.parent = world.transform;
-        mostRecentInstance = newFactory;
-        //world.GetComponent<GameManager>().addFactory(newFactory);
+
+        if(equippedBuilding == 0){
+            return;
+        }
+        if(equippedBuilding == 1){
+            newItem = Instantiate(factoryPrefab, hit.point, rotation);
+            world.GetComponent<GameManager>().addFactory(newItem);
+        }
+        if(equippedBuilding == 2)
+        {
+            newItem = Instantiate(farmPrefab,hit.point, rotation);
+            world.GetComponent<GameManager>().addFarm(newItem);
+
+        }
+        newItem.transform.Rotate(90, 0, 0);
+        newItem.transform.parent = world.transform;
+        mostRecentInstance = newItem;
     }
+    
 }
