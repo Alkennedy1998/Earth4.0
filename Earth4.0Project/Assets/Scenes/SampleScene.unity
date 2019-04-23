@@ -4322,19 +4322,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07facdd5c69e5498a4551882fb534c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPollution: 0
-  currentMoney: 0
-  currentFood: 0
-  currentCotton: 0
-  factoryList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  farmList:
-  - {fileID: 0}
-  houseList: []
-  numFactories: 0
+  _currentPollution: 0
+  _currentMoney: 0
+  _currentFood: 0
+  _currentCotton: 0
+  _factoryList: []
+  _farmList: []
+  _houseList: []
+  _treeList: []
 --- !u!1001 &1334985197
 Prefab:
   m_ObjectHideFlags: 0
@@ -4677,22 +4672,6 @@ MonoBehaviour:
   factoryPrefab: {fileID: 1554830366627850, guid: d5a66730f7c52384c9cf52d79dc3f209,
     type: 2}
   farmPrefab: {fileID: 1206304760818466, guid: 40a3b0abc42965243a70dac18fbff2ac, type: 2}
---- !u!1 &1769164347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000011125779090, guid: 84c8b8609f9bb434eaf5248f17ff1293,
-    type: 2}
-  m_PrefabInternal: {fileID: 737275459}
---- !u!114 &1769164350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1769164347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9957cd7e8cf2f414b9cf72b609a9a013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1849976787
 Transform:
   m_ObjectHideFlags: 0
