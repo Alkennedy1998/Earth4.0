@@ -46,7 +46,7 @@ public class BuildingPlacerRay : MonoBehaviour {
         {
             var collidedObject = hit.collider.gameObject;
 
-            if(collidedObject.tag == "Button")
+            if(collidedObject.tag == "Button" && equippedBuilding == 0)
             {
                 //Make controller vibrate when hovering over selectable buttons
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
