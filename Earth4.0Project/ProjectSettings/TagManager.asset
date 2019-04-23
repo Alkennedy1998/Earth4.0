@@ -7,6 +7,9 @@ TagManager:
   - Button
   - Factory
   - Farm
+  - UIMoney
+  - UIFood
+  - UICotton
   layers:
   - Default
   - TransparentFX
