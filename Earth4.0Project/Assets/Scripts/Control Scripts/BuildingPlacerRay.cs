@@ -4,49 +4,53 @@ using UnityEngine;
 
 public class BuildingPlacerRay : MonoBehaviour {
 
-    public float length_multiplier = 10;
-    public float lineWidth = 0.3f;
+    public float _length_multiplier = 10;
+    public float _lineWidth = 0.3f;
 
-    private LineRenderer lineRenderer;
+    private LineRenderer _lineRenderer;
 
-    public GameObject factoryPrefab;
-    public GameObject farmPrefab;
+    public GameObject _factoryPrefab;
+    public GameObject _farmPrefab;
+    public GameObject _housePrefab;
+    public GameObject _treePrefab;
 
-    private GameObject world;
-    private GameObject mostRecentInstance;
-    private int layerMask;
+    private GameObject _world;
+    private GameObject _mostRecentInstance;
+    private int _layerMask;
 
-    private RaycastHit hit;
+    private RaycastHit _hit;
 
     //0 = none
     //1 = factory
     //2 = farm
-    private int equippedBuilding = 0;
+    //3 = house
+    //4 = tree
+    private int _equippedBuilding = 0;
 
     void Start () {
 
-        world = GameObject.Find("World");
+        _world = GameObject.Find("World");
 
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.widthMultiplier = lineWidth;
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
+        _lineRenderer = GetComponent<LineRenderer>();
+        _lineRenderer.useWorldSpace = false;
+        _lineRenderer.widthMultiplier = _lineWidth;
+        _lineRenderer.positionCount = 2;
+        _lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
 
         //Ensure any gameObjects in layer 2 are ignored
-        layerMask = 1 << 2;
-        layerMask = ~layerMask;
+        _layerMask = 1 << 2;
+        _layerMask = ~_layerMask;
     }
 
     void Update () {
 
 
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
         {
-            var collidedObject = hit.collider.gameObject;
+            var collidedObject = _hit.collider.gameObject;
 
-            if(collidedObject.tag == "Button")
+            if(collidedObject.tag == "Button" && _equippedBuilding == 0)
             {
                 //Make controller vibrate when hovering over selectable buttons
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
@@ -55,11 +59,19 @@ public class BuildingPlacerRay : MonoBehaviour {
                 {
                     if (collidedObject.name == "FactoryButton")
                     {
-                        equippedBuilding = 1;
+                        _equippedBuilding = 1;
                     }
                     if(collidedObject.name == "FarmButton")
                     {
-                        equippedBuilding = 2;
+                        _equippedBuilding = 2;
+                    }
+                    if(collidedObject.name == "HouseButton")
+                    {
+                        _equippedBuilding = 3;
+                    }
+                    if(collidedObject.name == "TreeButton")
+                    {
+                        _equippedBuilding = 4;
                     }
                 }
             }
@@ -73,16 +85,16 @@ public class BuildingPlacerRay : MonoBehaviour {
                     //Instantiated equipped building on the face of the world
                     instantiateOnWorld();
 
-                mostRecentInstance = null;
-                equippedBuilding = 0;
+                _mostRecentInstance = null;
+                _equippedBuilding = 0;
                 }
 
             }
            
         
             //Make line visible to user and turn green
-            lineRenderer.SetPosition(1, Vector3.forward * hit.distance);
-            lineRenderer.material.color = Color.green;
+            _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
+            _lineRenderer.material.color = Color.green;
 
         }
         else
@@ -90,13 +102,13 @@ public class BuildingPlacerRay : MonoBehaviour {
             //If playerer released the trigger and isn't hovering over the world, cancel item placement
             if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
             {
-                equippedBuilding = 0;
+                _equippedBuilding = 0;
             }
             
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             //Make line visible to user and turn red
-            lineRenderer.SetPosition(1, Vector3.forward*length_multiplier);
-            lineRenderer.material.color = Color.red;
+            _lineRenderer.SetPosition(1, Vector3.forward*_length_multiplier);
+            _lineRenderer.material.color = Color.red;
         }
 
 
@@ -108,25 +120,35 @@ public class BuildingPlacerRay : MonoBehaviour {
  
     void instantiateOnWorld(){
         GameObject newItem = null;
-        Vector3 normalOffSphere = hit.normal;
-        Quaternion rotation = Quaternion.LookRotation(hit.normal);
+        Vector3 normalOffSphere = _hit.normal;
+        Quaternion rotation = Quaternion.LookRotation(_hit.normal);
 
-        if(equippedBuilding == 0){
+        if(_equippedBuilding == 0){
             return;
         }
-        if(equippedBuilding == 1){
-            newItem = Instantiate(factoryPrefab, hit.point, rotation);
-            world.GetComponent<GameManager>().addFactory(newItem);
+        if(_equippedBuilding == 1){
+            newItem = Instantiate(_factoryPrefab, _hit.point, rotation);
+            _world.GetComponent<GameManager>().addFactory(newItem);
         }
-        if(equippedBuilding == 2)
+        if(_equippedBuilding == 2)
         {
-            newItem = Instantiate(farmPrefab,hit.point, rotation);
-            world.GetComponent<GameManager>().addFarm(newItem);
+            newItem = Instantiate(_farmPrefab,_hit.point, rotation);
+            _world.GetComponent<GameManager>().addFarm(newItem);
 
         }
+        if(_equippedBuilding == 3)
+        {
+            newItem = Instantiate(_housePrefab,_hit.point, rotation);
+            _world.GetComponent<GameManager>().addHouse(newItem);
+        }
+        if(_equippedBuilding == 4)
+        {
+            newItem = Instantiate(_treePrefab,_hit.point, rotation);
+            _world.GetComponent<GameManager>().addTree(newItem);
+        }
         newItem.transform.Rotate(90, 0, 0);
-        newItem.transform.parent = world.transform;
-        mostRecentInstance = newItem;
+        newItem.transform.parent = _world.transform;
+        _mostRecentInstance = newItem;
     }
     
 }
