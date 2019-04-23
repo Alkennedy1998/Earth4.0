@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> factoryList = new List<GameObject>();
     public List<GameObject> farmList = new List<GameObject>();
-    public List<GameObject> homeList = new List<GameObject>();
+    public List<GameObject> houseList = new List<GameObject>();
 
     public int numFactories = 0;
 
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 
     public void addFactory(GameObject factory) { factoryList.Add(factory); }
     public void addFarm(GameObject farm) { farmList.Add(farm); }
-    public void addHome(GameObject home) { homeList.Add(home); }
+    public void addHouse(GameObject house) { houseList.Add(house); }
 
     private void logValues()
     {
