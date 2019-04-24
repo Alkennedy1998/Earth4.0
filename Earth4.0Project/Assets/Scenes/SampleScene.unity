@@ -4667,11 +4667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79963d8d23011884dae713665daff94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length_multiplier: 6
-  lineWidth: 0.2
-  factoryPrefab: {fileID: 1554830366627850, guid: d5a66730f7c52384c9cf52d79dc3f209,
-    type: 2}
-  farmPrefab: {fileID: 1206304760818466, guid: 40a3b0abc42965243a70dac18fbff2ac, type: 2}
+  _length_multiplier: 10
+  _lineWidth: 0.3
+  _factoryPrefab: {fileID: 0}
+  _farmPrefab: {fileID: 0}
+  _housePrefab: {fileID: 0}
+  _treePrefab: {fileID: 0}
 --- !u!4 &1849976787
 Transform:
   m_ObjectHideFlags: 0
