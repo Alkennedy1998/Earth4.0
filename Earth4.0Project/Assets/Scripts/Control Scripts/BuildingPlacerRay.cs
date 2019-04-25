@@ -144,7 +144,7 @@ public class BuildingPlacerRay : MonoBehaviour {
         }
         if(_equippedBuilding == 3)
         {
-            if(!world.GetComponent<GameManager>().addHouse(newItem)){
+            if(!_world.GetComponent<GameManager>().addHouse(newItem)){
                 return;
             }
             newItem = Instantiate(_housePrefab,_hit.point, rotation);
