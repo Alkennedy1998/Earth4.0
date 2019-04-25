@@ -4300,6 +4300,9 @@ MonoBehaviour:
   _farmList: []
   _houseList: []
   _treeList: []
+  _personList: []
+  _personPrefab: {fileID: 1526940125616272, guid: 350dcffa7c863f249a779c31a356c4bd,
+    type: 2}
 --- !u!1001 &1290528164
 Prefab:
   m_ObjectHideFlags: 0

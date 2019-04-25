@@ -41,8 +41,10 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> _farmList = new List<GameObject>();
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
+    public List<GameObject> _personList = new List<GameObject>();
 
     private GameObject _moneyText, _foodText, _cottonText;
+    public GameObject _personPrefab;
 
     #endregion
 
