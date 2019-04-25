@@ -44,7 +44,12 @@ public class BuildingPlacerRay : MonoBehaviour {
 
     void Update () {
 
+        rayCollisionHandler();
 
+    }
+ 
+    void rayCollisionHandler(){
+        
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
         {
@@ -111,11 +116,7 @@ public class BuildingPlacerRay : MonoBehaviour {
             _lineRenderer.material.color = Color.red;
         }
 
-
-       
-    }
- 
-                    
+    }              
 
  
     void instantiateOnWorld(){
@@ -123,28 +124,37 @@ public class BuildingPlacerRay : MonoBehaviour {
         Vector3 normalOffSphere = _hit.normal;
         Quaternion rotation = Quaternion.LookRotation(_hit.normal);
 
+        //Instatiate the correct building if there is enough money and the GameManager returns true
         if(_equippedBuilding == 0){
             return;
         }
         if(_equippedBuilding == 1){
+
+            if(!_world.GetComponent<GameManager>().addFactory(newItem)){
+                return;
+            }
             newItem = Instantiate(_factoryPrefab, _hit.point, rotation);
-            _world.GetComponent<GameManager>().addFactory(newItem);
         }
         if(_equippedBuilding == 2)
         {
-            newItem = Instantiate(_farmPrefab,_hit.point, rotation);
-            _world.GetComponent<GameManager>().addFarm(newItem);
-
+            if(!_world.GetComponent<GameManager>().addFarm(newItem)){
+                return;
+            }
+            newItem = Instantiate(_factoryPrefab, _hit.point, rotation)
         }
         if(_equippedBuilding == 3)
         {
+            if(!world.GetComponent<GameManager>().addHouse(newItem)){
+                return;
+            }
             newItem = Instantiate(_housePrefab,_hit.point, rotation);
-            _world.GetComponent<GameManager>().addHouse(newItem);
         }
         if(_equippedBuilding == 4)
         {
+            if(!_world.GetComponent<GameManager>().addTree(newItem)){
+                return;
+            }
             newItem = Instantiate(_treePrefab,_hit.point, rotation);
-            _world.GetComponent<GameManager>().addTree(newItem);
         }
         newItem.transform.Rotate(90, 0, 0);
         newItem.transform.parent = _world.transform;
