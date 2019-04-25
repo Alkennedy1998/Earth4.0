@@ -1166,7 +1166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4240851148118648}
   m_Layer: 0
-  m_Name: Cotton Farm Prefab
+  m_Name: Cotton Farm Prototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
