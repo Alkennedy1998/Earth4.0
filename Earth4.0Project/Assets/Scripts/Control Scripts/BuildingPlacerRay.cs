@@ -140,7 +140,7 @@ public class BuildingPlacerRay : MonoBehaviour {
             if(!_world.GetComponent<GameManager>().addFarm(newItem)){
                 return;
             }
-            newItem = Instantiate(_factoryPrefab, _hit.point, rotation)
+            newItem = Instantiate(_factoryPrefab, _hit.point, rotation);
         }
         if(_equippedBuilding == 3)
         {
