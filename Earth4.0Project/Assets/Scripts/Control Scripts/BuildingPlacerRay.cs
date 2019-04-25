@@ -88,7 +88,7 @@ public class BuildingPlacerRay : MonoBehaviour {
                 if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
                 {
                     //Instantiated equipped building on the face of the world
-                    instantiateOnWorld();
+                    instantiateBuildingOnWorld();
 
                 _mostRecentInstance = null;
                 _equippedBuilding = 0;
@@ -119,10 +119,8 @@ public class BuildingPlacerRay : MonoBehaviour {
     }              
 
  
-    void instantiateOnWorld(){
-        GameObject newItem = null;
-        Vector3 normalOffSphere = _hit.normal;
-        Quaternion rotation = Quaternion.LookRotation(_hit.normal);
+    void instantiateBuildingOnWorld(){
+        GameObject building = null;
 
         //Instatiate the correct building if there is enough money and the GameManager returns true
         if(_equippedBuilding == 0){
@@ -130,35 +128,43 @@ public class BuildingPlacerRay : MonoBehaviour {
         }
         if(_equippedBuilding == 1){
 
-            if(!_world.GetComponent<GameManager>().addFactory(newItem)){
+            if(!_world.GetComponent<GameManager>().addFactory(building)){
                 return;
             }
-            newItem = Instantiate(_factoryPrefab, _hit.point, rotation);
+            building = InstantiateObjectOnWorld(_factoryPrefab);
         }
         if(_equippedBuilding == 2)
         {
-            if(!_world.GetComponent<GameManager>().addFarm(newItem)){
+            if(!_world.GetComponent<GameManager>().addFarm(building)){
                 return;
             }
-            newItem = Instantiate(_farmPrefab, _hit.point, rotation);
+            building = InstantiateObjectOnWorld(_farmPrefab);
         }
         if(_equippedBuilding == 3)
         {
-            if(!_world.GetComponent<GameManager>().addHouse(newItem)){
+            if(!_world.GetComponent<GameManager>().addHouse(building)){
                 return;
             }
-            newItem = Instantiate(_housePrefab,_hit.point, rotation);
+            building = InstantiateObjectOnWorld(_housePrefab);
         }
         if(_equippedBuilding == 4)
         {
-            if(!_world.GetComponent<GameManager>().addTree(newItem)){
+            if(!_world.GetComponent<GameManager>().addTree(building)){
                 return;
             }
-            newItem = Instantiate(_treePrefab,_hit.point, rotation);
+            building = InstantiateObjectOnWorld(_treePrefab);
         }
+    }
+
+    public GameObject InstantiateObjectOnWorld(GameObject prefab)
+    {
+        Quaternion rotation = Quaternion.LookRotation(_hit.normal);
+        GameObject newItem = Instantiate(prefab, _hit.point, rotation);
+
         newItem.transform.Rotate(90, 0, 0);
         newItem.transform.parent = _world.transform;
         _mostRecentInstance = newItem;
+        return newItem;
     }
     
 }
