@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    #region Constants
+
     // Constants
     public const float _STARTING_MONEY = 3000.0f;
     public const float _STARTING_FOOD = 1000.0f;
@@ -20,6 +22,10 @@ public class GameManager : MonoBehaviour {
     public const float _FACTORY_POLLUTION_PER_TICK = 1.0f;
     public const float _FARM_FOOD_PER_TICK = 1.0f;
     public const float _FACTORY_MONEY_PER_TICK = 2.0f;
+
+    #endregion
+
+    #region Game Values
 
     // Internal Values
     private float _currentTickTime = 0.0f;
@@ -38,8 +44,12 @@ public class GameManager : MonoBehaviour {
 
     private GameObject _moneyText, _foodText, _cottonText;
 
-	// Use this for initialization
-	void Start () {
+    #endregion
+
+    #region Initialization
+
+    // Use this for initialization
+    void Start () {
         _currentPollution = _STARTING_POLLUTION;
         _currentMoney = _STARTING_MONEY;
         _currentFood = _STARTING_FOOD;
@@ -49,15 +59,19 @@ public class GameManager : MonoBehaviour {
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    #endregion
+
+    #region Update
+
+    // Update is called once per frame
+    void Update () {
 
         _currentTickTime += Time.deltaTime;
+        updateText();
 
         if (_currentTickTime >= _TICK_TIME)
-            onTick();
-        
+            onTick();        
 	}
 
     private void onTick()
@@ -68,8 +82,6 @@ public class GameManager : MonoBehaviour {
         _currentMoney += _factoryList.Count * _FACTORY_MONEY_PER_TICK;
         _currentFood += _farmList.Count * _FARM_FOOD_PER_TICK;
 
-        updateText();
-
         logValues();
     }
 
@@ -79,6 +91,8 @@ public class GameManager : MonoBehaviour {
         _foodText.GetComponent<TextMeshPro>().text = _currentFood.ToString();
         _cottonText.GetComponent<TextMeshPro>().text = _currentCotton.ToString();
     }
+
+    #endregion
 
     #region BuildingPlacement
 
