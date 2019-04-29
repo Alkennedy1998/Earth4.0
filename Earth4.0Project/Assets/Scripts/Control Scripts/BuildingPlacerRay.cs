@@ -14,7 +14,7 @@ public class BuildingPlacerRay : MonoBehaviour {
 
     private RaycastHit _hit;
 
-    private enum Buildings { None, Factory, Farm, House, Tree };
+    private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
     private Buildings _equippedBuilding = Buildings.None;
 
     void Start () {
@@ -67,6 +67,10 @@ public class BuildingPlacerRay : MonoBehaviour {
                     if(collidedObject.name == "TreeButton")
                     {
                         _equippedBuilding = Buildings.Tree;
+                    }
+                    if(collidedObject.name == "CottonButton")
+                    {
+                        _equippedBuilding = Buildings.Cotton;
                     }
                 }
             }
@@ -132,6 +136,10 @@ public class BuildingPlacerRay : MonoBehaviour {
         else if(_equippedBuilding == Buildings.Tree)
         {
             _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
+        }
+        else if(_equippedBuilding == Buildings.Tree)
+        {
+            //_world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
         }
         else
         {
