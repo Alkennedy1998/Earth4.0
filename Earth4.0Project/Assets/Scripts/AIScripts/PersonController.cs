@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersonController : MonoBehaviour {
 
     private Vector3 _target;
-    private int _fatigue;
+    private int _fatigue, _fatigueRate;
     private float _speed, _hitRadius;
     private float _worldRadius;
 
@@ -24,14 +24,12 @@ public class PersonController : MonoBehaviour {
         _world = GameObject.Find("World");
         _worldRadius = _world.transform.localScale.x * _world.GetComponent<SphereCollider>().radius;
 
-        _houseLocation = randomVector();
-        _farmLocation = randomVector();
-        _workLocation = randomVector();
-
         _fatigue = 0;
+        _fatigueRate = 10;
         _speed = 15.0f;
         _hitRadius = 0.05f;
-        _target = _workLocation;
+
+        _targetObject = null;
 
         StartCoroutine("UpdatePerson");
     }
@@ -64,15 +62,9 @@ public class PersonController : MonoBehaviour {
 
     private GameObject getTargetObject()
     {
-        return _attachedHouse;
-    }
-
-    private Vector3 getTargetLocation()
-    {
         Vector3 targetLocation = transform.position;  // don't move if no target
         GameObject targetObject = null;
 
-        // TODO: Check if house is null
         if (_fatigue >= 100)
         {
             // Return to house
@@ -81,23 +73,30 @@ public class PersonController : MonoBehaviour {
         else if (_fatigue <= 0)
         {
             // Ready to work
-            if (Random.Range(0.0f, 1.0f) <= 0.5f)
-            {
-                targetLocation = _farmLocation;
+            if (Random.Range(0.0f, 1.0f) <= 0.5f) {
+                int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
+                if (farmCount > 0) {
+                    int farmIndex = Random.Range(0, farmCount);
+                    targetObject = _world.GetComponent<GameManager>()._farmList[farmIndex];
+                }
             }
-            else
-            {
-                targetLocation = _workLocation;
+            if (targetObject == null) {
+                int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
+                if (factoryCount > 0) {
+                    int factoryIndex = Random.Range(0, factoryCount);
+                    targetObject = _world.GetComponent<GameManager>()._factoryList[factoryIndex];
+                }
             }
-        }
-        else
-        {
-            targetLocation = _target;
         }
 
-        if (targetObject == null)
+        return targetObject;
+    }
+
+    private Vector3 getTargetLocation()
+    {
+        if (_targetObject == null)
             return transform.position;  // don't move if no target
-        return targetObject.transform.position;
+        return _targetObject.transform.position;
     }
 
     private Vector3 randomVector()
@@ -131,15 +130,21 @@ public class PersonController : MonoBehaviour {
 
     IEnumerator UpdatePerson()
     {
-        for (;;)
-        {
-            if (atHome())
-            {
-                _fatigue = _fatigue <= 0 ? 0 : _fatigue - 10;
-            }
-            else if (atTarget())  // generate fatigue if at a target that is not home
-            {
-                _fatigue = _fatigue >= 100 ? 100 : _fatigue + 10;
+        for (;;) {
+            if (atHome()) {
+                if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
+                    _fatigue = 0;
+                    _targetObject = null;  // check if causes race condition problems
+                } else {
+                    _fatigue -= _fatigueRate;
+                }
+            } else if (atTarget()) {  // generate fatigue if at a target that is not home
+                if (_fatigue >= 100 - _fatigueRate) {
+                    _fatigue = 100;
+                    _targetObject = null;
+                } else {
+                    _fatigue += _fatigueRate;
+                }
             }
             yield return new WaitForSeconds(.2f);
         }
