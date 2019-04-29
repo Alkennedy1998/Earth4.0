@@ -5,14 +5,16 @@ using UnityEngine;
 public class PersonController : MonoBehaviour {
 
     private Vector3 _target;
-    private int _fatigue;
+    private int _fatigue, _fatigueRate;
     private float _speed, _hitRadius;
     private float _worldRadius;
 
     private Vector3 _houseLocation, _farmLocation, _workLocation;
 
+    public GameObject _attachedHouse;
+
     private GameObject _world;
-    public GameObject _housePrefab, _farmPrefab, _factoryPrefab;
+    private GameObject _targetObject;
 
     private enum Buildings { None, Factory, Farm, House, Tree };
 
@@ -22,18 +24,12 @@ public class PersonController : MonoBehaviour {
         _world = GameObject.Find("World");
         _worldRadius = _world.transform.localScale.x * _world.GetComponent<SphereCollider>().radius;
 
-        _houseLocation = randomVector();
-        _farmLocation = randomVector();
-        _workLocation = randomVector();
-
         _fatigue = 0;
+        _fatigueRate = 10;
         _speed = 15.0f;
         _hitRadius = 0.05f;
-        _target = _workLocation;
 
-        // instantiateObject(Buildings.House, _houseLocation);
-        // instantiateObject(Buildings.Farm, _farmLocation);
-        // instantiateObject(Buildings.Factory, _workLocation);
+        _targetObject = null;
 
         StartCoroutine("UpdatePerson");
     }
@@ -41,6 +37,8 @@ public class PersonController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (_targetObject == null)
+            _targetObject = getTargetObject();
         _target = getTargetLocation();
         moveTowardsLocation(_target);
     }
@@ -62,33 +60,43 @@ public class PersonController : MonoBehaviour {
         }
     }
 
-    private Vector3 getTargetLocation()
+    private GameObject getTargetObject()
     {
-        Vector3 targetLocation;
+        Vector3 targetLocation = transform.position;  // don't move if no target
+        GameObject targetObject = null;
 
         if (_fatigue >= 100)
         {
             // Return to house
-            targetLocation = _houseLocation;
+            targetObject = _attachedHouse;
         }
         else if (_fatigue <= 0)
         {
             // Ready to work
-            if (Random.Range(0, 1) <= 0.5f)
-            {
-                targetLocation = _farmLocation;
+            if (Random.Range(0.0f, 1.0f) <= 0.5f) {
+                int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
+                if (farmCount > 0) {
+                    int farmIndex = Random.Range(0, farmCount);
+                    targetObject = _world.GetComponent<GameManager>()._farmList[farmIndex];
+                }
             }
-            else
-            {
-                targetLocation = _workLocation;
+            if (targetObject == null) {
+                int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
+                if (factoryCount > 0) {
+                    int factoryIndex = Random.Range(0, factoryCount);
+                    targetObject = _world.GetComponent<GameManager>()._factoryList[factoryIndex];
+                }
             }
-        }
-        else
-        {
-            targetLocation = _target;
         }
 
-        return targetLocation;
+        return targetObject;
+    }
+
+    private Vector3 getTargetLocation()
+    {
+        if (_targetObject == null)
+            return transform.position;  // don't move if no target
+        return _targetObject.transform.position;
     }
 
     private Vector3 randomVector()
@@ -106,50 +114,37 @@ public class PersonController : MonoBehaviour {
         );
     }
 
-    private void instantiateObject(Buildings modelType, Vector3 location)
+    private bool atHome()
     {
-        Vector3 normalOffSphere = location - _world.transform.position;
-        Quaternion rotation = Quaternion.LookRotation(normalOffSphere);
-
-        if (modelType == Buildings.House)
-        {
-            _world.GetComponent<GameManager>().addHouse(location, rotation);
-        }
-        else if (modelType == Buildings.Farm)
-        {
-            _world.GetComponent<GameManager>().addFarm(location, rotation);
-        }
-        else if (modelType == Buildings.Factory)
-        {
-            _world.GetComponent<GameManager>().addFactory(location, rotation);
-        }
-        else
-        {
-            Debug.Log("ERROR: Incorrect modelType in PersonMover script.");
-        }
+        if (_attachedHouse == null)
+            return false;
+        return Vector3.Distance(transform.position, _attachedHouse.transform.position) <= _hitRadius;
     }
 
-    IEnumerator RandomizeTarget()
+    private bool atTarget()
     {
-        for (; ; )
-        {
-            _target = randomVector();
-            yield return new WaitForSeconds(2f);
-        }
+        if (_targetObject == null)
+            return false;
+        return Vector3.Distance(transform.position, _targetObject.transform.position) <= _hitRadius;
     }
 
     IEnumerator UpdatePerson()
     {
-        for (; ; )
-        {
-            if (Vector3.Distance(transform.position, _houseLocation) <= _hitRadius)
-            {
-                _fatigue = _fatigue <= 0 ? 0 : _fatigue - 10;
-            }
-            else if (Vector3.Distance(transform.position, _workLocation) < _hitRadius ||
-                     Vector3.Distance(transform.position, _farmLocation) < _hitRadius)
-            {
-                _fatigue = _fatigue >= 100 ? 100 : _fatigue + 10;
+        for (;;) {
+            if (atHome()) {
+                if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
+                    _fatigue = 0;
+                    _targetObject = null;  // check if causes race condition problems
+                } else {
+                    _fatigue -= _fatigueRate;
+                }
+            } else if (atTarget()) {  // generate fatigue if at a target that is not home
+                if (_fatigue >= 100 - _fatigueRate) {
+                    _fatigue = 100;
+                    _targetObject = null;
+                } else {
+                    _fatigue += _fatigueRate;
+                }
             }
             yield return new WaitForSeconds(.2f);
         }

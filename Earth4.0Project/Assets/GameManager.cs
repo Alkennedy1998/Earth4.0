@@ -37,15 +37,16 @@ public class GameManager : MonoBehaviour {
     public float _currentCotton;
 
     // Game PreFabs
+    public GameObject _personPrefab;
     public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab;
 
     // Game Objects
+    public List<GameObject> _personList = new List<GameObject>();
     public List<GameObject> _factoryList = new List<GameObject>();
     public List<GameObject> _farmList = new List<GameObject>();
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
 
-    private GameObject _world;
     private GameObject _moneyText, _foodText, _cottonText;
 
     #endregion
@@ -59,7 +60,6 @@ public class GameManager : MonoBehaviour {
         _currentFood = _STARTING_FOOD;
         _currentCotton = _STARTING_COTTON;
 
-        _world = GameObject.Find("World");
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
@@ -139,6 +139,10 @@ public class GameManager : MonoBehaviour {
 
         GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
+
+        GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
+        person.GetComponent<PersonController>()._attachedHouse = house;
+        _personList.Add(person);
         return true;
     }
 
