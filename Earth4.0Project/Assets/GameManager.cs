@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
     private const float _TICK_TIME = 5.0f; // There are 5 seconds between 'ticks'
     public const float _FACTORY_POLLUTION_PER_TICK = 1.0f;
     public const float _FARM_FOOD_PER_TICK = 1.0f;
+    public const float _FOOD_EATEN_PER_TICK = 1.0f;
     public const float _FACTORY_MONEY_PER_TICK = 2.0f;
 
     #endregion
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour {
     public float _currentMoney;
     public float _currentFood;
     public float _currentCotton;
+
+    public int _currentFactoryWorkers, _currentFarmWorkers;
 
     // Game PreFabs
     public GameObject _personPrefab;
@@ -60,6 +63,9 @@ public class GameManager : MonoBehaviour {
         _currentFood = _STARTING_FOOD;
         _currentCotton = _STARTING_COTTON;
 
+        _currentFactoryWorkers = 0;
+        _currentFarmWorkers = 0;
+
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
@@ -83,9 +89,9 @@ public class GameManager : MonoBehaviour {
     {
         _currentTickTime = 0f;
 
-        _currentPollution += _factoryList.Count * _FACTORY_POLLUTION_PER_TICK;
-        _currentMoney += _factoryList.Count * _FACTORY_MONEY_PER_TICK;
-        _currentFood += _farmList.Count * _FARM_FOOD_PER_TICK;
+        _currentPollution += _currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK;
+        _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
+        _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
 
         logValues();
     }
@@ -163,6 +169,7 @@ public class GameManager : MonoBehaviour {
     private void logValues()
     {
         Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+        Debug.Log("Current Factory Workers: " + _currentFactoryWorkers + "     Current Farm Workers: " + _currentFarmWorkers);
     }
 
     #endregion

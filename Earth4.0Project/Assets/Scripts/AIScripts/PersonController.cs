@@ -15,6 +15,7 @@ public class PersonController : MonoBehaviour {
 
     private GameObject _world;
     private GameObject _targetObject;
+    private Buildings _targetBuilding;
 
     private enum Buildings { None, Factory, Farm, House, Tree };
 
@@ -38,7 +39,7 @@ public class PersonController : MonoBehaviour {
     void Update()
     {
         if (_targetObject == null)
-            _targetObject = getTargetObject();
+            setTargetObject();
         _target = getTargetLocation();
         moveTowardsLocation(_target);
     }
@@ -60,15 +61,19 @@ public class PersonController : MonoBehaviour {
         }
     }
 
-    private GameObject getTargetObject()
+    private void setTargetObject()
     {
         Vector3 targetLocation = transform.position;  // don't move if no target
         GameObject targetObject = null;
+        Buildings targetBuilding = Buildings.None;
 
         if (_fatigue >= 100)
         {
             // Return to house
             targetObject = _attachedHouse;
+            if (targetObject != null) {
+                targetBuilding = Buildings.House;
+            }
         }
         else if (_fatigue <= 0)
         {
@@ -78,6 +83,7 @@ public class PersonController : MonoBehaviour {
                 if (farmCount > 0) {
                     int farmIndex = Random.Range(0, farmCount);
                     targetObject = _world.GetComponent<GameManager>()._farmList[farmIndex];
+                    targetBuilding = Buildings.Farm;
                 }
             }
             if (targetObject == null) {
@@ -85,11 +91,34 @@ public class PersonController : MonoBehaviour {
                 if (factoryCount > 0) {
                     int factoryIndex = Random.Range(0, factoryCount);
                     targetObject = _world.GetComponent<GameManager>()._factoryList[factoryIndex];
+                    targetBuilding = Buildings.Factory;
                 }
             }
         }
 
-        return targetObject;
+        _targetObject = targetObject;
+
+        leaveBuilding(_targetBuilding);
+        _targetBuilding = targetBuilding;
+        enterBuilding(_targetBuilding);
+    }
+
+    private void enterBuilding(Buildings building)
+    {
+        if (building == Buildings.Farm) {
+            _world.GetComponent<GameManager>()._currentFarmWorkers += 1;
+        } else if (building == Buildings.Factory) {
+            _world.GetComponent<GameManager>()._currentFactoryWorkers += 1;
+        }
+    }
+
+    private void leaveBuilding(Buildings building)
+    {
+        if (building == Buildings.Farm) {
+            _world.GetComponent<GameManager>()._currentFarmWorkers -= 1;
+        } else if (building == Buildings.Factory) {
+            _world.GetComponent<GameManager>()._currentFactoryWorkers -= 1;
+        }
     }
 
     private Vector3 getTargetLocation()
