@@ -12,8 +12,8 @@ public class WorldRotater : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector2 leftStick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-        float leftRotate = Time.deltaTime * leftStick.x * -40;
-        float rightRotate = Time.deltaTime * leftStick.y * 40;
+        float leftRotate = Time.deltaTime * leftStick.x * -20;
+        float rightRotate = Time.deltaTime * leftStick.y * 20;
         transform.Rotate(0, leftRotate, rightRotate, Space.World);
     }
 }
