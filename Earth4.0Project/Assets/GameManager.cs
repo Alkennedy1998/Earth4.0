@@ -133,14 +133,10 @@ public class GameManager : MonoBehaviour {
 
     public bool addHouse(Vector3 location, Quaternion rotation)
     {
-        Debug.Log("adding house");
-        Debug.Log(_currentMoney);
-        Debug.Log(_COST_HOUSE);
         if (_currentMoney < _COST_HOUSE)
             return false;
         _currentMoney -= _COST_HOUSE;
 
-        Debug.Log("enough money");
         GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
         return true;

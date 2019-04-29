@@ -111,10 +111,8 @@ public class PersonController : MonoBehaviour {
         Vector3 normalOffSphere = location - _world.transform.position;
         Quaternion rotation = Quaternion.LookRotation(normalOffSphere);
 
-
         if (modelType == Buildings.House)
         {
-            Debug.Log("instantiating!!!");
             _world.GetComponent<GameManager>().addHouse(location, rotation);
         }
         else if (modelType == Buildings.Farm)
