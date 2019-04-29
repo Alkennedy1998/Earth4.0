@@ -11,8 +11,10 @@ public class PersonController : MonoBehaviour {
 
     private Vector3 _houseLocation, _farmLocation, _workLocation;
 
+    public GameObject _attachedHouse;
+
     private GameObject _world;
-    public GameObject _housePrefab, _farmPrefab, _factoryPrefab;
+    private GameObject _targetObject;
 
     private enum Buildings { None, Factory, Farm, House, Tree };
 
@@ -31,16 +33,14 @@ public class PersonController : MonoBehaviour {
         _hitRadius = 0.05f;
         _target = _workLocation;
 
-        // instantiateObject(Buildings.House, _houseLocation);
-        // instantiateObject(Buildings.Farm, _farmLocation);
-        // instantiateObject(Buildings.Factory, _workLocation);
-
         StartCoroutine("UpdatePerson");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_targetObject == null)
+            _targetObject = getTargetObject();
         _target = getTargetLocation();
         moveTowardsLocation(_target);
     }
@@ -62,19 +62,26 @@ public class PersonController : MonoBehaviour {
         }
     }
 
+    private GameObject getTargetObject()
+    {
+        return _attachedHouse;
+    }
+
     private Vector3 getTargetLocation()
     {
-        Vector3 targetLocation;
+        Vector3 targetLocation = transform.position;  // don't move if no target
+        GameObject targetObject = null;
 
+        // TODO: Check if house is null
         if (_fatigue >= 100)
         {
             // Return to house
-            targetLocation = _houseLocation;
+            targetObject = _attachedHouse;
         }
         else if (_fatigue <= 0)
         {
             // Ready to work
-            if (Random.Range(0, 1) <= 0.5f)
+            if (Random.Range(0.0f, 1.0f) <= 0.5f)
             {
                 targetLocation = _farmLocation;
             }
@@ -88,7 +95,9 @@ public class PersonController : MonoBehaviour {
             targetLocation = _target;
         }
 
-        return targetLocation;
+        if (targetObject == null)
+            return transform.position;  // don't move if no target
+        return targetObject.transform.position;
     }
 
     private Vector3 randomVector()
@@ -106,48 +115,29 @@ public class PersonController : MonoBehaviour {
         );
     }
 
-    private void instantiateObject(Buildings modelType, Vector3 location)
+    private bool atHome()
     {
-        Vector3 normalOffSphere = location - _world.transform.position;
-        Quaternion rotation = Quaternion.LookRotation(normalOffSphere);
-
-        if (modelType == Buildings.House)
-        {
-            _world.GetComponent<GameManager>().addHouse(location, rotation);
-        }
-        else if (modelType == Buildings.Farm)
-        {
-            _world.GetComponent<GameManager>().addFarm(location, rotation);
-        }
-        else if (modelType == Buildings.Factory)
-        {
-            _world.GetComponent<GameManager>().addFactory(location, rotation);
-        }
-        else
-        {
-            Debug.Log("ERROR: Incorrect modelType in PersonMover script.");
-        }
+        if (_attachedHouse == null)
+            return false;
+        return Vector3.Distance(transform.position, _attachedHouse.transform.position) <= _hitRadius;
     }
 
-    IEnumerator RandomizeTarget()
+    private bool atTarget()
     {
-        for (; ; )
-        {
-            _target = randomVector();
-            yield return new WaitForSeconds(2f);
-        }
+        if (_targetObject == null)
+            return false;
+        return Vector3.Distance(transform.position, _targetObject.transform.position) <= _hitRadius;
     }
 
     IEnumerator UpdatePerson()
     {
-        for (; ; )
+        for (;;)
         {
-            if (Vector3.Distance(transform.position, _houseLocation) <= _hitRadius)
+            if (atHome())
             {
                 _fatigue = _fatigue <= 0 ? 0 : _fatigue - 10;
             }
-            else if (Vector3.Distance(transform.position, _workLocation) < _hitRadius ||
-                     Vector3.Distance(transform.position, _farmLocation) < _hitRadius)
+            else if (atTarget())  // generate fatigue if at a target that is not home
             {
                 _fatigue = _fatigue >= 100 ? 100 : _fatigue + 10;
             }
