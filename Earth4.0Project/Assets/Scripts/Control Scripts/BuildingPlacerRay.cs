@@ -9,23 +9,13 @@ public class BuildingPlacerRay : MonoBehaviour {
 
     private LineRenderer _lineRenderer;
 
-    public GameObject _factoryPrefab;
-    public GameObject _farmPrefab;
-    public GameObject _housePrefab;
-    public GameObject _treePrefab;
-
     private GameObject _world;
-    private GameObject _mostRecentInstance;
     private int _layerMask;
 
     private RaycastHit _hit;
 
-    //0 = none
-    //1 = factory
-    //2 = farm
-    //3 = house
-    //4 = tree
-    private int _equippedBuilding = 0;
+    private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
+    private Buildings _equippedBuilding = Buildings.None;
 
     void Start () {
 
@@ -47,9 +37,9 @@ public class BuildingPlacerRay : MonoBehaviour {
         rayCollisionHandler();
 
     }
- 
+
     void rayCollisionHandler(){
-        
+
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
         {
@@ -64,23 +54,27 @@ public class BuildingPlacerRay : MonoBehaviour {
                 {
                     if (collidedObject.name == "FactoryButton")
                     {
-                        _equippedBuilding = 1;
+                        _equippedBuilding = Buildings.Factory;
                     }
                     if(collidedObject.name == "FarmButton")
                     {
-                        _equippedBuilding = 2;
+                        _equippedBuilding = Buildings.Farm;
                     }
                     if(collidedObject.name == "HouseButton")
                     {
-                        _equippedBuilding = 3;
+                        _equippedBuilding = Buildings.House;
                     }
                     if(collidedObject.name == "TreeButton")
                     {
-                        _equippedBuilding = 4;
+                        _equippedBuilding = Buildings.Tree;
+                    }
+                    if(collidedObject.name == "CottonButton")
+                    {
+                        _equippedBuilding = Buildings.Cotton;
                     }
                 }
             }
-                        
+
             //If the trigger is released while the cursor is over the world instantiate a building
             if (collidedObject.name == "World")
             {
@@ -90,13 +84,12 @@ public class BuildingPlacerRay : MonoBehaviour {
                     //Instantiated equipped building on the face of the world
                     instantiateOnWorld();
 
-                _mostRecentInstance = null;
-                _equippedBuilding = 0;
+                _equippedBuilding = Buildings.None;
                 }
 
             }
-           
-        
+
+
             //Make line visible to user and turn green
             _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
             _lineRenderer.material.color = Color.green;
@@ -107,58 +100,51 @@ public class BuildingPlacerRay : MonoBehaviour {
             //If playerer released the trigger and isn't hovering over the world, cancel item placement
             if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
             {
-                _equippedBuilding = 0;
+                _equippedBuilding = Buildings.None;
             }
-            
+
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             //Make line visible to user and turn red
             _lineRenderer.SetPosition(1, Vector3.forward*_length_multiplier);
             _lineRenderer.material.color = Color.red;
         }
 
-    }              
+    }
 
- 
+
     void instantiateOnWorld(){
-        GameObject newItem = null;
         Vector3 normalOffSphere = _hit.normal;
         Quaternion rotation = Quaternion.LookRotation(_hit.normal);
 
         //Instatiate the correct building if there is enough money and the GameManager returns true
-        if(_equippedBuilding == 0){
+        if(_equippedBuilding == Buildings.None)
+        {
             return;
         }
-        if(_equippedBuilding == 1){
-
-            if(!_world.GetComponent<GameManager>().addFactory(newItem)){
-                return;
-            }
-            newItem = Instantiate(_factoryPrefab, _hit.point, rotation);
-        }
-        if(_equippedBuilding == 2)
+        else if (_equippedBuilding == Buildings.Factory)
         {
-            if(!_world.GetComponent<GameManager>().addFarm(newItem)){
-                return;
-            }
-            newItem = Instantiate(_farmPrefab, _hit.point, rotation);
+            _world.GetComponent<GameManager>().addFactory(_hit.point, rotation);
         }
-        if(_equippedBuilding == 3)
+        else if(_equippedBuilding == Buildings.Farm)
         {
-            if(!_world.GetComponent<GameManager>().addHouse(newItem)){
-                return;
-            }
-            newItem = Instantiate(_housePrefab,_hit.point, rotation);
+            _world.GetComponent<GameManager>().addFarm(_hit.point, rotation);
         }
-        if(_equippedBuilding == 4)
+        else if(_equippedBuilding == Buildings.House)
         {
-            if(!_world.GetComponent<GameManager>().addTree(newItem)){
-                return;
-            }
-            newItem = Instantiate(_treePrefab,_hit.point, rotation);
+            _world.GetComponent<GameManager>().addHouse(_hit.point, rotation);
         }
-        newItem.transform.Rotate(90, 0, 0);
-        newItem.transform.parent = _world.transform;
-        _mostRecentInstance = newItem;
+        else if(_equippedBuilding == Buildings.Tree)
+        {
+            _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
+        }
+        else if(_equippedBuilding == Buildings.Tree)
+        {
+            //_world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
+        }
+        else
+        {
+            Debug.Log("ERROR: [BuildingPlacerRay.cs - instantiateOnWorld] invalid building type");
+        }
     }
-    
+
 }

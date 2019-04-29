@@ -36,12 +36,16 @@ public class GameManager : MonoBehaviour {
     public float _currentFood;
     public float _currentCotton;
 
+    // Game PreFabs
+    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab;
+
     // Game Objects
     public List<GameObject> _factoryList = new List<GameObject>();
     public List<GameObject> _farmList = new List<GameObject>();
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
 
+    private GameObject _world;
     private GameObject _moneyText, _foodText, _cottonText;
 
     #endregion
@@ -55,6 +59,7 @@ public class GameManager : MonoBehaviour {
         _currentFood = _STARTING_FOOD;
         _currentCotton = _STARTING_COTTON;
 
+        _world = GameObject.Find("World");
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
@@ -71,7 +76,7 @@ public class GameManager : MonoBehaviour {
         updateText();
 
         if (_currentTickTime >= _TICK_TIME)
-            onTick();        
+            onTick();
 	}
 
     private void onTick()
@@ -96,41 +101,53 @@ public class GameManager : MonoBehaviour {
 
     #region BuildingPlacement
 
-    public bool addFactory(GameObject factory)
+    private GameObject instantiateOnWorld(GameObject prefab, Vector3 location, Quaternion rotation)
+    {
+        GameObject newItem = Instantiate(prefab, location, rotation);
+        newItem.transform.Rotate(90, 0, 0);
+        newItem.transform.parent = transform;
+        return newItem;
+    }
+
+    public bool addFactory(Vector3 location, Quaternion rotation)
     {
         if (_currentMoney < _COST_FACTORY)
             return false;
-
         _currentMoney -= _COST_FACTORY;
+
+        GameObject factory = instantiateOnWorld(_factoryPrefab, location, rotation);
         _factoryList.Add(factory);
         return true;
     }
 
-    public bool addFarm(GameObject farm)
+    public bool addFarm(Vector3 location, Quaternion rotation)
     {
         if (_currentMoney < _COST_FARM)
             return false;
-
         _currentMoney -= _COST_FARM;
+
+        GameObject farm = instantiateOnWorld(_farmPrefab, location, rotation);
         _farmList.Add(farm);
         return true;
     }
 
-    public bool addHouse(GameObject house)
+    public bool addHouse(Vector3 location, Quaternion rotation)
     {
         if (_currentMoney < _COST_HOUSE)
             return false;
-
         _currentMoney -= _COST_HOUSE;
+
+        GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
         return true;
     }
 
-    public bool addTree(GameObject tree) {
+    public bool addTree(Vector3 location, Quaternion rotation) {
         if (_currentMoney < _COST_TREE)
             return false;
-
         _currentMoney -= _COST_TREE;
+
+        GameObject tree = instantiateOnWorld(_treePrefab, location, rotation);
         _treeList.Add(tree);
         return true;
     }

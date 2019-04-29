@@ -14,6 +14,8 @@ public class PersonController : MonoBehaviour {
     private GameObject _world;
     public GameObject _housePrefab, _farmPrefab, _factoryPrefab;
 
+    private enum Buildings { None, Factory, Farm, House, Tree };
+
     // Use this for initialization
     void Start()
     {
@@ -29,9 +31,9 @@ public class PersonController : MonoBehaviour {
         _hitRadius = 0.05f;
         _target = _workLocation;
 
-        instantiateObject("HOUSE", _houseLocation);
-        instantiateObject("FARM", _farmLocation);
-        instantiateObject("FACTORY", _workLocation);
+        // instantiateObject(Buildings.House, _houseLocation);
+        // instantiateObject(Buildings.Farm, _farmLocation);
+        // instantiateObject(Buildings.Factory, _workLocation);
 
         StartCoroutine("UpdatePerson");
     }
@@ -104,36 +106,27 @@ public class PersonController : MonoBehaviour {
         );
     }
 
-    private void instantiateObject(string modelType, Vector3 location)
+    private void instantiateObject(Buildings modelType, Vector3 location)
     {
-        // modelType should be one of ["HOUSE", "FARM", "FACTORY"]
-
-        GameObject newItem = null;
         Vector3 normalOffSphere = location - _world.transform.position;
         Quaternion rotation = Quaternion.LookRotation(normalOffSphere);
 
-        if (modelType == "HOUSE")
+        if (modelType == Buildings.House)
         {
-            newItem = Instantiate(_housePrefab, location, rotation);
-            _world.GetComponent<GameManager>().addHouse(newItem);
+            _world.GetComponent<GameManager>().addHouse(location, rotation);
         }
-        else if (modelType == "FARM")
+        else if (modelType == Buildings.Farm)
         {
-            newItem = Instantiate(_farmPrefab, location, rotation);
-            _world.GetComponent<GameManager>().addFarm(newItem);
+            _world.GetComponent<GameManager>().addFarm(location, rotation);
         }
-        else if (modelType == "FACTORY")
+        else if (modelType == Buildings.Factory)
         {
-            newItem = Instantiate(_factoryPrefab, location, rotation);
-            _world.GetComponent<GameManager>().addFactory(newItem);
+            _world.GetComponent<GameManager>().addFactory(location, rotation);
         }
         else
         {
             Debug.Log("ERROR: Incorrect modelType in PersonMover script.");
         }
-
-        newItem.transform.Rotate(90, 0, 0);
-        newItem.transform.parent = _world.transform;
     }
 
     IEnumerator RandomizeTarget()
