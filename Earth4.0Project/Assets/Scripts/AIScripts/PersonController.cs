@@ -17,7 +17,7 @@ public class PersonController : MonoBehaviour {
     private GameObject _targetObject;
     private Buildings _targetBuilding;
 
-    private enum Buildings { None, Factory, Farm, House, Tree };
+    private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
 
     // Use this for initialization
     void Start()
@@ -77,21 +77,26 @@ public class PersonController : MonoBehaviour {
         }
         else if (_fatigue <= 0)
         {
-            // Ready to work
-            if (Random.Range(0.0f, 1.0f) <= 0.5f) {
-                int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
-                if (farmCount > 0) {
-                    int farmIndex = Random.Range(0, farmCount);
-                    targetObject = _world.GetComponent<GameManager>()._farmList[farmIndex];
-                    targetBuilding = Buildings.Farm;
-                }
-            }
-            if (targetObject == null) {
-                int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
-                if (factoryCount > 0) {
-                    int factoryIndex = Random.Range(0, factoryCount);
-                    targetObject = _world.GetComponent<GameManager>()._factoryList[factoryIndex];
-                    targetBuilding = Buildings.Factory;
+            List<Buildings> availableBuildings = new List<Buildings>();
+            int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
+            int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
+            int cottonCount = _world.GetComponent<GameManager>()._cottonList.Count;
+
+            if (farmCount > 0)
+                availableBuildings.Add(Buildings.Farm);
+            if (factoryCount > 0)
+                availableBuildings.Add(Buildings.Factory);
+            if (cottonCount > 0)
+                availableBuildings.Add(Buildings.Cotton);
+
+            if (availableBuildings.Count > 0) {
+                targetBuilding = availableBuildings[Random.Range(0, availableBuildings.Count)];
+                if (targetBuilding == Buildings.Farm) {
+                    targetObject = _world.GetComponent<GameManager>()._farmList[Random.Range(0, farmCount)];
+                } else if (targetBuilding == Buildings.Factory) {
+                    targetObject = _world.GetComponent<GameManager>()._factoryList[Random.Range(0, factoryCount)];
+                } else if (targetBuilding == Buildings.Cotton) {
+                    targetObject = _world.GetComponent<GameManager>()._cottonList[Random.Range(0, cottonCount)];
                 }
             }
         }
@@ -109,6 +114,8 @@ public class PersonController : MonoBehaviour {
             _world.GetComponent<GameManager>()._currentFarmWorkers += 1;
         } else if (building == Buildings.Factory) {
             _world.GetComponent<GameManager>()._currentFactoryWorkers += 1;
+        } else if (building == Buildings.Cotton) {
+            _world.GetComponent<GameManager>()._currentCottonWorkers += 1;
         }
     }
 
@@ -118,6 +125,8 @@ public class PersonController : MonoBehaviour {
             _world.GetComponent<GameManager>()._currentFarmWorkers -= 1;
         } else if (building == Buildings.Factory) {
             _world.GetComponent<GameManager>()._currentFactoryWorkers -= 1;
+        } else if (building == Buildings.Cotton) {
+            _world.GetComponent<GameManager>()._currentCottonWorkers -= 1;
         }
     }
 

@@ -117,7 +117,7 @@ public class BuildingPlacerRay : MonoBehaviour {
         Quaternion rotation = Quaternion.LookRotation(_hit.normal);
 
         //Instatiate the correct building if there is enough money and the GameManager returns true
-        if(_equippedBuilding == Buildings.None)
+        if (_equippedBuilding == Buildings.None)
         {
             return;
         }
@@ -137,9 +137,9 @@ public class BuildingPlacerRay : MonoBehaviour {
         {
             _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
         }
-        else if(_equippedBuilding == Buildings.Tree)
+        else if(_equippedBuilding == Buildings.Cotton)
         {
-            //_world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
+            _world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
         }
         else
         {

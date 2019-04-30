@@ -13,16 +13,23 @@ public class GameManager : MonoBehaviour {
     public const float _STARTING_COTTON = 200.0f;
     private const float _STARTING_POLLUTION = 0.0f;
 
+    private const float _GAME_WIN_MONEY = 2000.0f;
+    private const float _GAME_LOSE_POLLUTION = 300.0f;
+
     public const float _COST_FACTORY = 100.0f;
     public const float _COST_FARM = 50.0f;
     public const float _COST_HOUSE = 50.0f;
     public const float _COST_TREE = 20.0f;
+    public const float _COST_COTTON = 50.0f;
 
-    private const float _TICK_TIME = 2.0f; // There are 5 seconds between 'ticks'
-    public const float _FACTORY_POLLUTION_PER_TICK = 1.0f;
-    public const float _FARM_FOOD_PER_TICK = 6.0f;
-    public const float _FOOD_EATEN_PER_TICK = 1.0f;
-    public const float _FACTORY_MONEY_PER_TICK = 4.0f;
+    private const float _TICK_TIME = 4.0f; // There are 5 seconds between 'ticks'
+    public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
+    public const float _TREE_DEPOLLUTION_PER_TICK = 10.0f;
+    public const float _FARM_FOOD_PER_TICK = 8.0f;
+    public const float _FOOD_EATEN_PER_TICK = 4.0f;
+    public const float _FACTORY_MONEY_PER_TICK = 8.0f;
+    public const float _FACTORY_COTTON_PER_TICK = 6.0f;
+    public const float _COTTON_PER_TICK = 6.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
@@ -39,11 +46,11 @@ public class GameManager : MonoBehaviour {
     public float _currentFood;
     public float _currentCotton;
 
-    public int _currentFactoryWorkers, _currentFarmWorkers;
+    public int _currentFactoryWorkers, _currentFarmWorkers, _currentCottonWorkers;
 
     // Game PreFabs
     public GameObject _personPrefab;
-    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab;
+    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
 
     // Game Objects
     public List<GameObject> _personList = new List<GameObject>();
@@ -51,6 +58,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> _farmList = new List<GameObject>();
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
+    public List<GameObject> _cottonList = new List<GameObject>();
 
     private GameObject _moneyText, _foodText, _cottonText;
 
@@ -67,6 +75,7 @@ public class GameManager : MonoBehaviour {
 
         _currentFactoryWorkers = 0;
         _currentFarmWorkers = 0;
+        _currentCottonWorkers = 0;
 
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
@@ -91,9 +100,15 @@ public class GameManager : MonoBehaviour {
     {
         _currentTickTime = 0f;
 
-        _currentPollution += _currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK;
+        _currentPollution += _currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK;
         _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
+        _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
+
+        // Set to 0.0f if negative
+        _currentPollution = clampAtZero(_currentPollution);
+        _currentFood = clampAtZero(_currentFood);
+        _currentCotton = clampAtZero(_currentCotton);
 
         checkWinCondition();
 
@@ -169,17 +184,35 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public bool addCotton(Vector3 location, Quaternion rotation) {
+        if (_currentMoney < _COST_COTTON)
+            return false;
+        _currentMoney -= _COST_COTTON;
+
+        GameObject cotton = instantiateOnWorld(_cottonPrefab, location, rotation);
+        _cottonList.Add(cotton);
+        return true;
+    }
+
     #endregion
 
     #region WinCondition
 
     private void checkWinCondition()
     {
-        if (_currentPollution > 150.0f || _currentFood <= 0.0f) {
+        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f) {
             Debug.Log("GAME OVER!");
-        } else if (_currentMoney > 1000.0f) {
+        } else if (_currentMoney > _GAME_WIN_MONEY) {
             Debug.Log("YOU WIN!");
         }
+    }
+
+    #endregion
+
+    #region UtilityFunctions
+
+    private float clampAtZero(float val) {
+        return val < 0.0f ? 0.0f : val;
     }
 
     #endregion
@@ -189,7 +222,7 @@ public class GameManager : MonoBehaviour {
     private void logValues()
     {
         Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
-        Debug.Log("Current Factory Workers: " + _currentFactoryWorkers + "     Current Farm Workers: " + _currentFarmWorkers);
+        Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
     #endregion
