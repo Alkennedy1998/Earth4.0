@@ -77,6 +77,21 @@ public class PersonController : MonoBehaviour {
         }
         else if (_fatigue <= 0)
         {
+            // New algorithm:
+            //
+            // Goal: AI should intelligently select targets based on
+            // environmental factors, proximity, resources, availability.
+            //
+            // Produce one weight for each building type, and decide which
+            // building type has the highest weight. Go to nearest available
+            // building of that type.
+            //
+            // Each building weight should be affected by:
+            //     1. Proximity (and number?) of closest available buildings
+            //     2. Surplus/demand of relevant resource for that building type
+            //     3. Number of people working at that building type (rate of change)
+            //
+
             List<Buildings> availableBuildings = new List<Buildings>();
             int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
             int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
