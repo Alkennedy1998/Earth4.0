@@ -516,6 +516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4944936846425198}
   - component: {fileID: 95734994759185524}
+  - component: {fileID: 114265974656607898}
   m_Layer: 0
   m_Name: BaseMesh_Anim 1
   m_TagString: Untagged
@@ -1441,7 +1442,7 @@ Transform:
   m_GameObject: {fileID: 1644106589155178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.7875857, y: 1.7631891, z: -0.11402178}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_Children:
   - {fileID: 4429804526006636}
   - {fileID: 4269621472796144}
@@ -1480,6 +1481,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114265974656607898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1644106589155178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bade4545e7751e4facca89e473e8187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attachedHouse: {fileID: 0}
 --- !u!137 &137349185580918016
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -213,6 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4678882013159866}
+  - component: {fileID: 114344752775859252}
   m_Layer: 0
   m_Name: Factory Prefab
   m_TagString: Untagged
@@ -782,3 +783,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716245217992158}
   m_Mesh: {fileID: 4300010, guid: 13a0f8d3611aca44690e899a12dbed61, type: 3}
+--- !u!114 &114344752775859252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1810128983496596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e919d3ffbc4901b4e9edd761be1eef2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _smokePrefab: {fileID: 1481764736306912, guid: a2f4c0a40e7d08847833ad11b4aa35aa,
+    type: 2}

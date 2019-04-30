@@ -208,6 +208,8 @@ public class GameManager : MonoBehaviour {
 
         } else if (_currentMoney > _GAME_WIN_MONEY) {
             Debug.Log("YOU WIN!");
+            GameObject text = GameObject.Find("WinGameText");
+            text.GetComponent<Renderer>().enabled = true;
         }
     }
 

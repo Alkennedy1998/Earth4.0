@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198410918231951834}
   - component: {fileID: 199573881050339186}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Smog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,10 +48,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1481764736306912}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 2.5
   simulationSpeed: 1
-  stopAction: 0
-  looping: 1
+  stopAction: 2
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -120,7 +120,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 9
+      scalar: 3.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -289,8 +289,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
-      minScalar: 10
+      scalar: 13
+      minScalar: 9
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -814,7 +814,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
