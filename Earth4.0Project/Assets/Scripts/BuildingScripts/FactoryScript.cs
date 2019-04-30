@@ -1,0 +1,39 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FactoryScript : MonoBehaviour {
+
+    private const float _TICK_TIME = 5.0f; // There are 5 seconds between 'ticks'
+	private const float _SMOKE_OFFSET_MULTIPLIER = 1.25f; // Height above factory
+
+    // Internal Values
+    private float _currentTickTime = 0.0f;
+
+	private GameObject _world;
+	public GameObject _smokePrefab;
+
+	// Use this for initialization
+	void Start () {
+		_world = GameObject.Find("World");
+	}
+
+	// Update is called once per frame
+	void Update () {
+        _currentTickTime += Time.deltaTime;
+
+        if (_currentTickTime >= _TICK_TIME)
+            onTick();
+	}
+
+	void onTick() {
+		_currentTickTime = 0f;
+
+		Vector3 factoryPositionFromCenter = transform.position - _world.transform.position;
+		Vector3 smokePositionFromCenter = _SMOKE_OFFSET_MULTIPLIER * factoryPositionFromCenter;
+		Vector3 smokeLocation = smokePositionFromCenter + _world.transform.position;
+
+		GameObject smoke = Instantiate(_smokePrefab, smokeLocation, transform.rotation);
+		smoke.transform.parent = transform;
+	}
+}

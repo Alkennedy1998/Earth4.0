@@ -22,14 +22,14 @@ public class GameManager : MonoBehaviour {
     public const float _COST_TREE = 20.0f;
     public const float _COST_COTTON = 50.0f;
 
-    private const float _TICK_TIME = 4.0f; // There are 5 seconds between 'ticks'
+    private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
-    public const float _TREE_DEPOLLUTION_PER_TICK = 10.0f;
-    public const float _FARM_FOOD_PER_TICK = 8.0f;
-    public const float _FOOD_EATEN_PER_TICK = 4.0f;
+    public const float _TREE_DEPOLLUTION_PER_TICK = 6.0f;
+    public const float _FARM_FOOD_PER_TICK = 45.0f;
+    public const float _FOOD_EATEN_PER_TICK = 6.0f;
     public const float _FACTORY_MONEY_PER_TICK = 8.0f;
     public const float _FACTORY_COTTON_PER_TICK = 6.0f;
-    public const float _COTTON_PER_TICK = 6.0f;
+    public const float _COTTON_PER_TICK = 9.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
@@ -202,6 +202,10 @@ public class GameManager : MonoBehaviour {
     {
         if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f) {
             Debug.Log("GAME OVER!");
+            GameObject text = GameObject.Find("GameOverText");
+            text.GetComponent<Renderer>().enabled = true;
+
+
         } else if (_currentMoney > _GAME_WIN_MONEY) {
             Debug.Log("YOU WIN!");
         }
