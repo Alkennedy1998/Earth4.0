@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour {
     #region Constants
 
     // Constants
-    public const float _STARTING_MONEY = 3000.0f;
-    public const float _STARTING_FOOD = 1000.0f;
-    public const float _STARTING_COTTON = 1000.0f;
+    public const float _STARTING_MONEY = 400.0f;
+    public const float _STARTING_FOOD = 200.0f;
+    public const float _STARTING_COTTON = 200.0f;
     private const float _STARTING_POLLUTION = 0.0f;
 
     public const float _COST_FACTORY = 100.0f;
@@ -18,11 +18,13 @@ public class GameManager : MonoBehaviour {
     public const float _COST_HOUSE = 50.0f;
     public const float _COST_TREE = 20.0f;
 
-    private const float _TICK_TIME = 5.0f; // There are 5 seconds between 'ticks'
+    private const float _TICK_TIME = 2.0f; // There are 5 seconds between 'ticks'
     public const float _FACTORY_POLLUTION_PER_TICK = 1.0f;
-    public const float _FARM_FOOD_PER_TICK = 1.0f;
+    public const float _FARM_FOOD_PER_TICK = 6.0f;
     public const float _FOOD_EATEN_PER_TICK = 1.0f;
-    public const float _FACTORY_MONEY_PER_TICK = 2.0f;
+    public const float _FACTORY_MONEY_PER_TICK = 4.0f;
+
+    public const int _PEOPLE_PER_HOUSE = 5;
 
     #endregion
 
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour {
         _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
 
+        checkWinCondition();
+
         logValues();
     }
 
@@ -146,9 +150,12 @@ public class GameManager : MonoBehaviour {
         GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
 
-        GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
-        person.GetComponent<PersonController>()._attachedHouse = house;
-        _personList.Add(person);
+        // Add new people attached to this house
+        for (int i = 0; i < _PEOPLE_PER_HOUSE; i++) {
+            GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
+            person.GetComponent<PersonController>()._attachedHouse = house;
+            _personList.Add(person);
+        }
         return true;
     }
 
@@ -160,6 +167,19 @@ public class GameManager : MonoBehaviour {
         GameObject tree = instantiateOnWorld(_treePrefab, location, rotation);
         _treeList.Add(tree);
         return true;
+    }
+
+    #endregion
+
+    #region WinCondition
+
+    private void checkWinCondition()
+    {
+        if (_currentPollution > 150.0f || _currentFood <= 0.0f) {
+            Debug.Log("GAME OVER!");
+        } else if (_currentMoney > 1000.0f) {
+            Debug.Log("YOU WIN!");
+        }
     }
 
     #endregion
