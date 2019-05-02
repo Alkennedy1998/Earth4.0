@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingPlacerRay : MonoBehaviour {
+public class BuildingPlacerRay : MonoBehaviour
+{
 
     public float _length_multiplier = 10;
     public float _lineWidth = 0.3f;
@@ -17,7 +18,10 @@ public class BuildingPlacerRay : MonoBehaviour {
     private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
     private Buildings _equippedBuilding = Buildings.None;
 
-    void Start () {
+    private bool triggerHasBeenReleased = true;
+
+    void Start()
+    {
 
         _world = GameObject.Find("World");
 
@@ -32,87 +36,142 @@ public class BuildingPlacerRay : MonoBehaviour {
         _layerMask = ~_layerMask;
     }
 
-    void Update () {
+    void Update()
+    {
 
         rayCollisionHandler();
 
     }
 
-    void rayCollisionHandler(){
-
-        // Does the ray intersect any objects excluding the player layer
+    void rayCollisionHandler()
+    {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
         {
+
             var collidedObject = _hit.collider.gameObject;
-
-            if(collidedObject.tag == "Button" && _equippedBuilding == 0)
-            {
-                //Make controller vibrate when hovering over selectable buttons
-                OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
-
-                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true)
-                {
-                    if (collidedObject.name == "FactoryButton")
-                    {
-                        _equippedBuilding = Buildings.Factory;
-                    }
-                    if(collidedObject.name == "FarmButton")
-                    {
-                        _equippedBuilding = Buildings.Farm;
-                    }
-                    if(collidedObject.name == "HouseButton")
-                    {
-                        _equippedBuilding = Buildings.House;
-                    }
-                    if(collidedObject.name == "TreeButton")
-                    {
-                        _equippedBuilding = Buildings.Tree;
-                    }
-                    if(collidedObject.name == "CottonButton")
-                    {
-                        _equippedBuilding = Buildings.Cotton;
-                    }
-                }
-            }
-
-            //If the trigger is released while the cursor is over the world instantiate a building
-            if (collidedObject.name == "World")
-            {
-
-                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-                {
-                    //Instantiated equipped building on the face of the world
-                    instantiateOnWorld();
-
-                _equippedBuilding = Buildings.None;
-                }
-
-            }
-
 
             //Make line visible to user and turn green
             _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
             _lineRenderer.material.color = Color.green;
 
+            //If collider intersects a button set active Item to that button item
+            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true && triggerHasBeenReleased)
+            {
+                triggerHasBeenReleased = false;
+
+                if (collidedObject.name == "FactoryButton")
+                {
+                    _equippedBuilding = Buildings.Factory;
+                }
+                else if (collidedObject.name == "FarmButton")
+                {
+                    _equippedBuilding = Buildings.Farm;
+                }
+                else if (collidedObject.name == "HouseButton")
+                {
+                    _equippedBuilding = Buildings.House;
+                }
+                else if (collidedObject.name == "TreeButton")
+                {
+                    _equippedBuilding = Buildings.Tree;
+                }
+                else if (collidedObject.name == "CottonButton")
+                {
+                    _equippedBuilding = Buildings.Cotton;
+                }
+                else if (collidedObject.name == "World"){
+                    instantiateOnWorld();
+                }
+            }
+            else if(OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false){
+                triggerHasBeenReleased = true;
+            }
+        
         }
+        //Ray doesn't collide with anything
         else
         {
-            //If playerer released the trigger and isn't hovering over the world, cancel item placement
-            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-            {
-                _equippedBuilding = Buildings.None;
-            }
-
-            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
-            //Make line visible to user and turn red
-            _lineRenderer.SetPosition(1, Vector3.forward*_length_multiplier);
             _lineRenderer.material.color = Color.red;
         }
 
     }
+    /* 
+        void rayCollisionHandler(){
+
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
+            {
+                var collidedObject = _hit.collider.gameObject;
+
+                if(collidedObject.tag == "Button" && _equippedBuilding == 0)
+                {
+                    //Make controller vibrate when hovering over selectable buttons
+                    OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
+
+                    if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true)
+                    {
+                        if (collidedObject.name == "FactoryButton")
+                        {
+                            _equippedBuilding = Buildings.Factory;
+                        }
+                        if(collidedObject.name == "FarmButton")
+                        {
+                            _equippedBuilding = Buildings.Farm;
+                        }
+                        if(collidedObject.name == "HouseButton")
+                        {
+                            _equippedBuilding = Buildings.House;
+                        }
+                        if(collidedObject.name == "TreeButton")
+                        {
+                            _equippedBuilding = Buildings.Tree;
+                        }
+                        if(collidedObject.name == "CottonButton")
+                        {
+                            _equippedBuilding = Buildings.Cotton;
+                        }
+                    }
+                }
+
+                //If the trigger is released while the cursor is over the world instantiate a building
+                if (collidedObject.name == "World")
+                {
+
+                    if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
+                    {
+                        //Instantiated equipped building on the face of the world
+                        instantiateOnWorld();
+
+                    _equippedBuilding = Buildings.None;
+                    }
+
+                }
 
 
-    void instantiateOnWorld(){
+                //Make line visible to user and turn green
+                _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
+                _lineRenderer.material.color = Color.green;
+
+            }
+            else
+            {
+                //If playerer released the trigger and isn't hovering over the world, cancel item placement
+                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
+                {
+                    _equippedBuilding = Buildings.None;
+                }
+
+                OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+                //Make line visible to user and turn red
+                _lineRenderer.SetPosition(1, Vector3.forward*_length_multiplier);
+                _lineRenderer.material.color = Color.red;
+            }
+
+        }
+
+    */
+    void instantiateOnWorld()
+    {
         Vector3 normalOffSphere = _hit.normal;
         Quaternion rotation = Quaternion.LookRotation(_hit.normal);
 
@@ -123,21 +182,22 @@ public class BuildingPlacerRay : MonoBehaviour {
         }
         else if (_equippedBuilding == Buildings.Factory)
         {
+
             _world.GetComponent<GameManager>().addFactory(_hit.point, rotation);
         }
-        else if(_equippedBuilding == Buildings.Farm)
+        else if (_equippedBuilding == Buildings.Farm)
         {
             _world.GetComponent<GameManager>().addFarm(_hit.point, rotation);
         }
-        else if(_equippedBuilding == Buildings.House)
+        else if (_equippedBuilding == Buildings.House)
         {
             _world.GetComponent<GameManager>().addHouse(_hit.point, rotation);
         }
-        else if(_equippedBuilding == Buildings.Tree)
+        else if (_equippedBuilding == Buildings.Tree)
         {
             _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
         }
-        else if(_equippedBuilding == Buildings.Cotton)
+        else if (_equippedBuilding == Buildings.Tree)
         {
             _world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
         }
