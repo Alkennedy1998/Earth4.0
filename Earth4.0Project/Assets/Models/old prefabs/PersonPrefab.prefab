@@ -1492,12 +1492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bade4545e7751e4facca89e473e8187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _housePrefab: {fileID: 1766175810116242, guid: 81011d89b4b7b204099acf3689b3a2d6,
-    type: 2}
-  _farmPrefab: {fileID: 1206304760818466, guid: 40a3b0abc42965243a70dac18fbff2ac,
-    type: 2}
-  _factoryPrefab: {fileID: 1554830366627850, guid: d5a66730f7c52384c9cf52d79dc3f209,
-    type: 2}
+  _attachedHouse: {fileID: 0}
 --- !u!137 &137200286818399328
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
