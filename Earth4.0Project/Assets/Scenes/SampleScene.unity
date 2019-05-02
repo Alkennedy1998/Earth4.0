@@ -4863,13 +4863,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273177680}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0, z: -0.00069049717, w: 0.99999976}
   m_LocalPosition: {x: -4.96, y: -0.47, z: 1.74}
   m_LocalScale: {x: 6.6521063, y: 6.6521063, z: 6.6521063}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.079}
 --- !u!114 &1273177685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4901,15 +4901,15 @@ MonoBehaviour:
   _currentCottonWorkers: 0
   _personPrefab: {fileID: 1294253018031420, guid: 149fad3b78a197d40ac336bcef2adcd0,
     type: 2}
-  _factoryPrefab: {fileID: 1810128983496596, guid: 7eb6935d949c7c84e8d827d464cb36e5,
+  _factoryPrefab: {fileID: 1793330689244022, guid: 6300815e853b9af4095646f9f5926c17,
     type: 2}
-  _farmPrefab: {fileID: 1255967592712400, guid: 0d7496fbf1bb8b2499ee1a857d044273,
+  _farmPrefab: {fileID: 1626379811202258, guid: ee095f54207a9fe4b8faf37c74c0ea3c,
     type: 2}
-  _housePrefab: {fileID: 1710825222194720, guid: 02e423aca38eb004aae0de1c2c1dab19,
+  _housePrefab: {fileID: 1141341820156336, guid: a1fc5c6d87aca6149ba7f7eb9fc8fd6e,
     type: 2}
-  _treePrefab: {fileID: 1484890984906388, guid: 82ac98052df38ca46b09ac34be64080c,
+  _treePrefab: {fileID: 1300173128618092, guid: a68708b2d5636ea45a8cb90546024ed3,
     type: 2}
-  _cottonPrefab: {fileID: 1670516577357652, guid: 758c5e5c63d68c844bc2481f5e334d26,
+  _cottonPrefab: {fileID: 1521074457014234, guid: d2f186cf01a0440409c47193a0845c1a,
     type: 2}
   _personList: []
   _factoryList: []
@@ -5414,6 +5414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _length_multiplier: 10
   _lineWidth: 0.3
+  _buildingCollisions: 0
 --- !u!1001 &1720529810
 Prefab:
   m_ObjectHideFlags: 0

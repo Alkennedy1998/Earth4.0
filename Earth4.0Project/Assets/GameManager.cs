@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
 
     #region BuildingPlacement
 
-    private GameObject instantiateOnWorld(GameObject prefab, Vector3 location, Quaternion rotation)
+    public GameObject instantiateOnWorld(GameObject prefab, Vector3 location, Quaternion rotation)
     {
         GameObject newItem = Instantiate(prefab, location, rotation);
         newItem.transform.Rotate(90, 0, 0);
@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour {
 
     private void logValues()
     {
-        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
-        Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
+        //Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+        //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
     #endregion
