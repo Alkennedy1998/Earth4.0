@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour {
     public const float _FACTORY_COTTON_PER_TICK = 6.0f;
     public const float _COTTON_PER_TICK = 9.0f;
 
+    public const float _MAX_POLLUTION = 30.0f;
+
     public const int _PEOPLE_PER_HOUSE = 5;
 
     #endregion
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
     // Game PreFabs
     public GameObject _personPrefab;
-    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
+    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab, _smogLayerPrefab;
 
     // Game Objects
     public List<GameObject> _personList = new List<GameObject>();
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
     public List<GameObject> _cottonList = new List<GameObject>();
+    public List<GameObject> _smogLayersList = new List<GameObject>();
 
     private GameObject _moneyText, _foodText, _cottonText;
 
@@ -80,6 +83,12 @@ public class GameManager : MonoBehaviour {
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
+
+        foreach (GameObject layer in _smogLayersList)
+        {
+            layer.transform.rotation = Random.rotation;
+           
+        }
     }
 
     #endregion
@@ -91,6 +100,7 @@ public class GameManager : MonoBehaviour {
 
         _currentTickTime += Time.deltaTime;
         updateText();
+        updateSmog();
 
         if (_currentTickTime >= _TICK_TIME)
             onTick();
@@ -120,6 +130,14 @@ public class GameManager : MonoBehaviour {
         _moneyText.GetComponent<TextMeshPro>().text = _currentMoney.ToString();
         _foodText.GetComponent<TextMeshPro>().text = _currentFood.ToString();
         _cottonText.GetComponent<TextMeshPro>().text = _currentCotton.ToString();
+    }
+
+    private void updateSmog()
+    {
+        for (int i = 0; i < _smogLayersList.Count; i++)
+        {
+            _smogLayersList[i].transform.Rotate(0.02f * (i + 1.0f * 0.2f), .1f * (i + 1.0f * 0.2f), 0.0f);
+        }
     }
 
     #endregion
