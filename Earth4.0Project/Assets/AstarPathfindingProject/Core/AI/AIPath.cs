@@ -247,15 +247,22 @@ namespace Pathfinding {
 			interpolator.SetPath(null);
 		}
 
-		/// <summary>
-		/// The end of the path has been reached.
-		/// If you want custom logic for when the AI has reached it's destination add it here. You can
-		/// also create a new script which inherits from this one and override the function in that script.
-		///
-		/// This method will be called again if a new path is calculated as the destination may have changed.
-		/// So when the agent is close to the destination this method will typically be called every <see cref="repathRate"/> seconds.
-		/// </summary>
-		public virtual void OnTargetReached () {
+        /// <summary>
+        /// The end of the path has been reached.
+        /// If you want custom logic for when the AI has reached it's destination add it here. You can
+        /// also create a new script which inherits from this one and override the function in that script.
+        ///
+        /// This method will be called again if a new path is calculated as the destination may have changed.
+        /// So when the agent is close to the destination this method will typically be called every <see cref="repathRate"/> seconds.
+        /// </summary>
+        /// 
+        protected virtual IMovementPlane MovementPlaneFromNode(GraphNode node)
+        {
+            var graph = AstarData.GetGraph(node) as ITransformedGraph;
+
+            return graph != null ? graph.transform : GraphTransform.identityTransform;
+        }
+        public virtual void OnTargetReached () {
 		}
 
 		/// <summary>
@@ -291,11 +298,17 @@ namespace Pathfinding {
 			if (path.vectorPath.Count == 1) path.vectorPath.Add(path.vectorPath[0]);
 			interpolator.SetPath(path.vectorPath);
 
-			var graph = path.path.Count > 0 ? AstarData.GetGraph(path.path[0]) as ITransformedGraph : null;
-			movementPlane = graph != null ? graph.transform : (orientation == OrientationMode.YAxisForward ? new GraphTransform(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(-90, 270, 90), Vector3.one)) : GraphTransform.identityTransform);
 
-			// Reset some variables
-			reachedEndOfPath = false;
+
+
+
+            /*
+            var graph = path.path.Count > 0 ? AstarData.GetGraph(path.path[0]) as ITransformedGraph : null;
+			movementPlane = graph != null ? graph.transform : (orientation == OrientationMode.YAxisForward ? new GraphTransform(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(-90, 270, 90), Vector3.one)) : GraphTransform.identityTransform);
+            */
+            var movementPlane = MovementPlaneFromNode(path.path[0]);
+            // Reset some variables
+            reachedEndOfPath = false;
 
 			// Simulate movement from the point where the path was requested
 			// to where we are right now. This reduces the risk that the agent
