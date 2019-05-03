@@ -137,6 +137,9 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < _smogLayersList.Count; i++)
         {
             _smogLayersList[i].transform.Rotate(0.02f * (i + 1.0f * 0.2f), .1f * (i + 1.0f * 0.2f), 0.0f);
+            var col = _smogLayersList[i].GetComponent<Renderer>().material.color;
+            col.a = 0.0f;
+
         }
     }
 

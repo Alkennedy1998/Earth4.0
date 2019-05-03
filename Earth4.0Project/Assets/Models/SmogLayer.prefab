@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4367999435291238}
   - component: {fileID: 33253003078585676}
   - component: {fileID: 23280759014694242}
-  - component: {fileID: 135352012418657546}
-  m_Layer: 0
-  m_Name: SmogLayer1
+  m_Layer: 2
+  m_Name: SmogLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,15 +83,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1348784526759984}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &135352012418657546
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348784526759984}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
