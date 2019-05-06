@@ -109,14 +109,12 @@ public class GameManager : MonoBehaviour {
     private void onTick()
     {
         _currentTickTime = 0f;
-
-        _currentPollution += _currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK;
+        
         _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
         _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
 
         // Set to 0.0f if negative
-        _currentPollution = clampAtZero(_currentPollution);
         _currentFood = clampAtZero(_currentFood);
         _currentCotton = clampAtZero(_currentCotton);
 
@@ -132,13 +130,12 @@ public class GameManager : MonoBehaviour {
         _cottonText.GetComponent<TextMeshPro>().text = _currentCotton.ToString();
     }
 
-    private void updateSmog()
+    private void updatePollution()
     {
-        for (int i = 0; i < _smogLayersList.Count; i++)
-        {
-            _smogLayersList[i].transform.Rotate(0.02f * (i + 1.0f * 0.2f), .1f * (i + 1.0f * 0.2f), 0.0f);
-            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp01((_currentPollution / 10) - i));
-        }
+        _fastTickTime = 0.0f;
+
+        _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
+        _currentPollution = clampAtZero(_currentPollution);
     }
 
     #endregion
