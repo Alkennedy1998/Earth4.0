@@ -5,9 +5,7 @@ using UnityEngine;
 public class _WorkableBuildingScript : MonoBehaviour {
 
 	private const int _MAX_WORKERS = 5;
-
-	public bool _isFull;
-	public bool _isEmpty;
+	private bool _isFull, _isEmpty;
 	public int _currentWorkers;
 
 	// Use this for initialization
@@ -20,6 +18,14 @@ public class _WorkableBuildingScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+	}
+
+	public bool isFull() {
+		return _isFull;
+	}
+
+	public bool isEmpty() {
+		return _isEmpty;
 	}
 
 	public bool addWorker() {
