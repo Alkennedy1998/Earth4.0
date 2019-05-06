@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
         foreach (GameObject layer in _smogLayersList)
         {
             layer.transform.rotation = Random.rotation;
-           
+            setSmogLayerOpacity(layer, 1.0f);
         }
     }
 
@@ -137,9 +137,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < _smogLayersList.Count; i++)
         {
             _smogLayersList[i].transform.Rotate(0.02f * (i + 1.0f * 0.2f), .1f * (i + 1.0f * 0.2f), 0.0f);
-            var col = _smogLayersList[i].GetComponent<Renderer>().material.color;
-            col.a = 0.0f;
-
+            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp01((_currentPollution / 10) - i));
         }
     }
 
@@ -240,6 +238,14 @@ public class GameManager : MonoBehaviour {
 
     private float clampAtZero(float val) {
         return val < 0.0f ? 0.0f : val;
+    }
+
+    private void setSmogLayerOpacity(GameObject layer, float value)
+    {
+        Renderer rend = layer.GetComponent<Renderer>();
+        Color result = rend.material.color;
+        result.a = value;
+        rend.material.color = result;
     }
 
     #endregion
