@@ -3441,6 +3441,7 @@ GameObject:
   - component: {fileID: 4519203628059188}
   - component: {fileID: 65877428507993028}
   - component: {fileID: 54259750260792520}
+  - component: {fileID: 114022785759703546}
   m_Layer: 2
   m_Name: Cotton Farm with collider
   m_TagString: Building
@@ -29967,3 +29968,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.23314951, y: 0.084343724, z: 0.21963306}
   m_Center: {x: -0.00328512, y: 0.004131912, z: -0.0039957883}
+--- !u!114 &114022785759703546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521074457014234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db219add2b822f14ea25660526183cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWorkers: 0

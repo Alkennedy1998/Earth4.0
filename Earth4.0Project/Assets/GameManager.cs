@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public const float _COTTON_PER_TICK = 9.0f;
 
     public const float _MAX_POLLUTION = 30.0f;
+    public const float _MAX_SMOKE_PARTICLES = 50.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
@@ -54,7 +55,9 @@ public class GameManager : MonoBehaviour {
 
     // Game PreFabs
     public GameObject _personPrefab;
-    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab, _smogLayerPrefab;
+    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
+    public GameObject _smokeParticlePrefab;
+    private ParticleSystem _smokeParticleSystem;
 
     // Game Objects
     public List<GameObject> _personList = new List<GameObject>();
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> _cottonList = new List<GameObject>();
     public List<GameObject> _smogLayersList = new List<GameObject>();
 
-    private GameObject _moneyText, _foodText, _cottonText;
+    private TextMeshPro _moneyText, _foodText, _cottonText;
 
     #endregion
 
@@ -82,9 +85,11 @@ public class GameManager : MonoBehaviour {
         _currentFarmWorkers = 0;
         _currentCottonWorkers = 0;
 
-        _moneyText = GameObject.Find("MoneyText");
-        _foodText = GameObject.Find("FoodText");
-        _cottonText = GameObject.Find("CottonText");
+        _moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshPro>();
+        _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
+        _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
+
+        _smokeParticleSystem = _smokeParticlePrefab.GetComponent<ParticleSystem>();
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -111,11 +116,23 @@ public class GameManager : MonoBehaviour {
         }
 
         if (_fastTickTime >= _FAST_TICK_TIME)
-            updatePollution();
+            onFastTick();
 
         if (_currentTickTime >= _TICK_TIME)
             onTick();
 	}
+
+    private void onFastTick()
+    {
+        _fastTickTime = 0.0f;
+
+        // Set smoke rate
+        var emission = _smokeParticleSystem.emission;
+        emission.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Clamp(_MAX_SMOKE_PARTICLES / _MAX_POLLUTION * _currentPollution, 0, _MAX_SMOKE_PARTICLES));            
+
+        _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
+        _currentPollution = Mathf.Clamp(_currentPollution, 0, _MAX_POLLUTION);
+    }
 
     private void onTick()
     {
@@ -126,8 +143,8 @@ public class GameManager : MonoBehaviour {
         _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
 
         // Set to 0.0f if negative
-        _currentFood = clampAtZero(_currentFood);
-        _currentCotton = clampAtZero(_currentCotton);
+        _currentFood = Mathf.Clamp(_currentFood, 0, 9999);
+        _currentCotton = Mathf.Clamp(_currentCotton, 0, 9999);
 
         checkWinCondition();
 
@@ -136,17 +153,9 @@ public class GameManager : MonoBehaviour {
 
     private void updateText()
     {
-        _moneyText.GetComponent<TextMeshPro>().text = _currentMoney.ToString();
-        _foodText.GetComponent<TextMeshPro>().text = _currentFood.ToString();
-        _cottonText.GetComponent<TextMeshPro>().text = _currentCotton.ToString();
-    }
-
-    private void updatePollution()
-    {
-        _fastTickTime = 0.0f;
-
-        _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
-        _currentPollution = clampAtZero(_currentPollution);
+        _moneyText.text = _currentMoney.ToString();
+        _foodText.text = _currentFood.ToString();
+        _cottonText.text = _currentCotton.ToString();
     }
 
     #endregion
@@ -251,10 +260,6 @@ public class GameManager : MonoBehaviour {
 
     #region UtilityFunctions
 
-    private float clampAtZero(float val) {
-        return val < 0.0f ? 0.0f : val;
-    }
-
     private void setSmogLayerOpacity(GameObject layer, float value)
     {
         Renderer rend = layer.GetComponent<Renderer>();
@@ -269,7 +274,7 @@ public class GameManager : MonoBehaviour {
 
     private void logValues()
     {
-        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton + "     Smoke Particles: " + _smokeParticleSystem.emission.rateOverTime.constant);
         //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
