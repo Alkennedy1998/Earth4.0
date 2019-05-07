@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     public const float _COST_COTTON = 50.0f;
 
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
+    private const float _FAST_TICK_TIME = .1f;
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
     public const float _TREE_DEPOLLUTION_PER_TICK = 6.0f;
     public const float _FARM_FOOD_PER_TICK = 45.0f;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour {
 
     // Internal Values
     private float _currentTickTime = 0.0f;
+    private float _fastTickTime = 0.0f;
 
     // Game Values
     public float _currentPollution;
@@ -99,8 +101,17 @@ public class GameManager : MonoBehaviour {
     void Update () {
 
         _currentTickTime += Time.deltaTime;
+        _fastTickTime += Time.deltaTime;
         updateText();
-        updateSmog();
+
+        for (int i = 0; i < _smogLayersList.Count; i++)
+        {
+            _smogLayersList[i].transform.Rotate(0.07f, 0.0f, 0.0f);
+            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp((_currentPollution / 10) - i, 0.0f, 1.0f));
+        }
+
+        if (_fastTickTime >= _FAST_TICK_TIME)
+            updatePollution();
 
         if (_currentTickTime >= _TICK_TIME)
             onTick();
@@ -251,7 +262,7 @@ public class GameManager : MonoBehaviour {
 
     private void logValues()
     {
-        //Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
         //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
