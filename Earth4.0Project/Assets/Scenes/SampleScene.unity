@@ -3186,7 +3186,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9517,8 +9517,7 @@ MonoBehaviour:
     type: 2}
   _cottonPrefab: {fileID: 1521074457014234, guid: d2f186cf01a0440409c47193a0845c1a,
     type: 2}
-  _smogLayerPrefab: {fileID: 1348784526759984, guid: 13a7fb249ab3d7b4ebf46c34786554b7,
-    type: 2}
+  _smokeParticlePrefab: {fileID: 243543416}
   _personList: []
   _factoryList: []
   _farmList: []
