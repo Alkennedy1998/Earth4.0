@@ -15,23 +15,17 @@ public class buildingPlacementValidator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log("Collided objects = " + world.GetComponent<BuildingPlacerRay>()._buildingCollisions);
+
     }
 
     void OnTriggerEnter(Collider obj)
     {
         if (obj.tag == "Building")
-        {
-            //Debug.Log("Collided with " + obj.name);
             world.GetComponent<BuildingPlacerRay>()._buildingCollisions++;
-        }
     }
     void OnTriggerExit(Collider obj)
     {
         if (obj.tag == "Building")
-        {
-            //Debug.Log("Collided with " + obj.name);
             world.GetComponent<BuildingPlacerRay>()._buildingCollisions--;
-        }
     }
 }
