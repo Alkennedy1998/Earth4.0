@@ -89,14 +89,15 @@ public class PersonController : MonoBehaviour {
             GameObject closestFactory = getClosestAvailableBuilding(_world.GetComponent<GameManager>()._factoryList);
             GameObject closestCotton = getClosestAvailableBuilding(_world.GetComponent<GameManager>()._cottonList);
 
-            buildingProbabilities[0] = getBuildingWeight(closestFarm);
-            buildingProbabilities[1] = getBuildingWeight(closestFactory);
-            buildingProbabilities[2] = getBuildingWeight(closestCotton);
+            buildingProbabilities[0] = getBuildingWeight(closestFarm, Buildings.Farm);
+            buildingProbabilities[1] = getBuildingWeight(closestFactory, Buildings.Factory);
+            buildingProbabilities[2] = getBuildingWeight(closestCotton, Buildings.Cotton);
             float totalProbability = sumFloats(buildingProbabilities);
 
             if (totalProbability > 0.0f) {
                 for (int i = 0; i < buildingProbabilities.Count; i++)
                     buildingProbabilities[i] /= totalProbability;
+                Debug.Log("AI Probabilities: farm: " + buildingProbabilities[0] + "     factory: " + buildingProbabilities[1] + "     cotton: " + buildingProbabilities[2]);
 
                 targetBuilding = weightedBuildingChoice(buildingTypes, buildingProbabilities);
                 if (targetBuilding == Buildings.Farm) {
@@ -168,7 +169,7 @@ public class PersonController : MonoBehaviour {
         return closestAvailableBuilding;
     }
 
-    private float getBuildingWeight(GameObject building) {
+    private float getBuildingWeight(GameObject building, Buildings type) {
         // New algorithm:
         //
         // Goal: AI should intelligently select targets based on
@@ -186,7 +187,32 @@ public class PersonController : MonoBehaviour {
 
         if (building == null)
             return 0.0f;
-        return 1.0f;
+
+        float resource = 0.0f;
+        if (type == Buildings.Farm) {
+            float numPeople = _world.GetComponent<GameManager>()._personList.Count;
+            resource = _world.GetComponent<GameManager>()._currentFood;
+            return clamp10(resource / (25.0f * numPeople));
+        } else if (type == Buildings.Factory) {
+            resource = _world.GetComponent<GameManager>()._currentMoney;
+            return clamp10(resource / 10000.0f);
+        } else if (type == Buildings.Cotton) {
+            resource = _world.GetComponent<GameManager>()._currentCotton;
+            return clamp10(resource / 500.0f);
+        }
+
+        // Map resource count from 0-huge to be from 1-0
+        // TODO: change to sigmoid/exp
+        // TODO: take into account deltaResource
+        return clamp10(resource / 1000.0f);
+    }
+
+    private float clamp10(float val) {
+        if (val < 0.0f)
+            val = 0.1f;
+        if (val > 1.0f)
+            val = 1.0f;
+        return -1.0f * val + 1.1f;
     }
 
     private float sumFloats(List<float> nums) {
