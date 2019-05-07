@@ -22,10 +22,19 @@ public class buildingPlacementValidator : MonoBehaviour
     {
         if (obj.tag == "Building")
             world.GetComponent<BuildingPlacerRay>()._buildingCollisions++;
+            
+        if(obj.tag == "Tree")
+            world.GetComponent<BuildingPlacerRay>()._overlappedTrees.Add(obj.gameObject);
+
     }
     void OnTriggerExit(Collider obj)
     {
         if (obj.tag == "Building")
             world.GetComponent<BuildingPlacerRay>()._buildingCollisions--;
+        
+         if(obj.tag == "Tree")
+            world.GetComponent<BuildingPlacerRay>()._overlappedTrees.Remove(obj.gameObject);
+
     }
+
 }

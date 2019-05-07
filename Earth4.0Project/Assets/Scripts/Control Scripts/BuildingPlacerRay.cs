@@ -21,8 +21,9 @@ public class BuildingPlacerRay : MonoBehaviour
     private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
     private Buildings _equippedBuilding = Buildings.None;
 
-    private bool triggerHasBeenReleased = true;
+    private bool _triggerHasBeenReleased = true;
 
+    public List<GameObject> _overlappedTrees = new List<GameObject>();
     #endregion
 
     #region unityFunctions
@@ -66,7 +67,7 @@ public class BuildingPlacerRay : MonoBehaviour
             #region buildingHighlighter
             if (collidedObject.name == "World")
             {
-                //Instantiate a building if none exists yet
+                //Instantiate a building outline if none exists yet
                 if (_outlineBuilding == null)
                 {
 
@@ -103,8 +104,10 @@ public class BuildingPlacerRay : MonoBehaviour
                 //If the outline building has already been instantiated
                 else
                 {
+                    //If there are no building in the way of placing
                     if (_buildingCollisions == 0)
                     {
+                        //Make object green
                         foreach (Transform child in _outlineBuilding.transform)
                         {
                             child.gameObject.GetComponent<Renderer>().material.color = Color.green;
@@ -127,17 +130,20 @@ public class BuildingPlacerRay : MonoBehaviour
             #endregion
 
             #region onTriggerPress
-            //If that object is a button set active Item to that button item
-            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true && triggerHasBeenReleased)
+            //If that object ray collides with is a button set active Item to that button item
+            if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true && _triggerHasBeenReleased)
             {
-                triggerHasBeenReleased = false;
+                _triggerHasBeenReleased = false;
 
                 if (collidedObject.name == "World")
                 {
+                    //If no buildings in the way
                     if (_buildingCollisions == 0)
                     {
-                        instantiateOnWorld();
+                        addObjToGameManager();
+
                     }
+
                     else
                     {
                         Debug.Log("Can't build there!");
@@ -168,7 +174,7 @@ public class BuildingPlacerRay : MonoBehaviour
             }
             else if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
             {
-                triggerHasBeenReleased = true;
+                _triggerHasBeenReleased = true;
             }
             #endregion
 
@@ -185,101 +191,11 @@ public class BuildingPlacerRay : MonoBehaviour
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* 
-        void rayCollisionHandler(){
-
-            // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out _hit, Mathf.Infinity, _layerMask))
-            {
-                var collidedObject = _hit.collider.gameObject;
-
-                if(collidedObject.tag == "Button" && _equippedBuilding == 0)
-                {
-                    //Make controller vibrate when hovering over selectable buttons
-                    OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
-
-                    if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true)
-                    {
-                        if (collidedObject.name == "FactoryButton")
-                        {
-                            _equippedBuilding = Buildings.Factory;
-                        }
-                        if(collidedObject.name == "FarmButton")
-                        {
-                            _equippedBuilding = Buildings.Farm;
-                        }
-                        if(collidedObject.name == "HouseButton")
-                        {
-                            _equippedBuilding = Buildings.House;
-                        }
-                        if(collidedObject.name == "TreeButton")
-                        {
-                            _equippedBuilding = Buildings.Tree;
-                        }
-                        if(collidedObject.name == "CottonButton")
-                        {
-                            _equippedBuilding = Buildings.Cotton;
-                        }
-                    }
-                }
-
-                //If the trigger is released while the cursor is over the world instantiate a building
-                if (collidedObject.name == "World")
-                {
-
-                    if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-                    {
-                        //Instantiated equipped building on the face of the world
-                        instantiateOnWorld();
-
-                    _equippedBuilding = Buildings.None;
-                    }
-
-                }
-
-
-                //Make line visible to user and turn green
-                _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
-                _lineRenderer.material.color = Color.green;
-
-            }
-            else
-            {
-                //If playerer released the trigger and isn't hovering over the world, cancel item placement
-                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
-                {
-                    _equippedBuilding = Buildings.None;
-                }
-
-                OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
-                //Make line visible to user and turn red
-                _lineRenderer.SetPosition(1, Vector3.forward*_length_multiplier);
-                _lineRenderer.material.color = Color.red;
-            }
-
-        }
-
-    */
-    void instantiateOnWorld()
+    private void addObjToGameManager()
     {
         Vector3 normalOffSphere = _hit.normal;
         Quaternion rotation = Quaternion.LookRotation(_hit.normal);
-
+        bool buildingPlacedSuccessfully = false;
         //Instatiate the correct building if there is enough money and the GameManager returns true
         if (_equippedBuilding == Buildings.None)
         {
@@ -287,29 +203,43 @@ public class BuildingPlacerRay : MonoBehaviour
         }
         else if (_equippedBuilding == Buildings.Factory)
         {
-            _world.GetComponent<GameManager>().addFactory(_hit.point, rotation);
+            buildingPlacedSuccessfully = _world.GetComponent<GameManager>().addFactory(_hit.point, rotation);
         }
         else if (_equippedBuilding == Buildings.Farm)
         {
-            _world.GetComponent<GameManager>().addFarm(_hit.point, rotation);
+            buildingPlacedSuccessfully = _world.GetComponent<GameManager>().addFarm(_hit.point, rotation);
         }
         else if (_equippedBuilding == Buildings.House)
         {
-            _world.GetComponent<GameManager>().addHouse(_hit.point, rotation);
+            buildingPlacedSuccessfully = _world.GetComponent<GameManager>().addHouse(_hit.point, rotation);
         }
         else if (_equippedBuilding == Buildings.Tree)
         {
-            _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
+            buildingPlacedSuccessfully = _world.GetComponent<GameManager>().addTree(_hit.point, rotation);
         }
         else if (_equippedBuilding == Buildings.Cotton)
         {
-            Debug.Log("Cotton placed");
-            _world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
+            buildingPlacedSuccessfully = _world.GetComponent<GameManager>().addCotton(_hit.point, rotation);
         }
         else
         {
             Debug.Log("ERROR: Invalid building type");
         }
+
+        //Remove the trees if a building is successfully placed
+        if(buildingPlacedSuccessfully && _equippedBuilding != Buildings.Tree){
+            removeCollidingTrees();
+        }
+
     }
 
+    private void removeCollidingTrees()
+    {
+        foreach (GameObject tree in _overlappedTrees)
+        {
+            Debug.Log(tree);
+            _world.GetComponent<GameManager>().removeTree(tree);
+        }
+    }
 }
+
