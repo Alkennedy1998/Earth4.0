@@ -10117,6 +10117,7 @@ MonoBehaviour:
   _length_multiplier: 10
   _lineWidth: 0.3
   _buildingCollisions: 0
+  _overlappedTrees: []
 --- !u!1001 &1720529810
 Prefab:
   m_ObjectHideFlags: 0
