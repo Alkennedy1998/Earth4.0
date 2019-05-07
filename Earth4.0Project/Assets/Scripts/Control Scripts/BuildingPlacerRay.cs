@@ -112,8 +112,6 @@ public class BuildingPlacerRay : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(_buildingCollisions);
-
                         foreach (Transform child in _outlineBuilding.transform)
                         {
                             child.gameObject.GetComponent<Renderer>().material.color = Color.red;

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     public const float _COST_COTTON = 50.0f;
 
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
+    private const float _FAST_TICK_TIME = .1f;
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
     public const float _TREE_DEPOLLUTION_PER_TICK = 6.0f;
     public const float _FARM_FOOD_PER_TICK = 45.0f;
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour {
     public const float _FACTORY_MONEY_PER_TICK = 8.0f;
     public const float _FACTORY_COTTON_PER_TICK = 6.0f;
     public const float _COTTON_PER_TICK = 9.0f;
+
+    public const float _MAX_POLLUTION = 30.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
@@ -39,6 +42,7 @@ public class GameManager : MonoBehaviour {
 
     // Internal Values
     private float _currentTickTime = 0.0f;
+    private float _fastTickTime = 0.0f;
 
     // Game Values
     public float _currentPollution;
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour {
 
     // Game PreFabs
     public GameObject _personPrefab;
-    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
+    public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab, _smogLayerPrefab;
 
     // Game Objects
     public List<GameObject> _personList = new List<GameObject>();
@@ -59,6 +63,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> _houseList = new List<GameObject>();
     public List<GameObject> _treeList = new List<GameObject>();
     public List<GameObject> _cottonList = new List<GameObject>();
+    public List<GameObject> _smogLayersList = new List<GameObject>();
 
     private GameObject _moneyText, _foodText, _cottonText;
 
@@ -80,6 +85,12 @@ public class GameManager : MonoBehaviour {
         _moneyText = GameObject.Find("MoneyText");
         _foodText = GameObject.Find("FoodText");
         _cottonText = GameObject.Find("CottonText");
+
+        foreach (GameObject layer in _smogLayersList)
+        {
+            layer.transform.rotation = Random.rotation;
+            setSmogLayerOpacity(layer, 1.0f);
+        }
     }
 
     #endregion
@@ -90,7 +101,17 @@ public class GameManager : MonoBehaviour {
     void Update () {
 
         _currentTickTime += Time.deltaTime;
+        _fastTickTime += Time.deltaTime;
         updateText();
+
+        for (int i = 0; i < _smogLayersList.Count; i++)
+        {
+            _smogLayersList[i].transform.Rotate(0.07f, 0.0f, 0.0f);
+            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp((_currentPollution / 10) - i, 0.0f, 1.0f));
+        }
+
+        if (_fastTickTime >= _FAST_TICK_TIME)
+            updatePollution();
 
         if (_currentTickTime >= _TICK_TIME)
             onTick();
@@ -99,14 +120,12 @@ public class GameManager : MonoBehaviour {
     private void onTick()
     {
         _currentTickTime = 0f;
-
-        _currentPollution += _currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK;
+        
         _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
         _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
 
         // Set to 0.0f if negative
-        _currentPollution = clampAtZero(_currentPollution);
         _currentFood = clampAtZero(_currentFood);
         _currentCotton = clampAtZero(_currentCotton);
 
@@ -120,6 +139,14 @@ public class GameManager : MonoBehaviour {
         _moneyText.GetComponent<TextMeshPro>().text = _currentMoney.ToString();
         _foodText.GetComponent<TextMeshPro>().text = _currentFood.ToString();
         _cottonText.GetComponent<TextMeshPro>().text = _currentCotton.ToString();
+    }
+
+    private void updatePollution()
+    {
+        _fastTickTime = 0.0f;
+
+        _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
+        _currentPollution = clampAtZero(_currentPollution);
     }
 
     #endregion
@@ -228,13 +255,21 @@ public class GameManager : MonoBehaviour {
         return val < 0.0f ? 0.0f : val;
     }
 
+    private void setSmogLayerOpacity(GameObject layer, float value)
+    {
+        Renderer rend = layer.GetComponent<Renderer>();
+        Color result = rend.material.color;
+        result.a = value;
+        rend.material.color = result;
+    }
+
     #endregion
 
     #region Debugging
 
     private void logValues()
     {
-        //Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
         //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
