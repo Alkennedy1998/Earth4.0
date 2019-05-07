@@ -19,6 +19,8 @@ public class PersonController : MonoBehaviour {
     private GameObject _targetObject;
     private Buildings _targetBuilding;
 
+    private Animator _animator;
+
     private enum Buildings { None, Factory, Farm, House, Tree, Cotton };
 
     // Use this for initialization
@@ -26,6 +28,8 @@ public class PersonController : MonoBehaviour {
     {
         _world = GameObject.Find("World");
         _worldRadius = _world.transform.localScale.x * _world.GetComponent<SphereCollider>().radius;
+
+        _animator = GetComponent<Animator>();
 
         _fatigue = 0;
         _fatigueRate = 10;
@@ -42,8 +46,11 @@ public class PersonController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (!_hasTarget)
+        if (!_hasTarget) {
             setTargetObject();
+            if (_hasTarget)
+                _animator.SetFloat("Speed", 1.0f);
+        }
         _target = getTargetLocation();
         moveTowardsLocation(_target);
     }
@@ -271,9 +278,19 @@ public class PersonController : MonoBehaviour {
         return Vector3.Distance(transform.position, _targetObject.transform.position) <= _hitRadius;
     }
 
+    private bool nearTarget()
+    {
+        if (_targetObject == null)
+            return false;
+        return Vector3.Distance(transform.position, _targetObject.transform.position) <= 10 * _hitRadius;
+    }
+
     IEnumerator UpdatePerson()
     {
-        for (;;) {
+        while (true) {
+            if (nearTarget())
+                _animator.SetFloat("Speed", 0.0f);
+
             if (atHome()) {
                 if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
                     _fatigue = 0;
