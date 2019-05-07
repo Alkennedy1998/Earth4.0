@@ -184,6 +184,13 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public bool removeTree(GameObject tree)
+    {
+        _treeList.Remove(tree);
+        Destroy(tree);
+        return true;
+    }
+
     public bool addCotton(Vector3 location, Quaternion rotation) {
         if (_currentMoney < _COST_COTTON)
             return false;
