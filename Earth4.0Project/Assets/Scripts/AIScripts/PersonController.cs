@@ -82,41 +82,29 @@ public class PersonController : MonoBehaviour {
         }
         else if (_fatigue <= 0)
         {
-            // New algorithm:
-            //
-            // Goal: AI should intelligently select targets based on
-            // environmental factors, proximity, resources, availability.
-            //
-            // Produce one weight for each building type, and decide which
-            // building type has the highest weight. Go to nearest available
-            // building of that type.
-            //
-            // Each building weight should be affected by:
-            //     1. Proximity (and number?) of closest available buildings
-            //     2. Surplus/demand of relevant resource for that building type
-            //     3. Number of people working at that building type (rate of change)
-            //
+            List<Buildings> buildingTypes = new List<Buildings> {Buildings.Farm, Buildings.Factory, Buildings.Cotton};
+            List<float> buildingProbabilities = new List<float> {0.0f, 0.0f, 0.0f};
 
-            List<Buildings> availableBuildings = new List<Buildings>();
-            int farmCount = _world.GetComponent<GameManager>()._farmList.Count;
-            int factoryCount = _world.GetComponent<GameManager>()._factoryList.Count;
-            int cottonCount = _world.GetComponent<GameManager>()._cottonList.Count;
+            GameObject closestFarm = getClosestAvailableBuilding(_world.GetComponent<GameManager>()._farmList);
+            GameObject closestFactory = getClosestAvailableBuilding(_world.GetComponent<GameManager>()._factoryList);
+            GameObject closestCotton = getClosestAvailableBuilding(_world.GetComponent<GameManager>()._cottonList);
 
-            if (farmCount > 0)
-                availableBuildings.Add(Buildings.Farm);
-            if (factoryCount > 0)
-                availableBuildings.Add(Buildings.Factory);
-            if (cottonCount > 0)
-                availableBuildings.Add(Buildings.Cotton);
+            buildingProbabilities[0] = getBuildingWeight(closestFarm, Buildings.Farm);
+            buildingProbabilities[1] = getBuildingWeight(closestFactory, Buildings.Factory);
+            buildingProbabilities[2] = getBuildingWeight(closestCotton, Buildings.Cotton);
+            float totalProbability = sumFloats(buildingProbabilities);
 
-            if (availableBuildings.Count > 0) {
-                targetBuilding = availableBuildings[Random.Range(0, availableBuildings.Count)];
+            if (totalProbability > 0.0f) {
+                for (int i = 0; i < buildingProbabilities.Count; i++)
+                    buildingProbabilities[i] /= totalProbability;
+
+                targetBuilding = weightedBuildingChoice(buildingTypes, buildingProbabilities);
                 if (targetBuilding == Buildings.Farm) {
-                    targetObject = _world.GetComponent<GameManager>()._farmList[Random.Range(0, farmCount)];
+                    targetObject = closestFarm;
                 } else if (targetBuilding == Buildings.Factory) {
-                    targetObject = _world.GetComponent<GameManager>()._factoryList[Random.Range(0, factoryCount)];
+                    targetObject = closestFactory;
                 } else if (targetBuilding == Buildings.Cotton) {
-                    targetObject = _world.GetComponent<GameManager>()._cottonList[Random.Range(0, cottonCount)];
+                    targetObject = closestCotton;
                 }
                 _hasTarget = true;
             }
@@ -134,11 +122,13 @@ public class PersonController : MonoBehaviour {
             return;
 
         if (building == Buildings.Farm) {
+            _targetObject.GetComponent<FarmScript>().addWorker();
             _world.GetComponent<GameManager>()._currentFarmWorkers += 1;
         } else if (building == Buildings.Factory) {
             _targetObject.GetComponent<FactoryScript>().addWorker();
             _world.GetComponent<GameManager>()._currentFactoryWorkers += 1;
         } else if (building == Buildings.Cotton) {
+            _targetObject.GetComponent<CottonScript>().addWorker();
             _world.GetComponent<GameManager>()._currentCottonWorkers += 1;
         }
     }
@@ -149,13 +139,86 @@ public class PersonController : MonoBehaviour {
             return;
 
         if (building == Buildings.Farm) {
+            _targetObject.GetComponent<FarmScript>().removeWorker();
             _world.GetComponent<GameManager>()._currentFarmWorkers -= 1;
         } else if (building == Buildings.Factory) {
             _targetObject.GetComponent<FactoryScript>().removeWorker();
             _world.GetComponent<GameManager>()._currentFactoryWorkers -= 1;
         } else if (building == Buildings.Cotton) {
+            _targetObject.GetComponent<CottonScript>().removeWorker();
             _world.GetComponent<GameManager>()._currentCottonWorkers -= 1;
         }
+    }
+
+    private GameObject getClosestAvailableBuilding(List<GameObject> buildingList)
+    {
+        float shortestDistance = float.MaxValue;
+        GameObject closestAvailableBuilding = null;
+
+        foreach (GameObject building in buildingList) {
+            if (!building.GetComponent<_WorkableBuildingScript>().isFull()) {
+                float distance = Vector3.Distance(transform.position, building.transform.position);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    closestAvailableBuilding = building;
+                }
+            }
+        }
+
+        return closestAvailableBuilding;
+    }
+
+    private float getBuildingWeight(GameObject building, Buildings type) {
+        // New algorithm:
+        //
+        // Goal: AI should intelligently select targets based on
+        // environmental factors, proximity, resources, availability.
+        //
+        // Produce one weight for each building type, and decide which
+        // building type has the highest weight. Go to nearest available
+        // building of that type.
+        //
+        // Each building weight should be affected by:
+        //     1. Proximity (and number?) of closest available buildings
+        //     2. Surplus/demand of relevant resource for that building type
+        //     3. Number of people working at that building type (rate of change)
+        //
+
+        if (building == null)
+            return 0.0f;
+
+        float resource = 0.0f;
+        if (type == Buildings.Farm) {
+            float numPeople = _world.GetComponent<GameManager>()._personList.Count;
+            resource = _world.GetComponent<GameManager>()._currentFood;
+            return clamp10(resource / (25.0f * numPeople));
+        } else if (type == Buildings.Factory) {
+            resource = _world.GetComponent<GameManager>()._currentMoney;
+            return clamp10(resource / 10000.0f);
+        } else if (type == Buildings.Cotton) {
+            resource = _world.GetComponent<GameManager>()._currentCotton;
+            return clamp10(resource / 500.0f);
+        }
+
+        // Map resource count from 0-huge to be from 1-0
+        // TODO: change to sigmoid/exp
+        // TODO: take into account deltaResource
+        return clamp10(resource / 1000.0f);
+    }
+
+    private float clamp10(float val) {
+        if (val < 0.0f)
+            val = 0.1f;
+        if (val > 1.0f)
+            val = 1.0f;
+        return -1.0f * val + 1.1f;
+    }
+
+    private float sumFloats(List<float> nums) {
+        float sum = 0.0f;
+        foreach (float num in nums)
+            sum += num;
+        return sum;
     }
 
     private Vector3 getTargetLocation()
@@ -178,6 +241,20 @@ public class PersonController : MonoBehaviour {
             _worldRadius *
             Vector3.Normalize(vector)
         );
+    }
+
+    private Buildings weightedBuildingChoice(List<Buildings> choices, List<float> probabilities)
+    {
+        // choices and probabilities must have the same length and sum(probabilities) == 1.0f
+        float random = Random.Range(0.0f, 1.0f);
+        float cumulative = 0.0f;
+
+        for (int i = 0; i < choices.Count; i++) {
+            cumulative += probabilities[i];
+            if (random < cumulative)
+                return choices[i];
+        }
+        return choices[0];
     }
 
     private bool atHome()
