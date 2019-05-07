@@ -1421,6 +1421,7 @@ GameObject:
   - component: {fileID: 95671272261880634}
   - component: {fileID: 54775093783150266}
   - component: {fileID: 65817054262712038}
+  - component: {fileID: 114778037618562192}
   m_Layer: 2
   m_Name: Wheat Farm with collider
   m_TagString: Building
@@ -8413,3 +8414,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114778037618562192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1626379811202258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c33c88880efdf4d8492112aad0425c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWorkers: 0
