@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
     public const float _COTTON_PER_TICK = 9.0f;
 
     public const float _MAX_POLLUTION = 30.0f;
-    public const float _MAX_SMOKE_PARTICLES = 1000.0f;
+    public const float _MAX_SMOKE_PARTICLES = 50.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
