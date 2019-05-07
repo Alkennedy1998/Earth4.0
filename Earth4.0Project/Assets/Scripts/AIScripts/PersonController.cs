@@ -9,6 +9,8 @@ public class PersonController : MonoBehaviour {
     private float _speed, _hitRadius;
     private float _worldRadius;
 
+    private bool _hasTarget;
+
     private Vector3 _houseLocation, _farmLocation, _workLocation;
 
     public GameObject _attachedHouse;
@@ -30,7 +32,9 @@ public class PersonController : MonoBehaviour {
         _speed = 15.0f;
         _hitRadius = 0.05f;
 
+        _hasTarget = false;
         _targetObject = null;
+        _targetBuilding = Buildings.None;
 
         StartCoroutine("UpdatePerson");
     }
@@ -38,7 +42,7 @@ public class PersonController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (_targetObject == null)
+        if (!_hasTarget)
             setTargetObject();
         _target = getTargetLocation();
         moveTowardsLocation(_target);
@@ -73,6 +77,7 @@ public class PersonController : MonoBehaviour {
             targetObject = _attachedHouse;
             if (targetObject != null) {
                 targetBuilding = Buildings.House;
+                _hasTarget = true;
             }
         }
         else if (_fatigue <= 0)
@@ -113,32 +118,40 @@ public class PersonController : MonoBehaviour {
                 } else if (targetBuilding == Buildings.Cotton) {
                     targetObject = _world.GetComponent<GameManager>()._cottonList[Random.Range(0, cottonCount)];
                 }
+                _hasTarget = true;
             }
         }
 
+        leaveBuilding(_targetObject, _targetBuilding);
         _targetObject = targetObject;
-
-        leaveBuilding(_targetBuilding);
         _targetBuilding = targetBuilding;
-        enterBuilding(_targetBuilding);
+        enterBuilding(_targetObject, _targetBuilding);
     }
 
-    private void enterBuilding(Buildings building)
+    private void enterBuilding(GameObject obj, Buildings building)
     {
+        if (obj == null || building == Buildings.None)
+            return;
+
         if (building == Buildings.Farm) {
             _world.GetComponent<GameManager>()._currentFarmWorkers += 1;
         } else if (building == Buildings.Factory) {
+            _targetObject.GetComponent<FactoryScript>().addWorker();
             _world.GetComponent<GameManager>()._currentFactoryWorkers += 1;
         } else if (building == Buildings.Cotton) {
             _world.GetComponent<GameManager>()._currentCottonWorkers += 1;
         }
     }
 
-    private void leaveBuilding(Buildings building)
+    private void leaveBuilding(GameObject obj, Buildings building)
     {
+        if (obj == null || building == Buildings.None)
+            return;
+
         if (building == Buildings.Farm) {
             _world.GetComponent<GameManager>()._currentFarmWorkers -= 1;
         } else if (building == Buildings.Factory) {
+            _targetObject.GetComponent<FactoryScript>().removeWorker();
             _world.GetComponent<GameManager>()._currentFactoryWorkers -= 1;
         } else if (building == Buildings.Cotton) {
             _world.GetComponent<GameManager>()._currentCottonWorkers -= 1;
@@ -187,14 +200,14 @@ public class PersonController : MonoBehaviour {
             if (atHome()) {
                 if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
                     _fatigue = 0;
-                    _targetObject = null;  // check if causes race condition problems
+                    _hasTarget = false;  // check if causes race condition problems
                 } else {
                     _fatigue -= _fatigueRate;
                 }
             } else if (atTarget()) {  // generate fatigue if at a target that is not home
                 if (_fatigue >= 100 - _fatigueRate) {
                     _fatigue = 100;
-                    _targetObject = null;
+                    _hasTarget = false;
                 } else {
                     _fatigue += _fatigueRate;
                 }

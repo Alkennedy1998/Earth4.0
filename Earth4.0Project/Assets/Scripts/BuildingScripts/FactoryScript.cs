@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FactoryScript : MonoBehaviour {
+public class FactoryScript : _WorkableBuildingScript {
 
     private const float _TICK_TIME = 5.0f; // There are 5 seconds between 'ticks'
 	private const float _SMOKE_OFFSET_MULTIPLIER = 1.25f; // Height above factory
@@ -14,7 +14,8 @@ public class FactoryScript : MonoBehaviour {
 	public GameObject _smokePrefab;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
+		base.Start();  // Run BaseClass' Start() method
 		_world = GameObject.Find("World");
 	}
 
