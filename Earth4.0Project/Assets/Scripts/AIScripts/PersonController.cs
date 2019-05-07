@@ -97,7 +97,6 @@ public class PersonController : MonoBehaviour {
             if (totalProbability > 0.0f) {
                 for (int i = 0; i < buildingProbabilities.Count; i++)
                     buildingProbabilities[i] /= totalProbability;
-                Debug.Log("AI Probabilities: farm: " + buildingProbabilities[0] + "     factory: " + buildingProbabilities[1] + "     cotton: " + buildingProbabilities[2]);
 
                 targetBuilding = weightedBuildingChoice(buildingTypes, buildingProbabilities);
                 if (targetBuilding == Buildings.Farm) {
