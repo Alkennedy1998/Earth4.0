@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 7a60de38f39bebb4583a3ff050b459e4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: back1
+    100002: chimney
+    100004: Chimney_top
+    100006: Chimney_top_2
+    100008: //RootNode
+    100010: House
+    100012: left
+    100014: pCube5
+    100016: pCube6
+    100018: pCube7
+    100020: pPlatonic1
+    100022: pSphere1
+    100024: pSphere2
+    100026: Side_chimney
+    400000: back1
+    400002: chimney
+    400004: Chimney_top
+    400006: Chimney_top_2
+    400008: //RootNode
+    400010: House
+    400012: left
+    400014: pCube5
+    400016: pCube6
+    400018: pCube7
+    400020: pPlatonic1
+    400022: pSphere1
+    400024: pSphere2
+    400026: Side_chimney
+    2000000: back1
+    2000002: left
+    2100000: Brick_Texture
+    2100002: Iron
+    2100004: lambert1
+    2100006: Glass_Texture
+    2100008: Wood
+    2100010: Roof_tile
+    2300000: chimney
+    2300002: Chimney_top
+    2300004: Chimney_top_2
+    2300006: pCube5
+    2300008: pCube6
+    2300010: pCube7
+    2300012: pPlatonic1
+    2300014: pSphere1
+    2300016: pSphere2
+    2300018: Side_chimney
+    3300000: chimney
+    3300002: Chimney_top
+    3300004: Chimney_top_2
+    3300006: pCube5
+    3300008: pCube6
+    3300010: pCube7
+    3300012: pPlatonic1
+    3300014: pSphere1
+    3300016: pSphere2
+    3300018: Side_chimney
+    4300000: chimney
+    4300002: Chimney_top
+    4300004: Chimney_top_2
+    4300006: Side_chimney
+    4300008: pCube5
+    4300010: pSphere1
+    4300012: pCube6
+    4300014: pSphere2
+    4300016: pCube7
+    4300018: pPlatonic1
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brick_Texture
+    second: {fileID: 2100000, guid: 47b0fdd24968cee4780b2c7d32c78c8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass_Texture
+    second: {fileID: 2100000, guid: 7aa7816a76b63e44d82da4049df8bac1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Iron
+    second: {fileID: 2100000, guid: 315392ce72223b34fa6c72a270043530, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof_tile
+    second: {fileID: 2100000, guid: 8e538ebd2d4ef4042924a228b092d9e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 5e70f0f2c5b817846922a4b784f6b798, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 5981b686da75f0f479a0b744f5eb8819, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: aged brick 2
+    second: {fileID: 2800000, guid: e1402c4b51be0264c9d8489c2bae5934, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: aged roof tile
+    second: {fileID: 2800000, guid: 28c85f451adbfba42815a457064106ac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: aged wood
+    second: {fileID: 2800000, guid: e011cbcf03daea241bab8ffbd298a5c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: dirty glass texture
+    second: {fileID: 2800000, guid: f3e65a82db366b54ca5ca3dc2f15c57e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: iron seamless
+    second: {fileID: 2800000, guid: af4f9177ceef2ea49b4825a250c7eee2, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

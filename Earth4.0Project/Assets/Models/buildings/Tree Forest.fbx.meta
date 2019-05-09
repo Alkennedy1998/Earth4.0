@@ -1,0 +1,272 @@
+fileFormatVersion: 2
+guid: bc5020828d218dd49b1d08f3f9fd1cc4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Tree
+    100002: //RootNode
+    100004: Tree1
+    100006: Tree10
+    100008: Tree11
+    100010: Tree12
+    100012: Tree13
+    100014: Tree14
+    100016: Tree15
+    100018: Tree16
+    100020: Tree17
+    100022: Tree18
+    100024: Tree19
+    100026: Tree2
+    100028: Tree20
+    100030: Tree21
+    100032: Tree22
+    100034: Tree23
+    100036: Tree24
+    100038: Tree25
+    100040: Tree26
+    100042: Tree27
+    100044: Tree28
+    100046: Tree29
+    100048: Tree3
+    100050: Tree30
+    100052: Tree4
+    100054: Tree5
+    100056: Tree6
+    100058: Tree7
+    100060: Tree8
+    100062: Tree9
+    400000: Tree
+    400002: //RootNode
+    400004: Tree1
+    400006: Tree10
+    400008: Tree11
+    400010: Tree12
+    400012: Tree13
+    400014: Tree14
+    400016: Tree15
+    400018: Tree16
+    400020: Tree17
+    400022: Tree18
+    400024: Tree19
+    400026: Tree2
+    400028: Tree20
+    400030: Tree21
+    400032: Tree22
+    400034: Tree23
+    400036: Tree24
+    400038: Tree25
+    400040: Tree26
+    400042: Tree27
+    400044: Tree28
+    400046: Tree29
+    400048: Tree3
+    400050: Tree30
+    400052: Tree4
+    400054: Tree5
+    400056: Tree6
+    400058: Tree7
+    400060: Tree8
+    400062: Tree9
+    2100000: bark
+    2100002: pine_needle
+    2100004: lambert1
+    2300000: Tree
+    2300002: Tree1
+    2300004: Tree10
+    2300006: Tree11
+    2300008: Tree12
+    2300010: Tree13
+    2300012: Tree14
+    2300014: Tree15
+    2300016: Tree16
+    2300018: Tree17
+    2300020: Tree18
+    2300022: Tree19
+    2300024: Tree2
+    2300026: Tree20
+    2300028: Tree21
+    2300030: Tree22
+    2300032: Tree23
+    2300034: Tree24
+    2300036: Tree25
+    2300038: Tree26
+    2300040: Tree27
+    2300042: Tree28
+    2300044: Tree29
+    2300046: Tree3
+    2300048: Tree30
+    2300050: Tree4
+    2300052: Tree5
+    2300054: Tree6
+    2300056: Tree7
+    2300058: Tree8
+    2300060: Tree9
+    3300000: Tree
+    3300002: Tree1
+    3300004: Tree10
+    3300006: Tree11
+    3300008: Tree12
+    3300010: Tree13
+    3300012: Tree14
+    3300014: Tree15
+    3300016: Tree16
+    3300018: Tree17
+    3300020: Tree18
+    3300022: Tree19
+    3300024: Tree2
+    3300026: Tree20
+    3300028: Tree21
+    3300030: Tree22
+    3300032: Tree23
+    3300034: Tree24
+    3300036: Tree25
+    3300038: Tree26
+    3300040: Tree27
+    3300042: Tree28
+    3300044: Tree29
+    3300046: Tree3
+    3300048: Tree30
+    3300050: Tree4
+    3300052: Tree5
+    3300054: Tree6
+    3300056: Tree7
+    3300058: Tree8
+    3300060: Tree9
+    4300000: Tree
+    4300002: Tree1
+    4300004: Tree2
+    4300006: Tree3
+    4300008: Tree4
+    4300010: Tree5
+    4300012: Tree6
+    4300014: Tree7
+    4300016: Tree8
+    4300018: Tree9
+    4300020: Tree10
+    4300022: Tree11
+    4300024: Tree12
+    4300026: Tree13
+    4300028: Tree14
+    4300030: Tree15
+    4300032: Tree16
+    4300034: Tree17
+    4300036: Tree18
+    4300038: Tree19
+    4300040: Tree20
+    4300042: Tree21
+    4300044: Tree22
+    4300046: Tree23
+    4300048: Tree24
+    4300050: Tree25
+    4300052: Tree26
+    4300054: Tree27
+    4300056: Tree28
+    4300058: Tree29
+    4300060: Tree30
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bark
+    second: {fileID: 2100000, guid: 7fae916ef68d65c4b88e18e0bcd13f20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: ade5cc01506fb2f4aa7966aff215bb68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pine_needle
+    second: {fileID: 2100000, guid: 58bcc96c2d9fc1f429a769638a851a62, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: aged wood
+    second: {fileID: 2800000, guid: 833bf77b4ea6ccd4a8c5b822a94db581, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pine nedles
+    second: {fileID: 2800000, guid: 5ed22ff8bb854ff49aabfffc0b7cb5c6, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
