@@ -110,14 +110,14 @@ public class BuildingPlacerRay : MonoBehaviour
                         //Make object green
                         foreach (Transform child in _outlineBuilding.transform)
                         {
-                            child.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                            //child.gameObject.GetComponent<Renderer>().material.color = Color.green;
                         }
                     }
                     else
                     {
                         foreach (Transform child in _outlineBuilding.transform)
                         {
-                            child.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                            //child.gameObject.GetComponent<Renderer>().material.color = Color.red;
                         }
                         _outlineBuilding.transform.Rotate(Vector3.up, 15 * Time.deltaTime);
                     }
@@ -225,7 +225,8 @@ public class BuildingPlacerRay : MonoBehaviour
         {
             Debug.Log("ERROR: Invalid building type");
         }
-
+        Debug.Log("Building added: " + _equippedBuilding);
+        Debug.Log("Successfully placed: " + buildingPlacedSuccessfully);
         //Remove the trees if a building is successfully placed
         if(buildingPlacedSuccessfully && _equippedBuilding != Buildings.Tree){
             removeCollidingTrees();
