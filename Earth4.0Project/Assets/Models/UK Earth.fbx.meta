@@ -21,7 +21,17 @@ ModelImporter:
     3300002: UK_Mainland1
     4300000: pSphere1
     4300002: UK_Mainland1
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: 6ce8378a008730a438ff3490f87e6b3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5
+    second: {fileID: 2100000, guid: 112ad6e751bbf9749986f77f3ef3cbf2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
