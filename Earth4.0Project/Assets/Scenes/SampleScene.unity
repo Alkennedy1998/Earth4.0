@@ -10560,6 +10560,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.34024832
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9904a6214bda3184281571dc200e380c, type: 3}
+      propertyPath: m_Name
+      value: Cabinet Base
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9904a6214bda3184281571dc200e380c, type: 3}
   m_IsPrefabAsset: 0
