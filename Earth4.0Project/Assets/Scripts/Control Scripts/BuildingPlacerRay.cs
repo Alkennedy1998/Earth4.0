@@ -24,6 +24,8 @@ public class BuildingPlacerRay : MonoBehaviour
     private bool _triggerHasBeenReleased = true;
 
     public List<GameObject> _overlappedTrees = new List<GameObject>();
+
+    public GameObject _factoryInfo, _farmInfo, _cottonInfo, _treeInfo, _houseInfo;
     #endregion
 
     #region unityFunctions
@@ -64,6 +66,44 @@ public class BuildingPlacerRay : MonoBehaviour
             _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
             _lineRenderer.material.color = Color.green;
 
+            //If a button is hovered over then show the relevant info panel
+            #region showBuildingInfo
+            if (collidedObject.tag == "button" && false)
+            {
+                if (collidedObject.name == "FactoryButton")
+                {
+                    _factoryInfo.SetActive(true);
+                }
+                else if (collidedObject.name == "FarmButton")
+                {
+                    _farmInfo.SetActive(true);
+
+                }
+                else if (collidedObject.name == "HouseButton")
+                {
+                    _houseInfo.SetActive(true);
+                }
+                else if (collidedObject.name == "TreeButton")
+                {
+                    _treeInfo.SetActive(true);
+
+                }
+                else if (collidedObject.name == "CottonButton")
+                {
+                    _cottonInfo.SetActive(true);
+
+                }
+            }
+            else
+            {
+                _factoryInfo.SetActive(false);
+                _farmInfo.SetActive(false);
+                _houseInfo.SetActive(true);
+                _treeInfo.SetActive(true);
+                _cottonInfo.SetActive(true);
+            }
+            #endregion
+            //Display where the building is about to be placed on the world if the cursor is over the world
             #region buildingHighlighter
             if (collidedObject.name == "World")
             {
@@ -128,7 +168,7 @@ public class BuildingPlacerRay : MonoBehaviour
                 }
             }
             #endregion
-
+            //If user is pressing the trigger
             #region onTriggerPress
             //If that object ray collides with is a button set active Item to that button item
             if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == true && _triggerHasBeenReleased)
@@ -228,7 +268,8 @@ public class BuildingPlacerRay : MonoBehaviour
         Debug.Log("Building added: " + _equippedBuilding);
         Debug.Log("Successfully placed: " + buildingPlacedSuccessfully);
         //Remove the trees if a building is successfully placed
-        if(buildingPlacedSuccessfully && _equippedBuilding != Buildings.Tree){
+        if (buildingPlacedSuccessfully && _equippedBuilding != Buildings.Tree)
+        {
             removeCollidingTrees();
         }
 
