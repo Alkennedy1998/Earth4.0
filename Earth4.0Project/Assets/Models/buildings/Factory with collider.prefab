@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853282435166286}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4752950431319952}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4058678883698434}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4333075339516738}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4668397746818948}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4786023952670990}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481526991541480}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pasted__pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4129090616577442}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pDisc1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4468734585723832}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4815397659680194}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window7 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4481954900944338}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4759521155445360}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4145273740302682}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4846980627346572}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4809024307830430}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4416359062690340}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4351744754658092}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Large_Smoke_Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4831605010643634}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4062940137409502}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4192143550752138}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4849785042721342}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4164381448238672}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pDisc2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4580157358880792}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,8 +366,9 @@ GameObject:
   - component: {fileID: 4816834531200616}
   - component: {fileID: 54356695383874512}
   - component: {fileID: 65196970606245190}
-  m_Layer: 0
-  m_Name: Factory 1
+  - component: {fileID: 114077126848983034}
+  m_Layer: 2
+  m_Name: Factory with collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +384,7 @@ GameObject:
   - component: {fileID: 4092015545756750}
   - component: {fileID: 33907494563013304}
   - component: {fileID: 23765165483549966}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4813779583192312}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Door_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +414,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4779188012036772}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4470524683293410}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pasted__pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +444,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4990354032915568}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Smoke_Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567809611140306}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4825027677158814}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Block_for_smoke_stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4781891836463286}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Back_Factory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4909684272819296}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4319335992437504}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4254927167302612}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4104350395327856}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4737549529932208}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: smoke_stacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4951244434957388}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4800462294533366}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4888126280070122}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +624,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4206249435432640}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4020986169883322}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +654,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4364473181140262}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4339419476395354}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4066221333165210}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4897718292656134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4181920312616708}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4302265197574076}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4852272102217462}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4956389961316034}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492680760718246}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4470457018492134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4641642533861368}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pDisc3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4875332844956106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -833,7 +834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4796695031437106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4559723554368402}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,7 +864,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4778521291611062}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +879,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4495913138825762}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4333027029092046}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,7 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4675471192467690}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4698952056388350}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,7 +939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4288052087017444}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +954,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426029527498852}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4289372425039464}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -983,7 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4563246837120338}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -998,7 +999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4976216862072474}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Factory_building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +1014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4138997126393702}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4999419969356606}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2060,3 +2061,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.175135, y: 0.19835153, z: 0.12122297}
   m_Center: {x: -0.019110454, y: 0.09684902, z: 0.028000234}
+--- !u!114 &114077126848983034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310951372171184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e919d3ffbc4901b4e9edd761be1eef2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentWorkers: 0
+  _smokePrefab: {fileID: 1481764736306912, guid: a2f4c0a40e7d08847833ad11b4aa35aa,
+    type: 2}

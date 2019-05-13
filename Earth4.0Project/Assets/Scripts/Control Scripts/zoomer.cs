@@ -19,6 +19,5 @@ public class zoomer : MonoBehaviour {
         float forward_distance = Time.deltaTime * rightStick.y * 3f;
         transform.Translate(Vector3.right*forward_distance,Space.World);
 
-		Debug.Log("rightStick: "+ rightStick.x);
     }
 }
