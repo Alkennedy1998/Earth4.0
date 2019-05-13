@@ -1,26 +1,29 @@
 fileFormatVersion: 2
-guid: 8f4e5c533d541eb4399b177a8f75f280
+guid: 41d7c6e48c3303c43b3791e13cedbdea
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: bend1Handle
     100002: bend2Handle
-    100004: pSphere1
-    100006: //RootNode
-    100008: UK_Mainland1
+    100004: //RootNode
+    100006: pSphere1
+    100008: pSphere2
+    100010: transform1
+    100012: transform2
+    100014: UK_Mainland1
     400000: bend1Handle
     400002: bend2Handle
-    400004: pSphere1
-    400006: //RootNode
-    400008: UK_Mainland1
-    2100000: lambert5
+    400004: //RootNode
+    400006: pSphere1
+    400008: pSphere2
+    400010: transform1
+    400012: transform2
+    400014: UK_Mainland1
+    2100000: phong1
     2100002: lambert4
-    2300000: pSphere1
-    2300002: UK_Mainland1
-    3300000: pSphere1
-    3300002: UK_Mainland1
-    4300000: pSphere1
-    4300002: UK_Mainland1
+    2300000: pSphere2
+    3300000: pSphere2
+    4300000: pSphere2
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -30,8 +33,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert5
-    second: {fileID: 2100000, guid: 112ad6e751bbf9749986f77f3ef3cbf2, type: 2}
+      name: phong1
+    second: {fileID: 2100000, guid: ff872813a18595944a9d5d3f74d319b4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
