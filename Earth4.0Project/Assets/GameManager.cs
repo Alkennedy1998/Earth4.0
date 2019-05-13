@@ -93,6 +93,9 @@ public class GameManager : MonoBehaviour {
 
         foreach (GameObject layer in _smogLayersList)
         {
+            var rend = layer.GetComponent<Renderer>();
+            rend.enabled = true;
+
             layer.transform.rotation = Random.rotation;
             setSmogLayerOpacity(layer, 1.0f);
         }
