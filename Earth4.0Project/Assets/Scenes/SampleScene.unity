@@ -6581,7 +6581,7 @@ Prefab:
     - target: {fileID: 23280759014694242, guid: 13a7fb249ab3d7b4ebf46c34786554b7,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4367999435291238, guid: 13a7fb249ab3d7b4ebf46c34786554b7, type: 2}
       propertyPath: m_LocalScale.z
@@ -9196,11 +9196,11 @@ MonoBehaviour:
     type: 2}
   _factoryPrefab: {fileID: 1793330689244022, guid: 6300815e853b9af4095646f9f5926c17,
     type: 2}
-  _farmPrefab: {fileID: 1277506150738646, guid: ee095f54207a9fe4b8faf37c74c0ea3c,
+  _farmPrefab: {fileID: 1008633082900156, guid: b7ac0979917b7304dbeb167fc02b68f5,
     type: 2}
-  _housePrefab: {fileID: 1585169089280530, guid: 35071dcb3a0f11a4c884b710774fd19e,
+  _housePrefab: {fileID: 1575452894581400, guid: 5fb4ab30777c48e44a73e4c68d9ef4ec,
     type: 2}
-  _treePrefab: {fileID: 1064479680197972, guid: 3feefaeb2f650a44fb9c386990af3673,
+  _treePrefab: {fileID: 1015283341795490, guid: c6903a77b23f17941a582c70dc547d73,
     type: 2}
   _cottonPrefab: {fileID: 1192849646701288, guid: 618f51990c8438d479965f6144be5e82,
     type: 2}
@@ -9875,7 +9875,7 @@ Prefab:
     - target: {fileID: 23280759014694242, guid: 13a7fb249ab3d7b4ebf46c34786554b7,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a7fb249ab3d7b4ebf46c34786554b7, type: 2}
@@ -10754,7 +10754,7 @@ Prefab:
     - target: {fileID: 23280759014694242, guid: 13a7fb249ab3d7b4ebf46c34786554b7,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a7fb249ab3d7b4ebf46c34786554b7, type: 2}
