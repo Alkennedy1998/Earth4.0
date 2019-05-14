@@ -68,8 +68,11 @@ public class BuildingPlacerRay : MonoBehaviour
 
             //If a button is hovered over then show the relevant info panel
             #region showBuildingInfo
-            if (collidedObject.tag == "button" && false)
+
+            Debug.Log(collidedObject.tag);
+            if (collidedObject.tag == "button")
             {
+                Debug.Log(collidedObject.name);
                 if (collidedObject.name == "FactoryButton")
                 {
                     _factoryInfo.SetActive(true);
@@ -98,9 +101,9 @@ public class BuildingPlacerRay : MonoBehaviour
             {
                 _factoryInfo.SetActive(false);
                 _farmInfo.SetActive(false);
-                _houseInfo.SetActive(true);
-                _treeInfo.SetActive(true);
-                _cottonInfo.SetActive(true);
+                _houseInfo.SetActive(false);
+                _treeInfo.SetActive(false);
+                _cottonInfo.SetActive(false);
             }
             #endregion
             //Display where the building is about to be placed on the world if the cursor is over the world
