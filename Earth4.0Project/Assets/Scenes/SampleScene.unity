@@ -6310,7 +6310,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 87d3c1f4667a82d469d34eaf992512fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.08
+      value: -3.21
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 87d3c1f4667a82d469d34eaf992512fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7099,8 +7099,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 651039979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.25, y: -0.6, z: 1.53}
-  m_LocalScale: {x: 4.1515365, y: 8.822854, z: 8.5745945}
+  m_LocalPosition: {x: -5.45, y: 1.26, z: 1.53}
+  m_LocalScale: {x: 8.29394, y: 8.822854, z: 8.5745945}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
@@ -9398,7 +9398,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273177680}
   m_LocalRotation: {x: 0, y: -0, z: -0.00069049717, w: 0.99999976}
-  m_LocalPosition: {x: -4.96, y: -0.47, z: 1.74}
+  m_LocalPosition: {x: -4.96, y: 1.48, z: 1.74}
   m_LocalScale: {x: 6.6521063, y: 6.6521063, z: 6.6521063}
   m_Children:
   - {fileID: 641417562}
@@ -10259,6 +10259,13 @@ MonoBehaviour:
   _lineWidth: 0.3
   _buildingCollisions: 0
   _overlappedTrees: []
+  _factoryInfo: {fileID: 1310951372171184, guid: 5d6c2ef5bfbbf8247bbf637c4f4e3c52,
+    type: 2}
+  _farmInfo: {fileID: 1008633082900156, guid: b7ac0979917b7304dbeb167fc02b68f5, type: 2}
+  _cottonInfo: {fileID: 1941781092439036, guid: ebc0f032be5d64b4193ec2ff643a184d,
+    type: 2}
+  _treeInfo: {fileID: 1015283341795490, guid: c6903a77b23f17941a582c70dc547d73, type: 2}
+  _houseInfo: {fileID: 1493601451653376, guid: 34a975b3fea6fe94e95d90e4ac265f2e, type: 2}
 --- !u!1001 &1700334365
 Prefab:
   m_ObjectHideFlags: 0
