@@ -15,6 +15,6 @@ public class EarthRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(transform.up, rotateSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
     }
 }
