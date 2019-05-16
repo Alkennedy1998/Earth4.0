@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PersonController : MonoBehaviour {
 
-    public const float _BIRTH_RATE = 0.1f;
+    public const float _BIRTH_RATE = 0.0f;
 
     private Vector3 _target;
     private int _fatigue, _fatigueRate;
@@ -43,6 +43,7 @@ public class PersonController : MonoBehaviour {
         _targetBuilding = Buildings.None;
 
         StartCoroutine("UpdatePerson");
+        StartCoroutine("UpdatePopulation");
     }
 
     // Update is called once per frame
