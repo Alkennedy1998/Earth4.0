@@ -6,7 +6,7 @@ public class BuildingPlacerRay : MonoBehaviour
 {
     #region gameValues
     public float _length_multiplier = 10;
-    public float _lineWidth = 0.3f;
+    public float _lineWidth;
 
     private LineRenderer _lineRenderer;
 
@@ -50,6 +50,9 @@ public class BuildingPlacerRay : MonoBehaviour
 
         rayCollisionHandler();
 
+        RaycastHit sphereCast;
+
+        Physics.SphereCast(transform.position, 10, transform.TransformDirection(Vector3.forward), out sphereCast, Mathf.Infinity, _layerMask);
     }
     #endregion
 
@@ -64,7 +67,7 @@ public class BuildingPlacerRay : MonoBehaviour
 
             //Make line visible to user and turn green
             _lineRenderer.SetPosition(1, Vector3.forward * _hit.distance);
-            _lineRenderer.material.color = Color.green;
+            //_lineRenderer.material.color = Color.green;
 
             //If a button is hovered over then show the relevant info panel
             #region showBuildingInfo
