@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public const float _STARTING_COTTON = 200.0f;
     private const float _STARTING_POLLUTION = 0.0f;
 
-    private const float _GAME_WIN_MONEY = 2000.0f;
+    private const float _GAME_WIN_MONEY = 10000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
 
     public const float _COST_FACTORY = 100.0f;
@@ -22,15 +22,15 @@ public class GameManager : MonoBehaviour {
     public const float _COST_TREE = 20.0f;
     public const float _COST_COTTON = 50.0f;
 
-    private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
+    private const float _TICK_TIME = 2.5f; // There are 2.5 seconds between 'ticks'
     private const float _FAST_TICK_TIME = .1f;
-    public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
-    public const float _TREE_DEPOLLUTION_PER_TICK = 6.0f;
-    public const float _FARM_FOOD_PER_TICK = 45.0f;
-    public const float _FOOD_EATEN_PER_TICK = 6.0f;
-    public const float _FACTORY_MONEY_PER_TICK = 8.0f;
-    public const float _FACTORY_COTTON_PER_TICK = 6.0f;
-    public const float _COTTON_PER_TICK = 9.0f;
+    public const float _FACTORY_POLLUTION_PER_TICK = 15.0f;
+    public const float _TREE_DEPOLLUTION_PER_TICK = -10.0f;
+    public const float _FARM_FOOD_PER_TICK = 5.0f;
+    public const float _FOOD_EATEN_PER_TICK = -1.0f;
+    public const float _FACTORY_MONEY_PER_TICK = 3.0f;
+    public const float _FACTORY_COTTON_PER_TICK = -4.0f;
+    public const float _COTTON_PER_TICK = 6.0f;
 
     public const float _MAX_POLLUTION = 300.0f;
     public const float _MAX_SMOKE_PARTICLES = 50.0f;
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour {
         var emission = _smokeParticleSystem.emission;
         emission.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Clamp(_MAX_SMOKE_PARTICLES / _MAX_POLLUTION * _currentPollution, 0, _MAX_SMOKE_PARTICLES));            
 
-        _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
+        _currentPollution += (_factoryList.Count * _FACTORY_POLLUTION_PER_TICK + (_treeList.Count * _TREE_DEPOLLUTION_PER_TICK)) / (_TICK_TIME / _FAST_TICK_TIME);
         _currentPollution = Mathf.Clamp(_currentPollution, 0, _MAX_POLLUTION);
     }
 
@@ -141,9 +141,11 @@ public class GameManager : MonoBehaviour {
     {
         _currentTickTime = 0f;
         
-        _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
-        _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
-        _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
+        if (_currentCotton > 5)
+            _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
+
+        _currentFood += (_currentFarmWorkers * _FARM_FOOD_PER_TICK) + (_personList.Count * _FOOD_EATEN_PER_TICK);
+        _currentCotton += (_currentCottonWorkers * _COTTON_PER_TICK) + (_currentFactoryWorkers * _FACTORY_COTTON_PER_TICK);
 
         // Set to 0.0f if negative
         _currentFood = Mathf.Clamp(_currentFood, 0, 9999);
