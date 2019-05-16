@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour {
     // Game PreFabs
     public GameObject _personPrefab;
     public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
-    public GameObject _smokeParticlePrefab;
-    private ParticleSystem _smokeParticleSystem;
 
     // Game Objects
     public List<GameObject> _personList = new List<GameObject>();
@@ -88,8 +86,6 @@ public class GameManager : MonoBehaviour {
         _moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshPro>();
         _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
-
-        _smokeParticleSystem = _smokeParticlePrefab.GetComponent<ParticleSystem>();
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -128,10 +124,6 @@ public class GameManager : MonoBehaviour {
     private void onFastTick()
     {
         _fastTickTime = 0.0f;
-
-        // Set smoke rate
-        var emission = _smokeParticleSystem.emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Clamp(_MAX_SMOKE_PARTICLES / _MAX_POLLUTION * _currentPollution, 0, _MAX_SMOKE_PARTICLES));
 
         _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
         _currentPollution = Mathf.Clamp(_currentPollution, 0, _MAX_POLLUTION);
@@ -281,7 +273,7 @@ public class GameManager : MonoBehaviour {
 
     private void logValues()
     {
-        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton + "     Smoke Particles: " + _smokeParticleSystem.emission.rateOverTime.constant);
+        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
         //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
     }
 
