@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FarmScript : _WorkableBuildingScript {
 
+    private const int _MAX_FARM_WORKERS = 2;
+
 	// Use this for initialization
 	new void Start () {
 		base.Start();
@@ -13,4 +15,6 @@ public class FarmScript : _WorkableBuildingScript {
 	void Update () {
 
 	}
+
+    public override int getMaxWorkers() { return _MAX_FARM_WORKERS; }
 }

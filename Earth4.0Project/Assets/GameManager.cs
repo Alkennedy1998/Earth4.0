@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
     public const float _FACTORY_COTTON_PER_TICK = 6.0f;
     public const float _COTTON_PER_TICK = 9.0f;
 
-    public const float _MAX_POLLUTION = 30.0f;
+    public const float _MAX_POLLUTION = 300.0f;
     public const float _MAX_SMOKE_PARTICLES = 50.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < _smogLayersList.Count; i++)
         {
             _smogLayersList[i].transform.Rotate(0.07f, 0.0f, 0.0f);
-            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp((_currentPollution / 10) - i, 0.0f, 1.0f));
+            setSmogLayerOpacity(_smogLayersList[i], Mathf.Clamp((_currentPollution / 100) - i, 0.0f, 1.0f));
         }
 
         if (_fastTickTime >= _FAST_TICK_TIME)

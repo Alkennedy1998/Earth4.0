@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FactoryScript : _WorkableBuildingScript {
 
+    private const int _MAX_FACTORY_WORKERS = 3;
     private const float _TICK_TIME = 5.0f; // There are 5 seconds between 'ticks'
 	private const float _SMOKE_OFFSET_MULTIPLIER = 1.25f; // Height above factory
 
@@ -37,4 +38,6 @@ public class FactoryScript : _WorkableBuildingScript {
 		GameObject smoke = Instantiate(_smokePrefab, smokeLocation, transform.rotation);
 		smoke.transform.parent = transform;
 	}
+
+    public override int getMaxWorkers() { return _MAX_FACTORY_WORKERS; }
 }
