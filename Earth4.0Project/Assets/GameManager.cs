@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour {
 
         // Set smoke rate
         var emission = _smokeParticleSystem.emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Clamp(_MAX_SMOKE_PARTICLES / _MAX_POLLUTION * _currentPollution, 0, _MAX_SMOKE_PARTICLES));            
+        emission.rateOverTime = new ParticleSystem.MinMaxCurve(Mathf.Clamp(_MAX_SMOKE_PARTICLES / _MAX_POLLUTION * _currentPollution, 0, _MAX_SMOKE_PARTICLES));
 
         _currentPollution += (_currentFactoryWorkers * _FACTORY_POLLUTION_PER_TICK - _treeList.Count * _TREE_DEPOLLUTION_PER_TICK) / (_TICK_TIME / _FAST_TICK_TIME);
         _currentPollution = Mathf.Clamp(_currentPollution, 0, _MAX_POLLUTION);
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour {
     private void onTick()
     {
         _currentTickTime = 0f;
-        
+
         _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
         _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
@@ -205,11 +205,8 @@ public class GameManager : MonoBehaviour {
         _houseList.Add(house);
 
         // Add new people attached to this house
-        for (int i = 0; i < _PEOPLE_PER_HOUSE; i++) {
-            GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
-            person.GetComponent<PersonController>()._attachedHouse = house;
-            _personList.Add(person);
-        }
+        for (int i = 0; i < _PEOPLE_PER_HOUSE; i++)
+            addPerson(location, rotation, house);
         return true;
     }
 
@@ -237,6 +234,13 @@ public class GameManager : MonoBehaviour {
 
         GameObject cotton = instantiateOnWorld(_cottonPrefab, location, rotation);
         _cottonList.Add(cotton);
+        return true;
+    }
+
+    public bool addPerson(Vector3 location, Quaternion rotation, GameObject house) {
+        GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
+        person.GetComponent<PersonController>()._attachedHouse = house;
+        _personList.Add(person);
         return true;
     }
 
