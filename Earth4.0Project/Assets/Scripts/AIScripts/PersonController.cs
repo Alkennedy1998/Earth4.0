@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PersonController : MonoBehaviour {
 
+    public const float _BIRTH_RATE = 0.1f;
+
     private Vector3 _target;
     private int _fatigue, _fatigueRate;
     private float _speed, _hitRadius;
@@ -307,6 +309,18 @@ public class PersonController : MonoBehaviour {
                 }
             }
             yield return new WaitForSeconds(.2f);
+        }
+    }
+
+    IEnumerator UpdatePopulation()
+    {
+        while (true) {
+            if (atHome() && Random.Range(0.0f, 1.0f) < _BIRTH_RATE) {  // handle birth
+                Quaternion rotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
+                _world.GetComponent<GameManager>().addPerson(transform.position, rotation, _attachedHouse);
+            }
+
+            yield return new WaitForSeconds(1.0f);
         }
     }
 }
