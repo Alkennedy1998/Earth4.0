@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _WorkableBuildingScript : MonoBehaviour {
+public abstract class _WorkableBuildingScript : MonoBehaviour {
 
-	private const int _MAX_WORKERS = 5;
 	private bool _isFull, _isEmpty;
 	public int _currentWorkers;
 
@@ -20,6 +19,8 @@ public class _WorkableBuildingScript : MonoBehaviour {
 
 	}
 
+    public abstract int getMaxWorkers();
+
 	public bool isFull() {
 		return _isFull;
 	}
@@ -33,7 +34,7 @@ public class _WorkableBuildingScript : MonoBehaviour {
 			return false;
 
 		_currentWorkers++;
-		if (_currentWorkers >= _MAX_WORKERS)
+		if (_currentWorkers >= getMaxWorkers())
 			_isFull = true;
 		if (_isEmpty)
 			_isEmpty = false;
