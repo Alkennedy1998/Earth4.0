@@ -72,8 +72,7 @@ public class BuildingPlacerRay : MonoBehaviour
             //If a button is hovered over then show the relevant info panel
             #region showBuildingInfo
 
-            Debug.Log(collidedObject.tag);
-            if (collidedObject.tag == "button")
+            if (collidedObject.tag == "Button")
             {
                 Debug.Log(collidedObject.name);
                 if (collidedObject.name == "FactoryButton")
@@ -233,6 +232,13 @@ public class BuildingPlacerRay : MonoBehaviour
             _buildingCollisions = 0;
             _lineRenderer.SetPosition(1, Vector3.forward * 7);
             _lineRenderer.material.color = Color.red;
+
+            //Set all info texts to invisible
+            _factoryInfo.SetActive(false);
+            _farmInfo.SetActive(false);
+            _houseInfo.SetActive(false);
+            _treeInfo.SetActive(false);
+            _cottonInfo.SetActive(false);
         }
 
     }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     #region Constants
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour {
     public float _currentFood;
     public float _currentCotton;
 
+    public bool _debugEnabled;
     public int _currentFactoryWorkers, _currentFarmWorkers, _currentCottonWorkers;
 
     // Game PreFabs
@@ -73,7 +75,8 @@ public class GameManager : MonoBehaviour {
     #region Initialization
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _currentPollution = _STARTING_POLLUTION;
         _currentMoney = _STARTING_MONEY;
         _currentFood = _STARTING_FOOD;
@@ -102,7 +105,8 @@ public class GameManager : MonoBehaviour {
     #region Update
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         _currentTickTime += Time.deltaTime;
         _fastTickTime += Time.deltaTime;
@@ -119,7 +123,7 @@ public class GameManager : MonoBehaviour {
 
         if (_currentTickTime >= _TICK_TIME)
             onTick();
-	}
+    }
 
     private void onFastTick()
     {
@@ -202,7 +206,8 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public bool addTree(Vector3 location, Quaternion rotation) {
+    public bool addTree(Vector3 location, Quaternion rotation)
+    {
         if (_currentMoney < _COST_TREE)
             return false;
         _currentMoney -= _COST_TREE;
@@ -219,7 +224,8 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public bool addCotton(Vector3 location, Quaternion rotation) {
+    public bool addCotton(Vector3 location, Quaternion rotation)
+    {
         if (_currentMoney < _COST_COTTON)
             return false;
         _currentMoney -= _COST_COTTON;
@@ -229,7 +235,8 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public bool addPerson(Vector3 location, Quaternion rotation, GameObject house) {
+    public bool addPerson(Vector3 location, Quaternion rotation, GameObject house)
+    {
         GameObject person = instantiateOnWorld(_personPrefab, location, rotation);
         person.GetComponent<PersonController>()._attachedHouse = house;
         _personList.Add(person);
@@ -242,13 +249,16 @@ public class GameManager : MonoBehaviour {
 
     private void checkWinCondition()
     {
-        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f) {
+        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f)
+        {
             Debug.Log("GAME OVER!");
             GameObject text = GameObject.Find("GameOverText");
             text.GetComponent<Renderer>().enabled = true;
 
 
-        } else if (_currentMoney > _GAME_WIN_MONEY) {
+        }
+        else if (_currentMoney > _GAME_WIN_MONEY)
+        {
             Debug.Log("YOU WIN!");
             GameObject text = GameObject.Find("WinGameText");
             text.GetComponent<Renderer>().enabled = true;
@@ -273,8 +283,11 @@ public class GameManager : MonoBehaviour {
 
     private void logValues()
     {
-        Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
-        //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
+        if (_debugEnabled)
+        {
+            Debug.Log("Pollution: " + _currentPollution + "     Money: " + _currentMoney + "     Food: " + _currentFood + "     Cotton: " + _currentCotton);
+            //Debug.Log("FactoryWorkers: " + _currentFactoryWorkers + "     FarmWorkers: " + _currentFarmWorkers + "     CottonWorkers: " + _currentCottonWorkers);
+        }
     }
 
     #endregion
