@@ -1,33 +1,24 @@
 fileFormatVersion: 2
-guid: 495d235aa5ee4564aa82851e8a6e56c2
+guid: ef1787a332e69f5459c1bf2107d8f268
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pSphere1_pSphere1
-    100004: UK_Model_UK_Model
+    100002: Ocean
+    100004: World
     400000: //RootNode
-    400002: pSphere1_pSphere1
-    400004: UK_Model_UK_Model
-    2100000: pSphere1_pSphere1Mat
-    2100002: UK_Model_UK_ModelMat
-    2300000: pSphere1_pSphere1
-    2300002: UK_Model_UK_Model
-    3300000: pSphere1_pSphere1
-    3300002: UK_Model_UK_Model
-    4300000: pSphere1_pSphere1
-    4300002: UK_Model_UK_Model
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: UK_Model_UK_ModelMat
-    second: {fileID: 2100000, guid: 344d96b782ea7fc4cae50e965b5841f4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pSphere1_pSphere1Mat
-    second: {fileID: 2100000, guid: 46eabb469fd6e9242a9a04a2fe85fbea, type: 2}
+    400002: Ocean
+    400004: World
+    2100000: Land_Color
+    2100002: OceanColor
+    2300000: Ocean
+    2300002: World
+    3300000: Ocean
+    3300002: World
+    4300000: World
+    4300002: Ocean
+    9500000: //RootNode
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,8 +69,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -103,7 +94,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
