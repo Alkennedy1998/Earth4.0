@@ -238,21 +238,6 @@ public class PersonController : MonoBehaviour {
         return _targetObject.transform.position;
     }
 
-    private Vector3 randomVector()
-    {
-        Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        return normalizeVectorToSphere(randomDirection);
-    }
-
-    private Vector3 normalizeVectorToSphere(Vector3 vector)
-    {
-        return (
-            _world.transform.position +
-            _worldRadius *
-            Vector3.Normalize(vector)
-        );
-    }
-
     private Buildings weightedBuildingChoice(List<Buildings> choices, List<float> probabilities)
     {
         // choices and probabilities must have the same length and sum(probabilities) == 1.0f

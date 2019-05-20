@@ -74,7 +74,6 @@ public class BuildingPlacerRay : MonoBehaviour
 
             if (collidedObject.tag == "Button")
             {
-                Debug.Log(collidedObject.name);
                 if (collidedObject.name == "FactoryButton")
                 {
                     _factoryInfo.SetActive(true);
