@@ -3,7 +3,7 @@ using System.Collections;
 
 // Quits the player when the user hits escape
 
-public class ExampleClass : MonoBehaviour
+public class QuitGame : MonoBehaviour
 {
     void Update()
     {
