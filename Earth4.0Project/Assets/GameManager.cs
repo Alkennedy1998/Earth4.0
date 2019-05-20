@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public const float _COST_TREE = 20.0f;
     public const float _COST_COTTON = 50.0f;
 
+    public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
+    public const float _POLLUTION_OTHER_ONBUILD = 15.0f;
+
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
     private const float _FAST_TICK_TIME = .1f;
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
@@ -177,6 +180,7 @@ public class GameManager : MonoBehaviour
 
         GameObject factory = instantiateOnWorld(_factoryPrefab, location, rotation);
         _factoryList.Add(factory);
+        _currentPollution += _POLLUTION_FACTORY_ONBUILD;
         return true;
     }
 
@@ -188,6 +192,7 @@ public class GameManager : MonoBehaviour
 
         GameObject farm = instantiateOnWorld(_farmPrefab, location, rotation);
         _farmList.Add(farm);
+        _currentPollution += _POLLUTION_OTHER_ONBUILD;
         return true;
     }
 
@@ -199,6 +204,7 @@ public class GameManager : MonoBehaviour
 
         GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
+        _currentPollution += _POLLUTION_OTHER_ONBUILD;
 
         // Add new people attached to this house
         for (int i = 0; i < _PEOPLE_PER_HOUSE; i++)
