@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
 
     // Constants
     public const float _STARTING_MONEY = 400.0f;
-    public const float _STARTING_FOOD = 200.0f;
+    public const float _STARTING_FOOD = 100.0f;
     public const float _STARTING_COTTON = 200.0f;
     private const float _STARTING_POLLUTION = 0.0f;
+    public const float _IDEAL_FOOD = 100.0f;
 
     private const float _GAME_WIN_MONEY = 2000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
@@ -168,6 +169,11 @@ public class GameManager : MonoBehaviour
         _moneyText.text = _currentMoney.ToString();
         _foodText.text = _currentFood.ToString();
         _cottonText.text = _currentCotton.ToString();
+    }
+
+    IEnumerator populationChange()
+    {
+        
     }
 
     #endregion

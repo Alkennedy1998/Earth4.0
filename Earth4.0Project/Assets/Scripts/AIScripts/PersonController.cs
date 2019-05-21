@@ -49,7 +49,7 @@ public class PersonController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (!_hasTarget) {
+        if (!_hasTarget && _attachedHouse != null) {
             setTargetObject();
             if (_hasTarget)
                 _animator.SetFloat("Speed", 1.0f);
