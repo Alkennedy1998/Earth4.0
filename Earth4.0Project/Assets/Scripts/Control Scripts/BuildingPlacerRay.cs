@@ -111,6 +111,11 @@ public class BuildingPlacerRay : MonoBehaviour
             #region buildingHighlighter
             if (collidedObject.name == "Land")
             {
+                // Check if too steep of land
+                Vector3 worldVector = _hit.point - _world.transform.position;
+                if (Vector3.Angle(worldVector, _hit.normal) > 45f)
+                    return;
+
                 //Instantiate a building outline if none exists yet
                 if (_outlineBuilding == null)
                 {
