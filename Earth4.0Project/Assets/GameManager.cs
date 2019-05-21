@@ -98,6 +98,11 @@ public class GameManager : MonoBehaviour
         _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
         _gameOverText.text = "";
 
+        // Initialize the initial people with the first house and farm
+        addHouse(new Vector3(-1.8f, 0.8f, 1.0f), new Quaternion(0.0f, 0.7f, 0.0f, 0.7f));
+        addFarm(new Vector3(-1.7f, 1.2f, 0.6f), new Quaternion(0.0f, 0.7f, 0.0f, 0.7f));
+
+        // Initialize the smog
         foreach (GameObject layer in _smogLayersList)
         {
             var rend = layer.GetComponent<Renderer>();
@@ -191,6 +196,7 @@ public class GameManager : MonoBehaviour
 
     public bool addFarm(Vector3 location, Quaternion rotation)
     {
+        Debug.Log(location.ToString() + " " + rotation.ToString());
         if (_currentMoney < _COST_FARM)
             return false;
         _currentMoney -= _COST_FARM;
