@@ -109,7 +109,7 @@ public class BuildingPlacerRay : MonoBehaviour
             #endregion
             //Display where the building is about to be placed on the world if the cursor is over the world
             #region buildingHighlighter
-            if (collidedObject.name == "World")
+            if (collidedObject.name == "Land")
             {
                 //Instantiate a building outline if none exists yet
                 if (_outlineBuilding == null)
@@ -179,7 +179,7 @@ public class BuildingPlacerRay : MonoBehaviour
             {
                 _triggerHasBeenReleased = false;
 
-                if (collidedObject.name == "World")
+                if (collidedObject.name == "Land")
                 {
                     //If no buildings in the way
                     if (_buildingCollisions == 0)
