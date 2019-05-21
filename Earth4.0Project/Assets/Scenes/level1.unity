@@ -5123,7 +5123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACAn+uJ1FHWngEAAMkCAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFNUsFu4yAQ/ZWI8wYZ24Dd41ZVL9ukknel1d4IjGMkByKM2yZR/n0Hx6lzYuDNezNvmAsZ/Bg0vMHQkafVhWzUATAgv5Qz5MeK/D4dp/sfZ+Ppxe2tAzolXxH0bTtATLwV+cJjXVApawROeGGUcwzPGGa0FqtECD6qaL1bKDKnWS1nSkYzIWbOWla0rIuJNmjVpy7yikpeyTwpAb7psVcRNj4cVD8g3uIBCGqlOzDNt7OffnRmeLMPddcZZYxxzjNWzdXxKZM5q7FqUd+7SGm8qASr+dRK61HT3AQbe4ZFUdCSiYLf7ZeU8bwUUhazlKCiEJJV8iY0dP4z9bYdY49DxYQYRpiBjTfw7J0Dnab1aO1Oa8bQKg0PiAMVYIgNHrrbuv70998iCk7tetiojwNyn8cYrdsv6H605mbkQ/Xj9N+Z2VVyVwotlBDS1Gte1DvIc2BGyqxiFZlcWFwLq/p31O/j9IVpLY7gFnE3b9RcfPUa1LFLq2WC+ny154MflmTrWt/oAOC2N5Fv3xCwDg7cvBgbfWhg8pCo5HIl1/9QSwMEFAAACAgAAICf64zXRqNvAAAAegAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSs9BRUEovSizIKAYKGII4pZkpIHa0kkFKkoV5kolZslmimZl5iqWuqbFlUqqRUaphirm5gYWhhVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqeX2KZb2pxhjvIdKXYWgBQSwECLQAUAAAICAAAgJ/ridRR1p4BAADJAgAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAgJ/rjNdGo28AAAB6AAAACQAkAAAAAAAAAAAAAADrAQAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAKUCAAAAAA==
+    dataString: UEsDBBQAAAgIAACAn+tV8TnAoAEAAMkCAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUsFu4yAQ/RWL8wYZ24C9x62qXrbJSm6lam8ExjGSAxHG7SZR/r2D4zbRnhh4vDfzZuZMRj8FDc8w9uRndiZrtQcMyG/lDPmRkZfjYb6/OhuPj25nHdD58wVB33UjxMTLyD88ViWVskHgiBdGOcfwhGFOG5ElQvBRRevdjSILmjdyoeQ0F2LhrGRNq6acaaNWQ6qiqKnktSySEuCbngYVYe3DXg0j4jFMgJhWugfTfhv75Sdnxmd7l3aVU8YY5zxn9ZIcn3JZsAaTls1XEekbL2vBGj5X0nnUNFfB1p7gpihoxUTJv9xXlPGiElKWi5SgohSS1fIqNPb+I9W2meKAPcUPHXqABVl7Aw/eOdCpW+N/aOK1U+iUhptpByrAGFs8dL9xw/Ht7x0NnNoOsFbve+Q+TDFat7txd5M1VyfvapjmeedmW8ttJbRQQkjTrHjZbKEogBkp85rVZLZhcS2sGv6g/hDnEaa1OIC7K2zZqCV59hTUoU+rZYL6eLKnvb8bnXWdb3UAcJuryLdvCJgHO24ejY0+tDB7SFRyvpDLJ1BLAwQUAAAICAAAgJ/rjNdGo28AAAB6AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9Kz0FFQSi9KLMgoBgoYgjilmSkgdrSSQUqShXmSiVmyWaKZmXmKpa6psWVSqpFRqmGKubmBhaGFUixQfUllQapfYm4qRE9AYklGWmZeSmZeup5fYplvanGGO8h0pdhaAFBLAQItABQAAAgIAACAn+tV8TnAoAEAAMkCAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACAn+uM10ajbwAAAHoAAAAJACQAAAAAAAAAAAAAAO0BAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAApwIAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -5187,7 +5187,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -6121,6 +6121,7 @@ GameObject:
   - component: {fileID: 1151968911}
   - component: {fileID: 1151968910}
   - component: {fileID: 1151968909}
+  - component: {fileID: 1151968913}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -6149,7 +6150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1151968908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Script: {fileID: 11500000, guid: ee40361b0e774ef49bfa5efb9070e188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
@@ -6158,8 +6159,8 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
+  maxSpeed: 0.5
+  gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -6172,10 +6173,13 @@ MonoBehaviour:
   slowdownDistance: 0.6
   pickNextWaypointDist: 2
   endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1151968911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6202,21 +6206,42 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -1
+    value: 1
 --- !u!4 &1151968912
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1151968908}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.694, y: 4.242, z: -0.651}
+  m_LocalRotation: {x: -0, y: -0, z: -0.24374272, w: 0.96983993}
+  m_LocalPosition: {x: -1.553, y: 0.761, z: 0.77}
   m_LocalScale: {x: 0.13803592, y: 0.13803592, z: 0.13803592}
   m_Children:
   - {fileID: 1505369045}
   m_Father: {fileID: 0}
   m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.215002}
+--- !u!114 &1151968913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1151968908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 2
+  strength: 0.25
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!1001 &1210195993
 Prefab:
   m_ObjectHideFlags: 0
@@ -7307,7 +7332,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1505369044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.26, z: 0}
+  m_LocalPosition: {x: -0, y: 0.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1151968912}
@@ -8792,7 +8817,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1729211115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.68, y: 4.246, z: -1.054}
+  m_LocalPosition: {x: -3.418, y: 3.827, z: -1.528}
   m_LocalScale: {x: 0.13259049, y: 0.13259049, z: 0.13259049}
   m_Children: []
   m_Father: {fileID: 0}
