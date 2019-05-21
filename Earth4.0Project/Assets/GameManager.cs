@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     #region Game Values
 
+    public bool _debugEnabled;
+
     // Internal Values
     private float _currentTickTime = 0.0f;
     private float _fastTickTime = 0.0f;
@@ -54,8 +57,6 @@ public class GameManager : MonoBehaviour
     public float _currentMoney;
     public float _currentFood;
     public float _currentCotton;
-
-    public bool _debugEnabled;
     public int _currentFactoryWorkers, _currentFarmWorkers, _currentCottonWorkers;
 
     // Game PreFabs
@@ -71,7 +72,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> _cottonList = new List<GameObject>();
     public List<GameObject> _smogLayersList = new List<GameObject>();
 
-    private TextMeshPro _moneyText, _foodText, _cottonText;
+    private TextMeshPro _moneyText, _foodText, _cottonText, _gameOverText;
+    private Text _UIText;
 
     #endregion
 
@@ -89,9 +91,12 @@ public class GameManager : MonoBehaviour
         _currentFarmWorkers = 0;
         _currentCottonWorkers = 0;
 
+        _UIText = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
         _moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshPro>();
         _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
+        _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
+        _gameOverText.text = "";
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -258,16 +263,14 @@ public class GameManager : MonoBehaviour
         if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f)
         {
             Debug.Log("GAME OVER!");
-            GameObject text = GameObject.Find("GameOverText");
-            text.GetComponent<Renderer>().enabled = true;
-
-
+            _gameOverText.text = "GAME OVER!";
+            _UIText.text = "";
         }
         else if (_currentMoney > _GAME_WIN_MONEY)
         {
             Debug.Log("YOU WIN!");
-            GameObject text = GameObject.Find("WinGameText");
-            text.GetComponent<Renderer>().enabled = true;
+            _gameOverText.text = "YOU WIN!";
+            _UIText.text = "";
         }
     }
 
