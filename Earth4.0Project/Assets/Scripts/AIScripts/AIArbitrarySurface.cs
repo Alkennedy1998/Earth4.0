@@ -8,7 +8,7 @@ namespace Pathfinding {
      * which makes it possible to use it for things like spherical worlds.
      */
     public class AIArbitrarySurface : AIPath {
-        public LayerMask groundMask = -1;
+        public LayerMask groundMask = 1 << 9;
         Vector3 interpolatedUp = Vector3.up;
 
         protected override IMovementPlane MovementPlaneFromNode (GraphNode node) {
