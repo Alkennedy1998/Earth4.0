@@ -121,6 +121,7 @@ public class PersonController : MonoBehaviour {
         }
 
         leaveBuilding(_targetObject, _targetBuilding);
+        GetComponent<Pathfinding.AIDestinationSetter>().target = targetObject.transform;
         _targetObject = targetObject;
         _targetBuilding = targetBuilding;
         enterBuilding(_targetObject, _targetBuilding);
