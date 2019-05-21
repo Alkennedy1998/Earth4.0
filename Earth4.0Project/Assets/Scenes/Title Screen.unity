@@ -136,16 +136,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 178757310}
-  m_LocalRotation: {x: -0, y: -0.07577098, z: -0, w: 0.99712527}
-  m_LocalPosition: {x: 0, y: 0, z: 2.6000023}
+  m_LocalRotation: {x: -0, y: -0.07336224, z: -0, w: 0.9973054}
+  m_LocalPosition: {x: 0, y: 0, z: 8.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1070644271}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: -8.691, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -8.4140005, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -688, y: -333}
+  m_AnchoredPosition: {x: -476, y: -308}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &178757312
@@ -1432,7 +1432,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339428595}
   m_LocalRotation: {x: -0, y: 0.061799835, z: -0, w: 0.9980886}
-  m_LocalPosition: {x: 0, y: 0, z: -1.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.9999994, y: 1.0001382, z: 1.0000309}
   m_Children: []
   m_Father: {fileID: 1070644271}
@@ -1440,7 +1440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 7.0860004, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 762, y: 187}
+  m_AnchoredPosition: {x: 661, y: 120}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339428597
@@ -1475,8 +1475,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Studio Soiduts\nAlexander Kennedy, Matthew Mistele, \nTim Shur, Nicole
-    Nguyen"
+  m_Text: 'Alexander Kennedy
+
+    Matthew Mistele
+
+    Nicole Nguyen
+
+    Tim Shur'
 --- !u!222 &1339428598
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1509,7 +1514,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f50f867d231ef0c41b9edfba662ab7b7,
     type: 3}
   m_PrefabInternal: {fileID: 492369512}
---- !u!114 &1469899022
+--- !u!114 &1469899024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1517,7 +1522,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1469899019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb64c98acf2471745bbbce6beabd349e, type: 3}
+  m_Script: {fileID: 11500000, guid: 407f3ddb6ab29ca4194ab928335719a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1577883154
