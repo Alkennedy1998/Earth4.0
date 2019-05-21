@@ -204,6 +204,7 @@ MonoBehaviour:
   _currentFactoryWorkers: 0
   _currentFarmWorkers: 0
   _currentCottonWorkers: 0
+  _cost_tree: 20
   _personPrefab: {fileID: 1294253018031420, guid: 149fad3b78a197d40ac336bcef2adcd0,
     type: 2}
   _factoryPrefab: {fileID: 1875833817202060, guid: fbb3d78366e5d2046b3c039d413d1ac6,
@@ -2459,7 +2460,7 @@ GameObject:
   - component: {fileID: 525215037}
   - component: {fileID: 525215036}
   m_Layer: 0
-  m_Name: TextMeshPro Text
+  m_Name: ForestText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

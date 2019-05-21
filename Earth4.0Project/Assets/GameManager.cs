@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public const float _COST_FACTORY = 100.0f;
     public const float _COST_FARM = 50.0f;
     public const float _COST_HOUSE = 50.0f;
-    public const float _COST_TREE = 20.0f;
     public const float _COST_COTTON = 50.0f;
 
     public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
@@ -59,6 +58,8 @@ public class GameManager : MonoBehaviour
     public float _currentCotton;
     public int _currentFactoryWorkers, _currentFarmWorkers, _currentCottonWorkers;
 
+    public float _cost_tree = 20.0f;
+
     // Game PreFabs
     public GameObject _personPrefab;
     public GameObject _factoryPrefab, _farmPrefab, _housePrefab, _treePrefab, _cottonPrefab;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> _smogLayersList = new List<GameObject>();
 
     private TextMeshPro _moneyText, _foodText, _cottonText, _gameOverText;
+    private TextMeshProUGUI _treeCostText;
     private Text _UIText;
 
     #endregion
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
         _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
         _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
+        _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
         _gameOverText.text = "";
 
         foreach (GameObject layer in _smogLayersList)
@@ -145,7 +148,9 @@ public class GameManager : MonoBehaviour
     {
         _currentTickTime = 0f;
 
-        _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
+        if (_currentCotton > 0)
+            _currentMoney += _currentFactoryWorkers * _FACTORY_MONEY_PER_TICK;
+
         _currentFood += _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
         _currentCotton += _currentCottonWorkers * _COTTON_PER_TICK - _currentFactoryWorkers * _FACTORY_COTTON_PER_TICK;
 
@@ -163,6 +168,7 @@ public class GameManager : MonoBehaviour
         _moneyText.text = _currentMoney.ToString();
         _foodText.text = _currentFood.ToString();
         _cottonText.text = _currentCotton.ToString();
+        _treeCostText.text = "$" + _cost_tree.ToString();
     }
 
     #endregion
@@ -219,9 +225,10 @@ public class GameManager : MonoBehaviour
 
     public bool addTree(Vector3 location, Quaternion rotation)
     {
-        if (_currentMoney < _COST_TREE)
+        if (_currentMoney < _cost_tree)
             return false;
-        _currentMoney -= _COST_TREE;
+        _currentMoney -= _cost_tree;
+        _cost_tree += 10.0f;
 
         GameObject tree = instantiateOnWorld(_treePrefab, location, rotation);
         _treeList.Add(tree);
