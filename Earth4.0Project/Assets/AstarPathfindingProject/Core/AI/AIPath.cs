@@ -238,6 +238,12 @@ namespace Pathfinding {
 
 		#endregion
 
+		protected virtual IMovementPlane MovementPlaneFromNode (GraphNode node) {
+	        var graph = AstarData.GetGraph(node) as ITransformedGraph;
+	 
+	        return graph != null ? graph.transform : GraphTransform.identityTransform;
+	    }
+
 		protected override void OnDisable () {
 			base.OnDisable();
 
@@ -291,8 +297,9 @@ namespace Pathfinding {
 			if (path.vectorPath.Count == 1) path.vectorPath.Add(path.vectorPath[0]);
 			interpolator.SetPath(path.vectorPath);
 
-			var graph = path.path.Count > 0 ? AstarData.GetGraph(path.path[0]) as ITransformedGraph : null;
-			movementPlane = graph != null ? graph.transform : (orientation == OrientationMode.YAxisForward ? new GraphTransform(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(-90, 270, 90), Vector3.one)) : GraphTransform.identityTransform);
+			// var graph = path.path.Count > 0 ? AstarData.GetGraph(path.path[0]) as ITransformedGraph : null;
+			// movementPlane = graph != null ? graph.transform : (orientation == OrientationMode.YAxisForward ? new GraphTransform(Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(-90, 270, 90), Vector3.one)) : GraphTransform.identityTransform);
+			movementPlane = MovementPlaneFromNode(path.path[0]);
 
 			// Reset some variables
 			reachedEndOfPath = false;
