@@ -1,15 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
-
-// Quits the player when the user hits escape
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuitGame : MonoBehaviour
 {
-    void Update()
+
+    public void quitGame()
     {
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
+        Debug.Log("Quit");
+        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
