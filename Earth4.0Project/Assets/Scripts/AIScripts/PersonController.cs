@@ -36,7 +36,7 @@ public class PersonController : MonoBehaviour {
         _fatigue = 0;
         _fatigueRate = 10;
         _speed = 15.0f;
-        _hitRadius = 0.05f;
+        _hitRadius = 0.15f;
 
         _hasTarget = false;
         _targetObject = null;
@@ -51,8 +51,10 @@ public class PersonController : MonoBehaviour {
     {
         if (!_hasTarget) {
             setTargetObject();
-            if (_hasTarget)
+            if (_hasTarget) {
                 _animator.SetFloat("Speed", 1.0f);
+                _animator.SetBool("IsPicking", false);
+            }
         }
         // _target = getTargetLocation();
         // moveTowardsLocation(_target);
@@ -277,8 +279,10 @@ public class PersonController : MonoBehaviour {
     IEnumerator UpdatePerson()
     {
         while (true) {
-            if (nearTarget())
+            if (nearTarget()) {
                 _animator.SetFloat("Speed", 0.0f);
+                _animator.SetBool("IsPicking", true);
+            }
 
             if (atHome()) {
                 if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
