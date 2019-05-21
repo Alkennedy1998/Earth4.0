@@ -206,15 +206,15 @@ MonoBehaviour:
   _currentCottonWorkers: 0
   _personPrefab: {fileID: 1294253018031420, guid: 149fad3b78a197d40ac336bcef2adcd0,
     type: 2}
-  _factoryPrefab: {fileID: 1874379670382488, guid: fbb3d78366e5d2046b3c039d413d1ac6,
+  _factoryPrefab: {fileID: 1875833817202060, guid: fbb3d78366e5d2046b3c039d413d1ac6,
     type: 2}
-  _farmPrefab: {fileID: 1008633082900156, guid: b7ac0979917b7304dbeb167fc02b68f5,
+  _farmPrefab: {fileID: 1000633766651892, guid: b7ac0979917b7304dbeb167fc02b68f5,
     type: 2}
-  _housePrefab: {fileID: 1493601451653376, guid: 34a975b3fea6fe94e95d90e4ac265f2e,
+  _housePrefab: {fileID: 1515228801498012, guid: 34a975b3fea6fe94e95d90e4ac265f2e,
     type: 2}
-  _treePrefab: {fileID: 1015283341795490, guid: c6903a77b23f17941a582c70dc547d73,
+  _treePrefab: {fileID: 1437323808523634, guid: 4a689159abfd7a74f89071ee101ae820,
     type: 2}
-  _cottonPrefab: {fileID: 1941781092439036, guid: ebc0f032be5d64b4193ec2ff643a184d,
+  _cottonPrefab: {fileID: 1719174051714208, guid: 10e3b09a0121f04408cd9e58d2d157cb,
     type: 2}
   _personList: []
   _factoryList: []
@@ -6285,7 +6285,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1362314859}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -7307,7 +7307,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1590409927}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -8739,7 +8739,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1772233646}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
