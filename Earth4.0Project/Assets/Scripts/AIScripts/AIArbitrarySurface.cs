@@ -30,7 +30,6 @@ namespace Pathfinding {
 
             if (Physics.Raycast(position + tr.up*0.5f, -tr.up, out hit, 2f, groundMask2)) {
 
-                Debug.Log(hit.collider.gameObject.name);
                 normal = hit.normal;
                 position = hit.point;
             }

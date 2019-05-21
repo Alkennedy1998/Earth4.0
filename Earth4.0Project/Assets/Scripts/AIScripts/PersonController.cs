@@ -6,7 +6,7 @@ public class PersonController : MonoBehaviour {
 
     public const float _BIRTH_RATE = 0.0f;
 
-    private Vector3 _target;
+    // private Vector3 _target;
     private int _fatigue, _fatigueRate;
     private float _speed, _hitRadius;
     private float _worldRadius;
@@ -54,8 +54,8 @@ public class PersonController : MonoBehaviour {
             if (_hasTarget)
                 _animator.SetFloat("Speed", 1.0f);
         }
-        _target = getTargetLocation();
-        moveTowardsLocation(_target);
+        // _target = getTargetLocation();
+        // moveTowardsLocation(_target);
     }
 
     private void moveTowardsLocation(Vector3 target)
@@ -121,7 +121,7 @@ public class PersonController : MonoBehaviour {
         }
 
         leaveBuilding(_targetObject, _targetBuilding);
-        GetComponent<Pathfinding.AIDestinationSetter>().target = targetObject.transform;
+        GetComponent<Pathfinding.AIDestinationSetter>().target = targetObject == null ? null : targetObject.transform;
         _targetObject = targetObject;
         _targetBuilding = targetBuilding;
         enterBuilding(_targetObject, _targetBuilding);
