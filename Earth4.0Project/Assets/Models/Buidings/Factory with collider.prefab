@@ -2104,8 +2104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWorkers: 0
-  _smokePrefab: {fileID: 1771010184469594, guid: 6715882e0d71b104794524f57ee85e7c,
-    type: 2}
 --- !u!198 &198396528289318082
 ParticleSystem:
   m_ObjectHideFlags: 1
