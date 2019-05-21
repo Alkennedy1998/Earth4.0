@@ -1015,13 +1015,6 @@ namespace Pathfinding {
 				node.v1 = tris[i*3+1] | tileIndex;
 				node.v2 = tris[i*3+2] | tileIndex;
 
-				// Make sure the triangle is clockwise in graph space (it may not be in world space since the graphs can be rotated)
-				// Note that we also modify the original triangle array because if the graph is cached then we will re-initialize the nodes from that array and assume all triangles are clockwise.
-				if (RecalculateNormals && !VectorMath.IsClockwiseXZ(node.GetVertexInGraphSpace(0), node.GetVertexInGraphSpace(1), node.GetVertexInGraphSpace(2))) {
-					Memory.Swap(ref tris[i*3+0], ref tris[i*3+2]);
-					Memory.Swap(ref node.v0, ref node.v2);
-				}
-
 				node.UpdatePositionFromVertices();
 			}
 		}
