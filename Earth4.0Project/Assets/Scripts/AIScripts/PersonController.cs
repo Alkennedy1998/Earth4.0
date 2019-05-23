@@ -298,15 +298,15 @@ public class PersonController : MonoBehaviour {
         }
     }
 
-    IEnumerator UpdatePopulation()
-    {
-        while (true) {
-            if (atHome() && Random.Range(0.0f, 1.0f) < _BIRTH_RATE) {  // handle birth
-                Quaternion rotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
-                _world.GetComponent<GameManager>().addPerson(transform.position, rotation, _attachedHouse);
-            }
+    // IEnumerator UpdatePopulation()
+    // {
+    //     while (true) {
+    //         if (atHome() && Random.Range(0.0f, 1.0f) < _BIRTH_RATE) {  // handle birth
+    //             Quaternion rotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
+    //             _world.GetComponent<GameManager>().addPerson(transform.position, rotation, _attachedHouse);
+    //         }
 
-            yield return new WaitForSeconds(1.0f);
-        }
-    }
+    //         yield return new WaitForSeconds(1.0f);
+    //     }
+    // }
 }

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private const float _STARTING_POLLUTION = 0.0f;
     public const float _IDEAL_FOOD = 100.0f;
 
+    private const float _POPULATION_BIRTH_RATE = 0.01f;
+
     private const float _GAME_WIN_MONEY = 2000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
 
@@ -112,6 +114,8 @@ public class GameManager : MonoBehaviour
             layer.transform.rotation = Random.rotation;
             setSmogLayerOpacity(layer, 1.0f);
         }
+
+        StartCoroutine("populationChange");
     }
 
     #endregion
@@ -173,7 +177,40 @@ public class GameManager : MonoBehaviour
 
     IEnumerator populationChange()
     {
-        
+        while (true) {
+            int births = (int) (_personList.Count * _POPULATION_BIRTH_RATE);
+            int deaths = 0;  // _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
+            int deltaPeople = births - deaths;
+
+            if (deltaPeople > 0) {  // net births
+                int availableSlots = _houseList.Count * _PEOPLE_PER_HOUSE - _personList.Count;
+                int numberToFill = deltaPeople < availableSlots ? deltaPeople : availableSlots;
+                int numberExtra = deltaPeople - numberToFill;
+
+                foreach (GameObject house in _houseList) {
+                    HouseScript houseScript = house.GetComponent<HouseScript>();
+                    if (houseScript.isFull())
+                        continue;
+
+                    int houseSlots = houseScript.getMaxWorkers() - houseScript._currentWorkers;
+                    int peopleToAdd = houseSlots < numberToFill ? houseSlots : numberToFill;
+                    for (int i = 0; i < peopleToAdd; i++) {
+                        // add person
+                    }
+                    numberToFill -= peopleToAdd;
+                    if (numberToFill <= 0)
+                        break;
+                }
+
+                for (int i = 0; i < numberExtra; i++) {
+                    // add person at house but do not attach to house
+                }
+            } else if (deltaPeople < 0) {  // net deaths
+
+            }
+
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     #endregion
