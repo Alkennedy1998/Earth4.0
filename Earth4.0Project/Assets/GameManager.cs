@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
     private float _fastTickTime = 0.0f;
 
     // Game Values
+    public enum GameState { Playing, GameOver };
+    public GameState _gameState;
+    public GameObject _gameOverObject;
+
     public float _currentPollution;
     public float _currentMoney;
     public float _currentFood;
@@ -86,6 +90,8 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        _gameState = GameState.Playing;
+
         _currentPollution = _STARTING_POLLUTION;
         _currentMoney = _STARTING_MONEY;
         _currentFood = _STARTING_FOOD;
@@ -99,9 +105,7 @@ public class GameManager : MonoBehaviour
         _moneyText = GameObject.Find("MoneyText").GetComponent<TextMeshPro>();
         _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
-        _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
         _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
-        _gameOverText.text = "";
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -120,7 +124,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         _currentTickTime += Time.deltaTime;
         _fastTickTime += Time.deltaTime;
         updateText();
@@ -280,15 +283,21 @@ public class GameManager : MonoBehaviour
     {
         if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f)
         {
-            Debug.Log("GAME OVER!");
+            _gameOverObject.SetActive(true);
+            _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
             _gameOverText.text = "GAME OVER!";
             _UIText.text = "";
+            _gameState = GameState.GameOver;
+            Debug.Log("GAME OVER!");
         }
         else if (_currentMoney > _GAME_WIN_MONEY)
         {
-            Debug.Log("YOU WIN!");
+            _gameOverObject.SetActive(true);
+            _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
             _gameOverText.text = "YOU WIN!";
             _UIText.text = "";
+            _gameState = GameState.GameOver;
+            Debug.Log("YOU WIN!");
         }
     }
 
