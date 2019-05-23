@@ -8,7 +8,7 @@ namespace Pathfinding {
      * which makes it possible to use it for things like spherical worlds.
      */
     public class AIArbitrarySurface : AIPath {
-        public LayerMask groundMask = -1;
+        public LayerMask groundMask2 = 1 << 9;
         Vector3 interpolatedUp = Vector3.up;
 
         protected override IMovementPlane MovementPlaneFromNode (GraphNode node) {
@@ -28,7 +28,8 @@ namespace Pathfinding {
             RaycastHit hit;
             var normal = interpolatedUp;
 
-            if (Physics.Raycast(position + tr.up*0.5f, -tr.up, out hit, 2f, groundMask)) {
+            if (Physics.Raycast(position + tr.up*0.5f, -tr.up, out hit, 2f, groundMask2)) {
+
                 normal = hit.normal;
                 position = hit.point;
             }

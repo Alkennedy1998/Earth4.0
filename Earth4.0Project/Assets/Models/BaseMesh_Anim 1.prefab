@@ -1153,8 +1153,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294253018031420}
   m_LocalRotation: {x: 0.2577484, y: 0.29760978, z: -0.58503586, w: 0.70903265}
-  m_LocalPosition: {x: -1.713, y: -0.003, z: 1.58}
-  m_LocalScale: {x: 0.09092567, y: 0.09092567, z: 0.09092567}
+  m_LocalPosition: {x: -1.7757, y: 2.1165, z: 1.6097}
+  m_LocalScale: {x: 0.039740883, y: 0.039740883, z: 0.039740883}
   m_Children:
   - {fileID: 4930878995983868}
   - {fileID: 4264701425940096}
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -1
+    value: 1
 --- !u!114 &114268585296187210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1562,15 +1562,15 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.3
-  pickNextWaypointDist: 0.1
+  pickNextWaypointDist: 1
   endReachedDistance: 0.1
   alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
+  slowWhenNotFacingTarget: 0
   whenCloseToDestination: 0
   constrainInsideGraph: 0
-  groundMask:
+  groundMask2:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
 --- !u!114 &114606427567304274
 MonoBehaviour:
   m_ObjectHideFlags: 1
