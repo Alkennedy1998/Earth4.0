@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildingPlacerRay : MonoBehaviour
 {
@@ -95,7 +96,6 @@ public class BuildingPlacerRay : MonoBehaviour
                 else if (collidedObject.name == "CottonButton")
                 {
                     _cottonInfo.SetActive(true);
-
                 }
             }
             else
@@ -218,6 +218,16 @@ public class BuildingPlacerRay : MonoBehaviour
                 else if (collidedObject.name == "CottonButton")
                 {
                     _equippedBuilding = Buildings.Cotton;
+                }
+                else if (collidedObject.name == "RestartGameButton")
+                {
+                    SceneManager.LoadScene("level1");
+                }
+                else if (collidedObject.name == "QuitGameButton")
+                {
+                    Debug.Log("Quit");
+                    Application.Quit();
+                    UnityEditor.EditorApplication.isPlaying = false;
                 }
 
             }

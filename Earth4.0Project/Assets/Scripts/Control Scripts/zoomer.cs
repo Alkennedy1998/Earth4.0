@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class zoomer : MonoBehaviour {
+
+    public GameObject _gameOverText;
     GameObject _AStar;
     Pathfinding.NavMeshGraph graph;
 
@@ -23,8 +25,9 @@ public class zoomer : MonoBehaviour {
          Vector2 rightStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
          float forward_distance = Time.deltaTime * rightStick.y * 3f;
          transform.Translate(Vector3.right * forward_distance, Space.World);
+        _gameOverText.transform.Translate(Vector3.right * forward_distance, Space.World);
 
-         if (forward_distance != 0.0f)
+        if (forward_distance != 0.0f)
          {
              graph.offset += Vector3.right * forward_distance;
              _AStar.GetComponent<AstarPath>().Scan();
