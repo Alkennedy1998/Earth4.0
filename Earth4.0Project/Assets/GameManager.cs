@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
                     int houseSlots = houseScript.getMaxWorkers() - houseScript._currentWorkers;
                     int peopleToAdd = houseSlots < numberToFill ? houseSlots : numberToFill;
                     for (int i = 0; i < peopleToAdd; i++) {
-                        // add person
+                        addPerson(house.transform.position, house.transform.rotation, house);
                     }
                     numberToFill -= peopleToAdd;
                     if (numberToFill <= 0)
@@ -204,9 +204,20 @@ public class GameManager : MonoBehaviour
 
                 for (int i = 0; i < numberExtra; i++) {
                     // add person at house but do not attach to house
+                    GameObject house = _houseList[Random.Range(0, _houseList.Count)];
+                    addPerson(house.transform.position, house.transform.rotation, null);
                 }
             } else if (deltaPeople < 0) {  // net deaths
+                int personIndex = Random.Range(0, _personList.Count);
+                GameObject person = _personList[personIndex];
+                PersonController personScript = person.GetComponent<PersonController>();
+                
+                if (personScript._attachedHouse != null)
+                    personScript._attachedHouse.GetComponent<HouseScript>().removeWorker();
+                _personList.RemoveAt(personIndex);
+                Destroy(person);
 
+                // Need to refill houses with unattached people!
             }
 
             yield return new WaitForSeconds(0.25f);
