@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public const float _COST_HOUSE = 50.0f;
     public const float _COST_COTTON = 50.0f;
 
-    public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
+    public const float _POLLUTION_FACTORY_ONBUILD = 100.0f;
     public const float _POLLUTION_OTHER_ONBUILD = 15.0f;
 
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     public const float _MAX_POLLUTION = 300.0f;
     public const float _MAX_SMOKE_PARTICLES = 50.0f;
+    public const float _POLLUTION_TO_LARP = 1.0f;
 
     public const int _PEOPLE_PER_HOUSE = 5;
 
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
     public int _currentFactoryWorkers, _currentFarmWorkers, _currentCottonWorkers;
 
     public float _cost_tree = 20.0f;
+    private float _pollutionToAdd = 0.0f;
 
     // Game PreFabs
     public GameObject _personPrefab;
@@ -123,6 +125,14 @@ public class GameManager : MonoBehaviour
         _fastTickTime += Time.deltaTime;
         updateText();
 
+        // If we have pollution to add (that's been queued up), add it 1 at a time
+        if (_pollutionToAdd > 0.0f)
+        {
+            _currentPollution += Mathf.Clamp(_pollutionToAdd, 0.0f, _POLLUTION_TO_LARP);
+            _pollutionToAdd -= Mathf.Clamp(_pollutionToAdd, 0.0f, _POLLUTION_TO_LARP);
+        }
+
+        // Update the smog layers
         for (int i = 0; i < _smogLayersList.Count; i++)
         {
             _smogLayersList[i].transform.Rotate(0.07f, 0.0f, 0.0f);
@@ -191,7 +201,7 @@ public class GameManager : MonoBehaviour
 
         GameObject factory = instantiateOnWorld(_factoryPrefab, location, rotation);
         _factoryList.Add(factory);
-        _currentPollution += _POLLUTION_FACTORY_ONBUILD;
+        _pollutionToAdd += _POLLUTION_FACTORY_ONBUILD;
         return true;
     }
 
@@ -203,7 +213,7 @@ public class GameManager : MonoBehaviour
 
         GameObject farm = instantiateOnWorld(_farmPrefab, location, rotation);
         _farmList.Add(farm);
-        _currentPollution += _POLLUTION_OTHER_ONBUILD;
+        _pollutionToAdd += _POLLUTION_OTHER_ONBUILD;
         return true;
     }
 
@@ -215,7 +225,7 @@ public class GameManager : MonoBehaviour
 
         GameObject house = instantiateOnWorld(_housePrefab, location, rotation);
         _houseList.Add(house);
-        _currentPollution += _POLLUTION_OTHER_ONBUILD;
+        _pollutionToAdd += _POLLUTION_OTHER_ONBUILD;
 
         // Add new people attached to this house
         for (int i = 0; i < _PEOPLE_PER_HOUSE; i++)
@@ -250,6 +260,7 @@ public class GameManager : MonoBehaviour
 
         GameObject cotton = instantiateOnWorld(_cottonPrefab, location, rotation);
         _cottonList.Add(cotton);
+        _pollutionToAdd += _POLLUTION_OTHER_ONBUILD;
         return true;
     }
 
