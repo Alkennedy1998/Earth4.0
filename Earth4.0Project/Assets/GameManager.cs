@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
     public const float _POLLUTION_OTHER_ONBUILD = 15.0f;
 
+    public const float _TIME_TO_END = 300.0f // 5 minutes in the game
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
     private const float _FAST_TICK_TIME = .1f;
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     public bool _debugEnabled;
 
     // Internal Values
+    private float _gameTimer = _TIME_TO_END;
     private float _currentTickTime = 0.0f;
     private float _fastTickTime = 0.0f;
 
@@ -126,6 +128,10 @@ public class GameManager : MonoBehaviour
     {
         _currentTickTime += Time.deltaTime;
         _fastTickTime += Time.deltaTime;
+        _gameTimer -= Time.deltaTime;
+
+        if (_gameTimer <= 0.0f)
+            _gameTimer = 0.0f;
         updateText();
 
         // If we have pollution to add (that's been queued up), add it 1 at a time
@@ -183,7 +189,8 @@ public class GameManager : MonoBehaviour
         foreach (GameObject factory in _factoryList)
             factory.GetComponent<FactoryScript>().OnTick();
 
-        checkWinCondition();
+        if (_gameState == GameState.Playing)
+            checkWinCondition();
 
         logValues();
     }
@@ -293,7 +300,7 @@ public class GameManager : MonoBehaviour
 
     private void checkWinCondition()
     {
-        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f)
+        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f || _gameTimer <= 0.0f)
         {
             _gameOverObject.SetActive(true);
             _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
