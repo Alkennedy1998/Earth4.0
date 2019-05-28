@@ -29396,6 +29396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWorkers: 2
+  _foodIcon0: {fileID: 100000, guid: bf1dcaa4ea24d61428bac3693baaeea0, type: 3}
 --- !u!54 &1416594660
 Rigidbody:
   m_ObjectHideFlags: 0
