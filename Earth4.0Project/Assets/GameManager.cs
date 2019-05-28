@@ -171,8 +171,19 @@ public class GameManager : MonoBehaviour
         _currentFood = Mathf.Clamp(_currentFood, 0, 9999);
         _currentCotton = Mathf.Clamp(_currentCotton, 0, 9999);
 
+        // Food Tick Icons
+        foreach (GameObject farm in _farmList)
+            farm.GetComponent<FarmScript>().OnTick();
+
+        // Cotton Tick Icons
+        foreach (GameObject cotton in _cottonList)
+            cotton.GetComponent<CottonScript>().OnTick();
+
+        // Money Tick Icons
+        foreach (GameObject factory in _factoryList)
+            factory.GetComponent<FactoryScript>().OnTick();
+
         checkWinCondition();
-        tickIcons();
 
         logValues();
     }
@@ -300,25 +311,6 @@ public class GameManager : MonoBehaviour
             _gameState = GameState.GameOver;
             Debug.Log("YOU WIN!");
         }
-    }
-
-    #endregion
-
-    #region TickIcons
-
-    private void tickIcons()
-    {
-        // Food Tick Icons
-        foreach (GameObject farm in _farmList)
-            farm.GetComponent<FarmScript>().OnTick();
-
-        // Cotton Tick Icons
-        foreach (GameObject cotton in _cottonList)
-            cotton.GetComponent<CottonScript>().OnTick();
-
-        // Money Tick Icons
-        foreach (GameObject factory in _factoryList)
-            factory.GetComponent<FactoryScript>().OnTick();
     }
 
     #endregion
