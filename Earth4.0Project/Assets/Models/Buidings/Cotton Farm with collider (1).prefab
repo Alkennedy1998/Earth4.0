@@ -9297,3 +9297,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWorkers: 0
+  _cottonIcon: {fileID: 100000, guid: 42e84f537fe899d4b981b3ae779182a8, type: 3}

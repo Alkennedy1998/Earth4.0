@@ -310,10 +310,12 @@ public class GameManager : MonoBehaviour
     {
         // Food Tick Icons
         foreach (GameObject farm in _farmList)
-        {
-            Debug.Log("farm");
             farm.GetComponent<FarmScript>().OnTick();
-        }
+
+        // Cotton Tick Icons
+        foreach (GameObject cotton in _cottonList)
+            cotton.GetComponent<CottonScript>().OnTick();
+
 
     }
 
