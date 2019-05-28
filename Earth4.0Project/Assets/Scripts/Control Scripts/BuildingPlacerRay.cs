@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildingPlacerRay : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class BuildingPlacerRay : MonoBehaviour
     public int _buildingCollisions = 0;
 
     private GameObject _world;
+    private GameManager.GameState _gameState;
     private int _layerMask;
 
     private RaycastHit _hit;
@@ -25,13 +27,13 @@ public class BuildingPlacerRay : MonoBehaviour
 
     public List<GameObject> _overlappedTrees = new List<GameObject>();
 
-    public GameObject _factoryInfo, _farmInfo, _cottonInfo, _treeInfo, _houseInfo;
+    public GameObject _factoryInfo, _farmInfo, _cottonInfo, _treeInfo, _houseInfo, _restartInfo, _quitInfo;
     #endregion
 
     #region unityFunctions
     void Start()
     {
-
+        _gameState = GameManager.GameState.Playing;
         _world = GameObject.Find("World");
 
         _lineRenderer = GetComponent<LineRenderer>();
@@ -47,11 +49,9 @@ public class BuildingPlacerRay : MonoBehaviour
 
     void Update()
     {
-
+        _gameState = _world.GetComponent<GameManager>()._gameState;
         rayCollisionHandler();
-
         RaycastHit sphereCast;
-
         Physics.SphereCast(transform.position, 10, transform.TransformDirection(Vector3.forward), out sphereCast, Mathf.Infinity, _layerMask);
     }
     #endregion
@@ -71,31 +71,48 @@ public class BuildingPlacerRay : MonoBehaviour
 
             //If a button is hovered over then show the relevant info panel
             #region showBuildingInfo
-
             if (collidedObject.tag == "Button")
             {
                 if (collidedObject.name == "FactoryButton")
                 {
                     _factoryInfo.SetActive(true);
+                    _quitInfo.SetActive(false);
+                    _restartInfo.SetActive(false);
                 }
                 else if (collidedObject.name == "FarmButton")
                 {
                     _farmInfo.SetActive(true);
-
+                    _quitInfo.SetActive(false);
+                    _restartInfo.SetActive(false);
                 }
                 else if (collidedObject.name == "HouseButton")
                 {
                     _houseInfo.SetActive(true);
+                    _quitInfo.SetActive(false);
+                    _restartInfo.SetActive(false);
                 }
                 else if (collidedObject.name == "TreeButton")
                 {
                     _treeInfo.SetActive(true);
+                    _quitInfo.SetActive(false);
+                    _restartInfo.SetActive(false);
 
                 }
                 else if (collidedObject.name == "CottonButton")
                 {
                     _cottonInfo.SetActive(true);
-
+                    _quitInfo.SetActive(false);
+                    _restartInfo.SetActive(false);
+                }
+                else if (collidedObject.name == "RestartGameButton")
+                {
+                    _restartInfo.SetActive(true);
+                    _quitInfo.SetActive(false);
+                }
+                else if (collidedObject.name == "QuitGameButton")
+                {
+                    _quitInfo.SetActive(true);
+                    _restartInfo.SetActive(false);
                 }
             }
             else
@@ -105,12 +122,23 @@ public class BuildingPlacerRay : MonoBehaviour
                 _houseInfo.SetActive(false);
                 _treeInfo.SetActive(false);
                 _cottonInfo.SetActive(false);
+                _restartInfo.SetActive(false);
+                _quitInfo.SetActive(false);
             }
             #endregion
             //Display where the building is about to be placed on the world if the cursor is over the world
             #region buildingHighlighter
-            if (collidedObject.name == "World")
+            if (collidedObject.name == "Land")
             {
+                // Check if it's game over
+                if (_gameState != GameManager.GameState.Playing)
+                    return;
+
+                // Check if too steep of land
+                Vector3 worldVector = _hit.point - _world.transform.position;
+                if (Vector3.Angle(worldVector, _hit.normal) > 45f)
+                    return;
+
                 //Instantiate a building outline if none exists yet
                 if (_outlineBuilding == null)
                 {
@@ -179,42 +207,52 @@ public class BuildingPlacerRay : MonoBehaviour
             {
                 _triggerHasBeenReleased = false;
 
-                if (collidedObject.name == "World")
+                if (_gameState == GameManager.GameState.Playing)
                 {
-                    //If no buildings in the way
-                    if (_buildingCollisions == 0)
+                    if (collidedObject.name == "Land")
                     {
-                        addObjToGameManager();
+                        //If no buildings in the way
+                        if (_buildingCollisions == 0)
+                        {
+                            addObjToGameManager();
 
+                        }
+
+                        else
+                        {
+                            Debug.Log("Can't build there!");
+                            //Notify player that building placement invalid
+                        }
                     }
-
-                    else
+                    else if (collidedObject.name == "FactoryButton")
                     {
-                        Debug.Log("Can't build there!");
-                        //Notify player that building placement invalid
+                        _equippedBuilding = Buildings.Factory;
+                    }
+                    else if (collidedObject.name == "FarmButton")
+                    {
+                        _equippedBuilding = Buildings.Farm;
+                    }
+                    else if (collidedObject.name == "HouseButton")
+                    {
+                        _equippedBuilding = Buildings.House;
+                    }
+                    else if (collidedObject.name == "TreeButton")
+                    {
+                        _equippedBuilding = Buildings.Tree;
+                    }
+                    else if (collidedObject.name == "CottonButton")
+                    {
+                        _equippedBuilding = Buildings.Cotton;
                     }
                 }
-                else if (collidedObject.name == "FactoryButton")
+                if (collidedObject.name == "RestartGameButton")
                 {
-                    _equippedBuilding = Buildings.Factory;
+                    SceneManager.LoadScene("level1");
                 }
-                else if (collidedObject.name == "FarmButton")
+                else if (collidedObject.name == "QuitGameButton")
                 {
-                    _equippedBuilding = Buildings.Farm;
+                    SceneManager.LoadScene("Title Screen");
                 }
-                else if (collidedObject.name == "HouseButton")
-                {
-                    _equippedBuilding = Buildings.House;
-                }
-                else if (collidedObject.name == "TreeButton")
-                {
-                    _equippedBuilding = Buildings.Tree;
-                }
-                else if (collidedObject.name == "CottonButton")
-                {
-                    _equippedBuilding = Buildings.Cotton;
-                }
-
             }
             else if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) == false)
             {

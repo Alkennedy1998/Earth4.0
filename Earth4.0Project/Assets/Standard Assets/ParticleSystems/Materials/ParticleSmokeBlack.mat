@@ -24,12 +24,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Emission: 0
-    - _FresnelO: -0.7
-    - _FresnelP: 1
+    - _FresnelO: -0.677
+    - _FresnelP: 0.59
     - _InvFade: 0.8275
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
     - _TintColor: {r: 0.35820895, g: 0.35820895, b: 0.35820895, a: 0.75686276}
 --- !u!1002 &2100001
 EditorExtensionImpl:

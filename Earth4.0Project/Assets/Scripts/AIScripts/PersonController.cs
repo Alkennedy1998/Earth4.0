@@ -6,7 +6,7 @@ public class PersonController : MonoBehaviour {
 
     public const float _BIRTH_RATE = 0.0f;
 
-    private Vector3 _target;
+    // private Vector3 _target;
     private int _fatigue, _fatigueRate;
     private float _speed, _hitRadius;
     private float _worldRadius;
@@ -36,7 +36,7 @@ public class PersonController : MonoBehaviour {
         _fatigue = 0;
         _fatigueRate = 10;
         _speed = 15.0f;
-        _hitRadius = 0.05f;
+        _hitRadius = 0.15f;
 
         _hasTarget = false;
         _targetObject = null;
@@ -50,11 +50,13 @@ public class PersonController : MonoBehaviour {
     {
         if (!_hasTarget && _attachedHouse != null) {
             setTargetObject();
-            if (_hasTarget)
+            if (_hasTarget) {
                 _animator.SetFloat("Speed", 1.0f);
+                _animator.SetBool("IsPicking", false);
+            }
         }
-        _target = getTargetLocation();
-        moveTowardsLocation(_target);
+        // _target = getTargetLocation();
+        // moveTowardsLocation(_target);
     }
 
     private void moveTowardsLocation(Vector3 target)
@@ -120,6 +122,7 @@ public class PersonController : MonoBehaviour {
         }
 
         leaveBuilding(_targetObject, _targetBuilding);
+        GetComponent<Pathfinding.AIDestinationSetter>().target = targetObject == null ? null : targetObject.transform;
         _targetObject = targetObject;
         _targetBuilding = targetBuilding;
         enterBuilding(_targetObject, _targetBuilding);
@@ -275,8 +278,10 @@ public class PersonController : MonoBehaviour {
     IEnumerator UpdatePerson()
     {
         while (true) {
-            if (nearTarget())
+            if (nearTarget()) {
                 _animator.SetFloat("Speed", 0.0f);
+                _animator.SetBool("IsPicking", true);
+            }
 
             if (atHome()) {
                 if (_fatigue <= _fatigueRate) { // JUST recovered, need new _targetObject
