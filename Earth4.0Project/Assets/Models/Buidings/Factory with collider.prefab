@@ -2200,6 +2200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWorkers: 0
+  _moneyIcon: {fileID: 100000, guid: 5caa3143d60f5df4cb71b8d516713b2b, type: 3}
 --- !u!198 &198116650620936702
 ParticleSystem:
   m_ObjectHideFlags: 1

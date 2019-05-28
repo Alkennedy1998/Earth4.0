@@ -9,7 +9,12 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Icon_Gain_Money
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stem_texture
+    second: {fileID: 2100000, guid: f61d4ffbb7fcbe540ab87a0d003b1897, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -316,7 +316,9 @@ public class GameManager : MonoBehaviour
         foreach (GameObject cotton in _cottonList)
             cotton.GetComponent<CottonScript>().OnTick();
 
-
+        // Money Tick Icons
+        foreach (GameObject factory in _factoryList)
+            factory.GetComponent<FactoryScript>().OnTick();
     }
 
     #endregion
