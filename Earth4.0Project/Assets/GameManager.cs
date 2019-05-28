@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
     public const float _POLLUTION_OTHER_ONBUILD = 15.0f;
 
-    public const float _TIME_TO_END = 300.0f // 5 minutes in the game
+    public const float _TIME_TO_END = 300.0f; // 5 minutes in the game
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
     private const float _FAST_TICK_TIME = .1f;
     public const float _FACTORY_POLLUTION_PER_TICK = 2.0f;
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private TextMeshPro _moneyText, _foodText, _cottonText, _gameOverText;
     private TextMeshProUGUI _treeCostText;
-    private Text _UIText;
+    private Text _UIText, _timerText;
 
     #endregion
 
@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         _foodText = GameObject.Find("FoodText").GetComponent<TextMeshPro>();
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
         _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
+        _timerText = GameObject.Find("TimerText").GetComponent<Text>();
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -132,6 +133,7 @@ public class GameManager : MonoBehaviour
 
         if (_gameTimer <= 0.0f)
             _gameTimer = 0.0f;
+
         updateText();
 
         // If we have pollution to add (that's been queued up), add it 1 at a time
@@ -201,6 +203,11 @@ public class GameManager : MonoBehaviour
         _foodText.text = _currentFood.ToString();
         _cottonText.text = _currentCotton.ToString();
         _treeCostText.text = "$" + _cost_tree.ToString();
+
+        string minutes = Mathf.Floor(_gameTimer / 60.0f).ToString("00");
+        string seconds = (_gameTimer % 60.0f).ToString("00");
+        _timerText.text = minutes + ":" + seconds;
+        
     }
 
     #endregion
