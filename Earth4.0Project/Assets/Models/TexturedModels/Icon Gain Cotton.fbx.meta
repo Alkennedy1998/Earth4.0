@@ -15,12 +15,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: cotton
-    second: {fileID: 2100000, guid: 04d574fb835136e439da73acde8ed3a5, type: 2}
+    second: {fileID: 2100000, guid: 745a9a570a0308547b9fe61b0be50d18, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: stem_texture
-    second: {fileID: 2100000, guid: f61d4ffbb7fcbe540ab87a0d003b1897, type: 2}
+    second: {fileID: 2100000, guid: 1ccffd4c331673f4bb079522d7d76c26, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
