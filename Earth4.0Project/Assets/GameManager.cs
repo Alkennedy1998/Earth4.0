@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private const float _STARTING_POLLUTION = 0.0f;
     public const float _IDEAL_FOOD = 100.0f;
 
-    private const float _POPULATION_BIRTH_RATE = 0.1f;
+    private const float _POPULATION_BIRTH_RATE = 0.002f;
 
     private const float _GAME_WIN_MONEY = 2000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
@@ -111,8 +111,8 @@ public class GameManager : MonoBehaviour
         _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
 
         // Initialize the initial people with the first house and farm
-        addHouse(new Vector3(-1.8f, 0.8f, 1.0f), new Quaternion(0.0f, 0.7f, 0.0f, 0.7f));
-        addFarm(new Vector3(-1.7f, 1.2f, 0.6f), new Quaternion(0.0f, 0.7f, 0.0f, 0.7f));
+        addHouse(new Vector3(-1.9f, 1.7f, 2.2f), new Quaternion(0.0f, 0.6f, 0.0f, 0.8f), 4);
+        addFarm(new Vector3(-1.7f, 1.2f, 1.6f), new Quaternion(0.0f, 0.6f, 0.0f, 0.8f));
 
         // Initialize the smog
         foreach (GameObject layer in _smogLayersList)
@@ -194,14 +194,29 @@ public class GameManager : MonoBehaviour
         _treeCostText.text = "$" + _cost_tree.ToString();
     }
 
+    private int totalWorkableBuildings()
+    {
+        return _factoryList.Count + _farmList.Count + _cottonList.Count;
+    }
+
+    private float sigmoid(float z)
+    {
+        return 1 / (1 + Mathf.Exp(-z));
+    }
+
     IEnumerator populationChange()
     {
         while (true) {
             int births = 0;
             for (int i = 0; i < _personList.Count; i++)  // average growth of _personList.Count * _POPULATION_BIRTH_RATE
                 births += (Random.Range(0.0f, 1.0f) < _POPULATION_BIRTH_RATE) ? 1 : 0;
-            int deaths = 0;  // _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
+            
+            float foodRate = (_farmList.Count / totalWorkableBuildings() * (_personList.Count * 10.0f) * _FARM_FOOD_PER_TICK) - (_personList.Count * _FOOD_EATEN_PER_TICK);  // average food gained - food consumed
+            int deaths = (int) (2.0f * _personList.Count * 10.0f * _POPULATION_BIRTH_RATE * sigmoid(-2f * foodRate));
+            
             int deltaPeople = births - deaths;
+            if (Random.Range(0.0f, 1.0f) < 0.1f || births > 0 || deaths > 0)
+                Debug.Log("Births: " + births + "\tDeaths: " + deaths + "\tDeltaPeople: " + deltaPeople + "\tfoodRate: " + foodRate);
 
             if (deltaPeople > 0) {  // net births
                 int availableSlots = _houseList.Count * _PEOPLE_PER_HOUSE - _personList.Count;
@@ -229,17 +244,19 @@ public class GameManager : MonoBehaviour
                     addPerson(house.transform.position, house.transform.rotation, null);
                 }
             } else if (deltaPeople < 0) {  // net deaths
-                int personIndex = Random.Range(0, _personList.Count);
-                GameObject person = _personList[personIndex];
-                PersonController personScript = person.GetComponent<PersonController>();
-                
-                if (personScript._attachedHouse != null)
-                    personScript._attachedHouse.GetComponent<HouseScript>().removeWorker();
-                _personList.RemoveAt(personIndex);
-                Destroy(person);
-
-                // Need to refill houses with unattached people!
+                for (int i = 0; i < -deltaPeople; i++) {  // remove deltaPeople # of people
+                    int personIndex = Random.Range(0, _personList.Count);
+                    GameObject person = _personList[personIndex];
+                    PersonController personScript = person.GetComponent<PersonController>();
+                    
+                    if (personScript._attachedHouse != null)
+                        personScript._attachedHouse.GetComponent<HouseScript>().removeWorker();
+                    _personList.RemoveAt(personIndex);
+                    Destroy(person);
+                }
             }
+
+            // check for unattached people and fill them into houses as possible
 
             yield return new WaitForSeconds(0.25f);
         }
@@ -282,7 +299,7 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public bool addHouse(Vector3 location, Quaternion rotation)
+    public bool addHouse(Vector3 location, Quaternion rotation, int numPeople = 0)
     {
         if (_currentMoney < _COST_HOUSE)
             return false;
@@ -293,7 +310,7 @@ public class GameManager : MonoBehaviour
         _pollutionToAdd += _POLLUTION_OTHER_ONBUILD;
 
         // Add new people attached to this house
-        for (int i = 0; i < _PEOPLE_PER_HOUSE; i++)
+        for (int i = 0; i < numPeople; i++)
             addPerson(location, rotation, house);
         return true;
     }
@@ -343,7 +360,7 @@ public class GameManager : MonoBehaviour
 
     private void checkWinCondition()
     {
-        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f)
+        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f || _personList.Count == 0)
         {
             _gameOverObject.SetActive(true);
             _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();

@@ -203,7 +203,7 @@ public class PersonController : MonoBehaviour {
         if (type == Buildings.Farm) {
             float numPeople = _world.GetComponent<GameManager>()._personList.Count;
             resource = _world.GetComponent<GameManager>()._currentFood;
-            return clamp10(resource / (25.0f * numPeople));
+            return clamp10(resource / (15.0f * numPeople));
         } else if (type == Buildings.Factory) {
             resource = _world.GetComponent<GameManager>()._currentMoney;
             return clamp10(resource / 10000.0f);
