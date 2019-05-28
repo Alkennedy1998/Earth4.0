@@ -43,7 +43,6 @@ public class PersonController : MonoBehaviour {
         _targetBuilding = Buildings.None;
 
         StartCoroutine("UpdatePerson");
-        StartCoroutine("UpdatePopulation");
     }
 
     // Update is called once per frame
@@ -297,16 +296,4 @@ public class PersonController : MonoBehaviour {
             yield return new WaitForSeconds(.2f);
         }
     }
-
-    // IEnumerator UpdatePopulation()
-    // {
-    //     while (true) {
-    //         if (atHome() && Random.Range(0.0f, 1.0f) < _BIRTH_RATE) {  // handle birth
-    //             Quaternion rotation = transform.rotation * Quaternion.Euler(-90, 0, 0);
-    //             _world.GetComponent<GameManager>().addPerson(transform.position, rotation, _attachedHouse);
-    //         }
-
-    //         yield return new WaitForSeconds(1.0f);
-    //     }
-    // }
 }

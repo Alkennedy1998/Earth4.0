@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private const float _STARTING_POLLUTION = 0.0f;
     public const float _IDEAL_FOOD = 100.0f;
 
-    private const float _POPULATION_BIRTH_RATE = 0.01f;
+    private const float _POPULATION_BIRTH_RATE = 0.1f;
 
     private const float _GAME_WIN_MONEY = 2000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
@@ -178,7 +178,9 @@ public class GameManager : MonoBehaviour
     IEnumerator populationChange()
     {
         while (true) {
-            int births = (int) (_personList.Count * _POPULATION_BIRTH_RATE);
+            int births = 0;
+            for (int i = 0; i < _personList.Count; i++)  // average growth of _personList.Count * _POPULATION_BIRTH_RATE
+                births += (Random.Range(0.0f, 1.0f) < _POPULATION_BIRTH_RATE) ? 1 : 0;
             int deaths = 0;  // _currentFarmWorkers * _FARM_FOOD_PER_TICK - _personList.Count * _FOOD_EATEN_PER_TICK;
             int deltaPeople = births - deaths;
 
