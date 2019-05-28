@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private const float _STARTING_POLLUTION = 0.0f;
     public const float _IDEAL_FOOD = 100.0f;
 
-    private const float _POPULATION_BIRTH_RATE = 0.002f;
+    private const float _POPULATION_BIRTH_RATE = 0.005f;
 
     private const float _GAME_WIN_MONEY = 2000.0f;
     private const float _GAME_LOSE_POLLUTION = 300.0f;
@@ -219,27 +219,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Births: " + births + "\tDeaths: " + deaths + "\tDeltaPeople: " + deltaPeople + "\tfoodRate: " + foodRate);
 
             if (deltaPeople > 0) {  // net births
-                int availableSlots = _houseList.Count * _PEOPLE_PER_HOUSE - _personList.Count;
-                int numberToFill = deltaPeople < availableSlots ? deltaPeople : availableSlots;
-                int numberExtra = deltaPeople - numberToFill;
-
-                foreach (GameObject house in _houseList) {
-                    HouseScript houseScript = house.GetComponent<HouseScript>();
-                    if (houseScript.isFull())
-                        continue;
-
-                    int houseSlots = houseScript.getMaxWorkers() - houseScript._currentWorkers;
-                    int peopleToAdd = houseSlots < numberToFill ? houseSlots : numberToFill;
-                    for (int i = 0; i < peopleToAdd; i++) {
-                        addPerson(house.transform.position, house.transform.rotation, house);
-                    }
-                    numberToFill -= peopleToAdd;
-                    if (numberToFill <= 0)
-                        break;
-                }
-
-                for (int i = 0; i < numberExtra; i++) {
-                    // add person at house but do not attach to house
+                for (int i = 0; i < deltaPeople; i++) {
+                    // add person at random house location but do not attach to house (done later)
                     GameObject house = _houseList[Random.Range(0, _houseList.Count)];
                     addPerson(house.transform.position, house.transform.rotation, null);
                 }
@@ -257,6 +238,25 @@ public class GameManager : MonoBehaviour
             }
 
             // check for unattached people and fill them into houses as possible
+            if (deltaPeople != 0) {
+                int i = 0;
+                int j = 0;
+                while (i < _personList.Count && j < _houseList.Count) { // go through unattached people and unfilled houses
+                    if (_personList[i].GetComponent<PersonController>()._attachedHouse != null) {
+                        i++;
+                        continue;
+                    }
+                    if (_houseList[j].GetComponent<HouseScript>().isFull()) {
+                        j++;
+                        continue;
+                    }
+                    
+                    // now i is a person with no house; j is a house that isn't full
+                    _personList[i].GetComponent<PersonController>()._attachedHouse = _houseList[j];
+                    _houseList[j].GetComponent<HouseScript>().addWorker();
+                    i++;
+                }
+            }
 
             yield return new WaitForSeconds(0.25f);
         }
