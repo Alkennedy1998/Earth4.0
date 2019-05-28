@@ -9516,3 +9516,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWorkers: 0
+  _foodIcon0: {fileID: 100000, guid: bf1dcaa4ea24d61428bac3693baaeea0, type: 3}

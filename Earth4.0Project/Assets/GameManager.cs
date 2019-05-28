@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public const float _COST_HOUSE = 50.0f;
     public const float _COST_COTTON = 50.0f;
 
-    public const float _POLLUTION_FACTORY_ONBUILD = 100.0f;
+    public const float _POLLUTION_FACTORY_ONBUILD = 30.0f;
     public const float _POLLUTION_OTHER_ONBUILD = 15.0f;
 
     private const float _TICK_TIME = 4.0f; // There are 4 seconds between 'ticks'
@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
         _currentCotton = Mathf.Clamp(_currentCotton, 0, 9999);
 
         checkWinCondition();
+        tickIcons();
 
         logValues();
     }
@@ -299,6 +300,21 @@ public class GameManager : MonoBehaviour
             _gameState = GameState.GameOver;
             Debug.Log("YOU WIN!");
         }
+    }
+
+    #endregion
+
+    #region TickIcons
+
+    private void tickIcons()
+    {
+        // Food Tick Icons
+        foreach (GameObject farm in _farmList)
+        {
+            Debug.Log("farm");
+            farm.GetComponent<FarmScript>().OnTick();
+        }
+
     }
 
     #endregion
