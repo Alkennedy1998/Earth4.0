@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
 
     private TextMeshPro _moneyText, _foodText, _cottonText, _gameOverText;
     private TextMeshProUGUI _treeCostText;
-    private Text _UIText, _timerText;
+    private Text _UIText, _timerText, _moneyProgressBarText, _losingTipText;
+    private Image _moneyProgresBar;
 
     #endregion
 
@@ -109,6 +110,8 @@ public class GameManager : MonoBehaviour
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
         _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
         _timerText = GameObject.Find("TimerText").GetComponent<Text>();
+        _moneyProgressBarText = GameObject.Find("MoneyProgressBarText").GetComponent<Text>();
+        _moneyProgresBar = GameObject.Find("MoneyProgressBarImage").GetComponent<Image>();
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -199,15 +202,23 @@ public class GameManager : MonoBehaviour
 
     private void updateText()
     {
+        // Update recourse icons
         _moneyText.text = _currentMoney.ToString();
         _foodText.text = _currentFood.ToString();
         _cottonText.text = _currentCotton.ToString();
         _treeCostText.text = "$" + _cost_tree.ToString();
 
+        // Update timer
         string minutes = Mathf.Floor(_gameTimer / 60.0f).ToString("00");
         string seconds = (_gameTimer % 60.0f).ToString("00");
         _timerText.text = minutes + ":" + seconds;
-        
+
+        // Update progress bar
+        float precentage = _currentMoney / _GAME_WIN_MONEY;
+        _moneyProgresBar.fillAmount = precentage;
+        precentage *= 100;
+        int text = (int)precentage;
+        _moneyProgressBarText.text = text + "%";
     }
 
     #endregion
@@ -307,24 +318,50 @@ public class GameManager : MonoBehaviour
 
     private void checkWinCondition()
     {
-        if (_currentPollution > _GAME_LOSE_POLLUTION || _currentFood <= 0.0f || _gameTimer <= 0.0f)
-        {
-            _gameOverObject.SetActive(true);
-            _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
-            _gameOverText.text = "GAME OVER!";
-            _UIText.text = "";
-            _gameState = GameState.GameOver;
-            Debug.Log("GAME OVER!");
-        }
-        else if (_currentMoney > _GAME_WIN_MONEY)
-        {
-            _gameOverObject.SetActive(true);
-            _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
-            _gameOverText.text = "YOU WIN!";
-            _UIText.text = "";
-            _gameState = GameState.GameOver;
-            Debug.Log("YOU WIN!");
-        }
+        // Check winning condition
+        if (_currentMoney >= _GAME_WIN_MONEY)
+            winGame();
+
+        // Check losing conditions
+        if (_currentPollution > _GAME_LOSE_POLLUTION)
+            loseGame("You caused the Great Smog. Try placing trees!");
+        if (_currentFood <= 0.0f)
+            loseGame("You ran out of food. Try placing more farms!");
+        if (_gameTimer <= 0.0f)
+            loseGame("You ran out of time.");
+
+        float cottonFarmToFactoryRatio = _factoryList.Count > 0 ? _cottonList.Count / _factoryList.Count : 2.0f;
+
+        // Check stalemate conditions
+        if (_currentMoney < 100.0f && _factoryList.Count == 0)
+            loseGame("You ran out of money. Try placing a factory!");
+        if (_currentCotton <= 0.0f && cottonFarmToFactoryRatio < 1.5f)
+            loseGame("You ran out of cotton. Try placing more cotton farms!");
+    }
+
+
+    private void loseGame(string tipText)
+    {
+        _gameOverObject.SetActive(true);
+        _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
+        _gameOverText.text = "GAME OVER!";
+        _losingTipText = GameObject.Find("LosingTipText").GetComponent<Text>();
+        _losingTipText.text = tipText;
+        _UIText.text = "";
+        _gameState = GameState.GameOver;
+        Debug.Log("GAME OVER!");
+    }
+
+    private void winGame()
+    {
+        _gameOverObject.SetActive(true);
+        _gameOverText = GameObject.Find("GameOverText").GetComponent<TextMeshPro>();
+        _gameOverText.text = "YOU WIN!";
+        _losingTipText = GameObject.Find("LosingTipText").GetComponent<Text>();
+        _losingTipText.text = "";
+        _UIText.text = "";
+        _gameState = GameState.GameOver;
+        Debug.Log("YOU WIN!");
     }
 
     #endregion
