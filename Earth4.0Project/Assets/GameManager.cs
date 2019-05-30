@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
 
     private TextMeshPro _moneyText, _foodText, _cottonText, _gameOverText;
     private TextMeshProUGUI _treeCostText;
-    private Text _UIText, _timerText;
+    private Text _UIText, _timerText, _moneyProgressBarText;
+    private Image _moneyProgresBar;
 
     #endregion
 
@@ -109,6 +110,8 @@ public class GameManager : MonoBehaviour
         _cottonText = GameObject.Find("CottonText").GetComponent<TextMeshPro>();
         _treeCostText = GameObject.Find("ForestText").GetComponent<TextMeshProUGUI>();
         _timerText = GameObject.Find("TimerText").GetComponent<Text>();
+        _moneyProgressBarText = GameObject.Find("MoneyProgressBarText").GetComponent<Text>();
+        _moneyProgresBar = GameObject.Find("MoneyProgressBarImage").GetComponent<Image>();
 
         foreach (GameObject layer in _smogLayersList)
         {
@@ -199,15 +202,25 @@ public class GameManager : MonoBehaviour
 
     private void updateText()
     {
+        // Update recourse icons
         _moneyText.text = _currentMoney.ToString();
         _foodText.text = _currentFood.ToString();
         _cottonText.text = _currentCotton.ToString();
         _treeCostText.text = "$" + _cost_tree.ToString();
 
+        // Update timer
         string minutes = Mathf.Floor(_gameTimer / 60.0f).ToString("00");
         string seconds = (_gameTimer % 60.0f).ToString("00");
         _timerText.text = minutes + ":" + seconds;
-        
+
+        // Update progress bar
+        float precentage = _currentMoney / _GAME_WIN_MONEY;
+        _moneyProgresBar.fillAmount = precentage;
+
+        precentage *= 100;
+        int text = (int)precentage;
+        Debug.Log(precentage + "    " + text);
+        _moneyProgressBarText.text = text + "%";
     }
 
     #endregion
