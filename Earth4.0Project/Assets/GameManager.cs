@@ -211,7 +211,12 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < _personList.Count; i++)  // average growth of _personList.Count * _POPULATION_BIRTH_RATE
                 births += (Random.Range(0.0f, 1.0f) < _POPULATION_BIRTH_RATE) ? 1 : 0;
             
-            float foodRate = (_farmList.Count / totalWorkableBuildings() * (_personList.Count * 10.0f) * _FARM_FOOD_PER_TICK) - (_personList.Count * _FOOD_EATEN_PER_TICK);  // average food gained - food consumed
+
+            int maxWorkingPopulation = _houseList.Count * _PEOPLE_PER_HOUSE;  // Only people with a house can work
+            int workingPopulation = _personList.Count < maxWorkingPopulation ? _personList.Count : maxWorkingPopulation;
+            float averageFarmWorkers = (float) _farmList.Count / totalWorkableBuildings() * workingPopulation;
+            float limitedAverageFarmWorkers = averageFarmWorkers < _farmList.Count * 5.0f ? averageFarmWorkers : _farmList.Count * 5.0f;
+            float foodRate = (limitedAverageFarmWorkers * _FARM_FOOD_PER_TICK) - (3.5f * _personList.Count * _FOOD_EATEN_PER_TICK);  // average food gained - food consumed
             int deaths = (int) (2.0f * _personList.Count * 10.0f * _POPULATION_BIRTH_RATE * sigmoid(-2f * foodRate));
             
             int deltaPeople = births - deaths;
