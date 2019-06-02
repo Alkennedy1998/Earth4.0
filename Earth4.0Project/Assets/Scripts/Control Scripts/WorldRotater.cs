@@ -26,12 +26,11 @@ public class WorldRotater : MonoBehaviour
         float leftRotate = Time.deltaTime * leftStick.x * -30;
         float rightRotate = Time.deltaTime * leftStick.y * 30;
 
-        Vector3 before = transform.rotation.eulerAngles;
-        transform.Rotate(0, leftRotate, rightRotate, Space.World);
-        Vector3 after = transform.rotation.eulerAngles;
-
         if (leftRotate != 0.0f || rightRotate != 0.0f) {
-            graph.rotation += after - before;
+            transform.Rotate(0, leftRotate, rightRotate, Space.World);
+
+            // TODO TIM: fix so it rotates correctly. Obviously the graph reads rotation in a (somewhat) different way
+            graph.rotation += new Vector3(rightRotate, leftRotate, 0);
             _AStar.GetComponent<AstarPath>().Scan();
         }
     }
