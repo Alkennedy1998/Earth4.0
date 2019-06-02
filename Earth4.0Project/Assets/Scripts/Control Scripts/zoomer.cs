@@ -7,6 +7,7 @@ public class zoomer : MonoBehaviour {
     public GameObject _gameOverText;
     GameObject _AStar;
     Pathfinding.NavMeshGraph graph;
+    float MAX_ZOOM_X = -1.475525f;
 
     // Use this for initialization
     void Start ()
@@ -24,13 +25,16 @@ public class zoomer : MonoBehaviour {
      {
          Vector2 rightStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
          float forward_distance = Time.deltaTime * rightStick.y * 3f;
-         transform.Translate(Vector3.right * forward_distance, Space.World);
-        _gameOverText.transform.Translate(Vector3.right * forward_distance, Space.World);
 
         if (forward_distance != 0.0f)
-         {
-             graph.offset += Vector3.right * forward_distance;
-             _AStar.GetComponent<AstarPath>().Scan();
-         }
+        {
+            if (transform.position.x <= MAX_ZOOM_X || forward_distance < 0.0f)
+            {
+                transform.Translate(Vector3.right * forward_distance, Space.World);
+                _gameOverText.transform.Translate(Vector3.right * forward_distance, Space.World);
+                graph.offset += Vector3.right * forward_distance;
+                _AStar.GetComponent<AstarPath>().Scan();
+            }
+        }
     }
 }
