@@ -7,6 +7,10 @@ public class WorldRotater : MonoBehaviour
     GameObject _AStar;
     Pathfinding.NavMeshGraph graph;
 
+    float _TICK_TIME = 0.5f;
+    float currentTickTime = 0.0f;
+    bool needsScanning = false;
+
     // Use this for initialization
     void Start()
     {
@@ -17,7 +21,16 @@ public class WorldRotater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentTickTime += Time.deltaTime;
         rotateWorld();
+
+
+        if (currentTickTime >= _TICK_TIME && needsScanning)
+        {
+            currentTickTime = 0.0f;
+            _AStar.GetComponent<AstarPath>().Scan();
+            needsScanning = false;
+        }
     }
 
     void rotateWorld()
@@ -27,11 +40,14 @@ public class WorldRotater : MonoBehaviour
         float rightRotate = Time.deltaTime * leftStick.y * 30;
 
         if (leftRotate != 0.0f || rightRotate != 0.0f) {
+            Vector3 before = transform.rotation.eulerAngles;
             transform.Rotate(0, leftRotate, rightRotate, Space.World);
+            Vector3 after = transform.rotation.eulerAngles;
 
             // TODO TIM: fix so it rotates correctly. Obviously the graph reads rotation in a (somewhat) different way
-            graph.rotation += new Vector3(rightRotate, leftRotate, 0);
-            _AStar.GetComponent<AstarPath>().Scan();
+            //graph.rotation += new Vector3(-rightRotate, leftRotate, 0);
+            graph.rotation += after - before;
+            needsScanning = true;
         }
     }
 }

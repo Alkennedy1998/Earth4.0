@@ -7,7 +7,11 @@ public class zoomer : MonoBehaviour {
     public GameObject _gameOverText;
     GameObject _AStar;
     Pathfinding.NavMeshGraph graph;
+
     float MAX_ZOOM_X = -1.475525f;
+    float _TICK_TIME = 0.5f;
+    float currentTickTime = 0.0f;
+    bool needsScanning = false;
 
     // Use this for initialization
     void Start ()
@@ -18,8 +22,16 @@ public class zoomer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		zoomForwardandBack();
-	}
+        currentTickTime += Time.deltaTime;
+        zoomForwardandBack();
+
+        if (currentTickTime >= _TICK_TIME && needsScanning)
+        {
+            currentTickTime = 0.0f;
+            _AStar.GetComponent<AstarPath>().Scan();
+            needsScanning = false;
+        }
+    }
 
 	 void zoomForwardandBack()
      {
@@ -32,8 +44,9 @@ public class zoomer : MonoBehaviour {
             {
                 transform.Translate(Vector3.right * forward_distance, Space.World);
                 _gameOverText.transform.Translate(Vector3.right * forward_distance, Space.World);
+
                 graph.offset += Vector3.right * forward_distance;
-                _AStar.GetComponent<AstarPath>().Scan();
+                needsScanning = true;
             }
         }
     }
